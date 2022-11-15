@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Building : SelectableObject
 {
@@ -11,11 +12,18 @@ public class Building : SelectableObject
     private Color _startColor;
     [SerializeField] Renderer[] _renderers;
     [SerializeField] GameObject _menuObject;
+    [SerializeField] Collider _collider;
+    [SerializeField] NavMeshObstacle _navMeshObstacle;
+
+    private bool IsPlaced;
 
     public override void Start()
     {
         base.Start();
         _menuObject.SetActive(false);
+
+        _navMeshObstacle.enabled = false;
+        _collider.enabled = false;
     }
     private void Awake()
     {
@@ -25,7 +33,13 @@ public class Building : SelectableObject
         }      
     }
 
-    // float cellSize = BuildingPlacer.Instance.CellSize;
+    public void Place()
+    {
+        IsPlaced = true;
+        _navMeshObstacle.enabled = true;
+        _collider.enabled = true;
+    }
+   
     private void OnDrawGizmos()
     {
         //float cellSize = BuildingPlacer.Instance.CellSize;
@@ -45,6 +59,7 @@ public class Building : SelectableObject
         base.Select();
         _menuObject.SetActive(true);
     }
+
     public override void UnSelect()
     {
         base.UnSelect();

@@ -326,6 +326,7 @@ GameObject:
   - component: {fileID: 6258854222437081212}
   - component: {fileID: 8897800910121421001}
   - component: {fileID: 2310810715608791616}
+  - component: {fileID: 7173244208604694676}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -374,6 +375,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectableObject: {fileID: 3664573292190258603}
+--- !u!208 &7173244208604694676
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3318241800161900429}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &4258040969083350314
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,6 +551,9 @@ MonoBehaviour:
   - {fileID: 1862386843398727005}
   - {fileID: 1862386842308127410}
   _menuObject: {fileID: 4258040969083350314}
+  _collider: {fileID: 8897800910121421001}
+  _navMeshObstacle: {fileID: 7173244208604694676}
+  IsPlaced: 0
 --- !u!1 &4813444978924895750
 GameObject:
   m_ObjectHideFlags: 0

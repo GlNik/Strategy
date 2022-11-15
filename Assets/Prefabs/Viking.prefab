@@ -145,7 +145,7 @@ Transform:
   - {fileID: 7457451019543871333}
   - {fileID: 7457451019463995363}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2335736683413483572
 MonoBehaviour:
@@ -161,6 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selectionIndicator: {fileID: 7457451019543871332}
   _navMeshAgent: {fileID: 2013589856779825796}
+  Price: 5
 --- !u!195 &2013589856779825796
 NavMeshAgent:
   m_ObjectHideFlags: 0

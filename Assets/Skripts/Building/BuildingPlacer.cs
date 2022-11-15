@@ -85,6 +85,7 @@ public class BuildingPlacer : MonoBehaviour
             {
                 Vector2Int coordinate = new Vector2Int(xPosition + x, zPosition + z);
                 BuildingsDictionary.Add(coordinate, CurrentBuilding);
+                CurrentBuilding.Place();
             }
         }
     }
