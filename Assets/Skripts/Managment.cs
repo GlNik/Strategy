@@ -23,6 +23,10 @@ public class Managment : MonoBehaviour
 
     [SerializeField] SelectionState _currentSelectionState;
 
+    private void Start()
+    {
+        _frameImage.enabled = false;
+    }
     private void Update()
     {
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);

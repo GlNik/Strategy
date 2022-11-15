@@ -7,17 +7,17 @@ public class SelectableObject : MonoBehaviour
 
     [SerializeField] GameObject _selectionIndicator;
 
-    private void Start()
+    public virtual void Start()
     {
         _selectionIndicator.SetActive(false);
     }
     public virtual void OnHover()
     {
-        transform.localScale = Vector3.one * 1.1f;
+        //transform.localScale = Vector3.one * 1.1f;
     }
     public virtual void UnOnHover()
     {
-        transform.localScale = Vector3.one;
+       // transform.localScale = Vector3.one;
     }
 
     public virtual void Select()
