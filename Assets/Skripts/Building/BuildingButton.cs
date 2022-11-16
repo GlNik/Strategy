@@ -14,7 +14,7 @@ public class BuildingButton : MonoBehaviour
         {
             Resources.Instance.Money -= price;
             BuildingPlacer.Instance.CreateBuilding(_buildingPrefab);
-        }        
+        }
         else
         {
             Debug.Log("Нужно больше золота!");

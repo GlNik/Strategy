@@ -16,7 +16,7 @@ public class Building : SelectableObject
     [SerializeField] Collider _collider;
     [SerializeField] NavMeshObstacle _navMeshObstacle;
 
-    private bool IsPlaced;
+   // private bool IsPlaced;
 
     public override void Start()
     {
@@ -36,7 +36,7 @@ public class Building : SelectableObject
 
     public void Place()
     {
-        IsPlaced = true;
+        //IsPlaced = true;
         _navMeshObstacle.enabled = true;
         _collider.enabled = true;
     }

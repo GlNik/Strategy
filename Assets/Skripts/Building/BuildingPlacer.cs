@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BuildingPlacer : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class BuildingPlacer : MonoBehaviour
     public Building CurrentBuilding;
 
     public Dictionary<Vector2Int, Building> BuildingsDictionary = new Dictionary<Vector2Int, Building>();
+
+
 
     private void Awake()
     {
@@ -49,12 +52,12 @@ public class BuildingPlacer : MonoBehaviour
         {
             CurrentBuilding.DisplayAcceptablePosition();
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 InstallBuilding(x, z, CurrentBuilding);
                 CurrentBuilding = null;
             }
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1) || Input.GetKey(KeyCode.Escape))
             {
                 DestroyBuilding();
             }
@@ -62,7 +65,7 @@ public class BuildingPlacer : MonoBehaviour
         else
         {
             CurrentBuilding.DisplayUnacceptablePosition();
-        }       
+        }
     }
     public void DestroyBuilding()
     {
@@ -95,7 +98,7 @@ public class BuildingPlacer : MonoBehaviour
                 BuildingsDictionary.Add(coordinate, CurrentBuilding);
                 CurrentBuilding.Place();
             }
-        }        
+        }
     }
 
     public void CreateBuilding(GameObject buildingPrefab)
@@ -104,5 +107,5 @@ public class BuildingPlacer : MonoBehaviour
         CurrentBuilding = newBuilding.GetComponent<Building>();
     }
 
-    
+
 }
