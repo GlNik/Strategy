@@ -11,4 +11,5 @@ public class Barrack : Building
         Vector3 position = _spawn.position + new Vector3(Random.Range(-1, 1), 0f, Random.Range(-1, 1));
         newUnit.GetComponent<Unit>().WhenClickOnGround(position);
     }
+   
 }

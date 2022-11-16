@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -31,13 +32,18 @@ public class Building : SelectableObject
         {
             _startColor = _renderers[i].material.color;
         }      
-    }
+    }   
 
     public void Place()
     {
         IsPlaced = true;
         _navMeshObstacle.enabled = true;
         _collider.enabled = true;
+    }
+    public  void DestroyBuilding()
+    {
+        Destroy(gameObject);
+        Resources.Instance.Money += Price;
     }
    
     private void OnDrawGizmos()

@@ -9,10 +9,10 @@ public class CameraMove : MonoBehaviour
     [SerializeField] float _speed = 20f;
     [SerializeField] float _rotationSpeed = 1f;
     [SerializeField] float _scrollSpeed = 1200f;
-    [SerializeField] float _borderThickness = 10f;
-    [SerializeField] Vector2 _limit;
+    //[SerializeField] float _borderThickness = 10f;
+    //[SerializeField] Vector2 _limit;
 
-    [SerializeField] float _minY = 4f;
+    [SerializeField] float _minY = 8f;
     [SerializeField] float _maxY = 60f;
 
     Vector2 _positionOne;
@@ -61,7 +61,7 @@ public class CameraMove : MonoBehaviour
         forwardMove *= inputY;
 
         Vector3 move = verticalMove + lateralMove + forwardMove;
-
+      
         transform.position += move; /** Time.deltaTime;*/
         CameraRotation();
     }

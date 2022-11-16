@@ -88,6 +88,7 @@ public class Managment : MonoBehaviour
                         _listOfSelected[i].WhenClickOnGround(hit.point);
                     }
                 }
+
             }
         }
 

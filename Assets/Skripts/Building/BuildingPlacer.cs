@@ -54,11 +54,19 @@ public class BuildingPlacer : MonoBehaviour
                 InstallBuilding(x, z, CurrentBuilding);
                 CurrentBuilding = null;
             }
+            if (Input.GetMouseButtonDown(1))
+            {
+                DestroyBuilding();
+            }
         }
         else
         {
             CurrentBuilding.DisplayUnacceptablePosition();
-        }
+        }       
+    }
+    public void DestroyBuilding()
+    {
+        CurrentBuilding.DestroyBuilding();
     }
 
     bool CheckAllow(int xPosition, int zPosition, Building building)
@@ -87,7 +95,7 @@ public class BuildingPlacer : MonoBehaviour
                 BuildingsDictionary.Add(coordinate, CurrentBuilding);
                 CurrentBuilding.Place();
             }
-        }
+        }        
     }
 
     public void CreateBuilding(GameObject buildingPrefab)
@@ -95,4 +103,6 @@ public class BuildingPlacer : MonoBehaviour
         GameObject newBuilding = Instantiate(buildingPrefab);
         CurrentBuilding = newBuilding.GetComponent<Building>();
     }
+
+    
 }
