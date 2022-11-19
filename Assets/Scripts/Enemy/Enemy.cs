@@ -26,7 +26,7 @@ public class Enemy : SelectableObject
     [SerializeField] NavMeshAgent _navMeshAgent;
 
     [SerializeField] float _attackPeriod = 1f;
-    private float _timer;
+    //private float _timer;
 
     float _distance;
 
@@ -51,21 +51,28 @@ public class Enemy : SelectableObject
     void Update()
     {
         if (_navMeshAgent.velocity.magnitude >= 0.05f)
+        {
             _animator.SetBool("InMotion", true);
+        }
         else
+        {
             _animator.SetBool("InMotion", false);
+        }
 
         if (CurrentEnemyState == EnemyState.Attack || CurrentEnemyState == EnemyState.AttackBuilding)
+        {
             _animator.SetBool("Attacking", true);
+        }
         else
+        {
             _animator.SetBool("Attacking", false);
+        }
 
         switch (CurrentEnemyState)
         {
             case EnemyState.Idle:
                 Idle();
                 break;
-
             case EnemyState.WalkToBuilding:
                 WalkToBuilding();
                 break;
@@ -87,7 +94,10 @@ public class Enemy : SelectableObject
         if (FindClosestBuilding())
         {
             if (!_isGuard)
+            {
                 SetState(EnemyState.WalkToBuilding);
+            }
+            _animator.SetBool("InMotion", false);
         }
         else if (FindClosestUnit())
         {
@@ -96,6 +106,7 @@ public class Enemy : SelectableObject
         else
         {
             SetState(EnemyState.Idle);
+            //_animator.SetBool("InMotion", false);
         }
     }
 
@@ -106,6 +117,7 @@ public class Enemy : SelectableObject
         {
             SetState(EnemyState.Idle);
             _navMeshAgent.SetDestination(transform.position);
+            _animator.SetBool("InMotion", false);
         }
         else
         {
@@ -121,10 +133,11 @@ public class Enemy : SelectableObject
         if (!_targetUnit)
         {
             if (_isGuard)
+            {
                 SetState(EnemyState.Idle);
+            }
             else
                 SetState(EnemyState.WalkToBuilding);
-
         }
         else
         {
@@ -158,13 +171,13 @@ public class Enemy : SelectableObject
             _distance = Vector3.Distance(transform.position, _targetUnit.transform.position);
             if (_distance > _distanceToAttack)
                 SetState(EnemyState.WalkToUnit);
-            _timer += Time.deltaTime;
-            if (_timer > _attackPeriod)
-            {
-                _timer = 0;
-                _targetUnit.TakeDamage(_damage);
-            }
         }
+    }
+
+    public void AttackFromAnimation()
+    {
+        if (_targetUnit)
+            _targetUnit.TakeDamage(_damage);
     }
 
     private void AttackBuilding()
@@ -172,7 +185,6 @@ public class Enemy : SelectableObject
         if (!_targetBuilding)
         {
             SetState(EnemyState.WalkToBuilding);
-            //break;
         }
         else
         {
@@ -181,13 +193,12 @@ public class Enemy : SelectableObject
             _distance = Vector3.Distance(transform.position, _targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
             if (_distance > _distanceToAttack)
                 SetState(EnemyState.WalkToBuilding);
-            _timer += Time.deltaTime;
-            if (_timer > _attackPeriod)
-            {
-                _timer = 0;
-                _targetBuilding.TakeDamage(_damage);
-            }
         }
+    }
+    public void AttackBuildingFromAnimation()
+    {
+        if (_targetBuilding)
+            _targetBuilding.TakeDamage(_damage);
     }
 
     private void FaceTarget(Vector3 destination) // for stopping distance
@@ -244,10 +255,21 @@ public class Enemy : SelectableObject
         _health -= damageValue;
         if (_health <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
         HealthBar.SetHealth(_health, _maxHealth);
     }
+
+    void Die()
+    {
+        Destroy(this);
+        Destroy(_navMeshAgent);
+        //Animator.SetBool("InMotion", false);
+        // Animator.SetBool("Attacking", false);
+        _animator.SetTrigger("Die");
+        Destroy(gameObject, 3f);
+    }
+
     private void OnDestroy()
     {
         UnitsManager.Instance.RemoveEnemy(this);

@@ -56,10 +56,19 @@ public class Unit : SelectableObject
         _health -= damageValue;
         if (_health <= 0)
         {
-            Destroy(gameObject);
-            //UnitsManager.Instance.RemoveUnit(this);
+            Die();
         }
         HealthBar.SetHealth(_health, _maxHealth);
+    }
+
+    void Die()
+    {
+        Destroy(this);
+        Destroy(NavMeshAgent);
+        //Animator.SetBool("InMotion", false);
+       // Animator.SetBool("Attacking", false);
+        Animator.SetTrigger("Die");
+        Destroy(gameObject, 3f);
     }
 
     private void OnDestroy()

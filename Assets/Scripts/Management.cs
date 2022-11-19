@@ -118,11 +118,10 @@ public class Management : MonoBehaviour
             if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 //if (hit.collider.tag == "Ground")
+                //или лучше по слою?
                 if (hit.collider.GetComponent<Ground>())
-                {                   
-                    int rowNumber = Mathf.CeilToInt(Mathf.Sqrt(ListOfSelected.Count));
-                    // dividebyzero ? как избежать? когда нет цели у врагов вылазит что я пытаюсь делить на ноль
-                    // что и понятно, но может можно как то исправить элегантно?
+                {
+                    int rowNumber = Mathf.CeilToInt(Mathf.Sqrt(ListOfSelected.Count));                    
                     Vector3 groupCenter = new Vector3((ListOfSelected.Count - 1) / rowNumber, 0, (ListOfSelected.Count - 1) % rowNumber) / 2f;
 
                     for (int i = 0; i < ListOfSelected.Count; i++)
@@ -136,14 +135,15 @@ public class Management : MonoBehaviour
                         }
                     }
                 }
+                // как избежать GetComponentInParent ?
                 if (hit.collider.GetComponentInParent<SelectableObject>())
                 {
                     if (ListOfSelected.Count > 0 && ListOfSelected[0].GetComponent<Unit>())
                         for (int i = 0; i < ListOfSelected.Count; i++)
                         {
-                            // как избежать GetComponentInParent ?
                             if (ListOfSelected[i].GetComponent<Unit>() != null)
                             {
+                                // как избежать GetComponentInParent ?
                                 ((Unit)ListOfSelected[i]).SetTarget(hit.collider.GetComponentInParent<SelectableObject>());
                             }
                         }

@@ -6,7 +6,8 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject _pauseGameMenu;
     [SerializeField] MonoBehaviour[] _componentsToDisable;
     [SerializeField] private GameObject _gameButtons;
-   
+    [SerializeField] private GameObject _horizontalPanel;
+
     private void Start()
     {
         Time.timeScale = 1f;
@@ -19,11 +20,13 @@ public class PauseMenu : MonoBehaviour
             {
                 Resume();
                 _gameButtons.SetActive(true);
+                _horizontalPanel.SetActive(true);
             }
             else
             {
                 Pause();
                 _gameButtons.SetActive(false);
+                _horizontalPanel.SetActive(false);
             }
         }        
     }

@@ -147,13 +147,19 @@ public class Knight : Unit
             _distance = Vector3.Distance(transform.position, _targetEnemy.transform.position);
             if (_distance > _distanceToAttack)
                 SetState(UnitState.WalkToEnemy);
-            _timer += Time.deltaTime;
-            if (_timer > _attackPeriod)
-            {
-                _timer = 0;
-                _targetEnemy.TakeDamage(_damage);
-            }
+            //_timer += Time.deltaTime;
+            //if (_timer > _attackPeriod)
+            //{
+            //    _timer = 0;
+            //    _targetEnemy.TakeDamage(_damage);
+            //}
         }
+    }
+
+    public void AttackFromAnimation()
+    {
+        if(_targetEnemy)
+        _targetEnemy.TakeDamage(_damage);
     }
 
     private void AttackBuilding()
@@ -170,13 +176,19 @@ public class Knight : Unit
             _distance = Vector3.Distance(transform.position, _targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
             if (_distance > _distanceToAttack)
                 SetState(UnitState.WalkToEnemyBuilding);
-            _timer += Time.deltaTime;
-            if (_timer > _attackPeriod)
-            {
-                _timer = 0;
-                _targetBuilding.TakeDamage(_damage);
-            }
+            //_timer += Time.deltaTime;
+            //if (_timer > _attackPeriod)
+            //{
+            //    _timer = 0;
+            //    _targetBuilding.TakeDamage(_damage);
+            //}
         }
+    }
+
+    public void AttackBuildingFromAnimation()
+    {
+        if (_targetBuilding)
+            _targetBuilding.TakeDamage(_damage);
     }
 
     private void FaceTarget(Vector3 destination) // for stopping distance
