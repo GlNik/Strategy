@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyBuilding : SelectableObject
 {
 
-	[SerializeField] int _health=200;
+	[SerializeField] private int _health =200;
 	private int _maxHealth;
 
 	private void Awake()

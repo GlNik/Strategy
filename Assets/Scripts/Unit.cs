@@ -17,9 +17,8 @@ public class Unit : SelectableObject
 {
     public int Price;
     public NavMeshAgent NavMeshAgent;
-    [SerializeField] int _health = 5;
+    [SerializeField] private int _health = 5;
     private int _maxHealth;
-
     public Animator Animator;
 
     public virtual void Start()
@@ -61,14 +60,11 @@ public class Unit : SelectableObject
         HealthBar.SetHealth(_health, _maxHealth);
     }
 
-    void Die()
-    {
+    private void Die()
+    {        
         Destroy(this);
         Destroy(NavMeshAgent);
-        if (Management.Instance)
-        {
-            Management.Instance.Unselect(this);
-        }        
+        Unselect();
         Animator.SetTrigger("Die");
         Destroy(gameObject, 4f);
     }

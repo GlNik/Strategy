@@ -8,19 +8,12 @@ using static UnityEditor.Progress;
 public class BuildingPlacer : MonoBehaviour
 {
     public float CellSize = 1f;
-
-    [SerializeField] Camera _raycastCamera;
+    [SerializeField] private Camera _raycastCamera;
     private Plane _plane;
-
     public Building CurrentBuilding;
     public GameObject ReadyBuilding;
-
     public Dictionary<Vector2Int, Building> BuildingsDictionary = new Dictionary<Vector2Int, Building>();
-
-    //[SerializeField] Management _management;
-
-    Resources _resources;
-
+    private Resources _resources;
     public static BuildingPlacer Instance;
 
     private void Awake()
@@ -35,14 +28,13 @@ public class BuildingPlacer : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         _plane = new Plane(Vector3.up, Vector3.zero);
         _resources = Resources.Instance;
     }
 
-
-    void Update()
+    private void Update()
     {
         if (CurrentBuilding == null) return;
 
@@ -54,7 +46,8 @@ public class BuildingPlacer : MonoBehaviour
 
         int x = Mathf.RoundToInt(point.x) - (CurrentBuilding.XSize / 2 - 1);
         int z = Mathf.RoundToInt(point.z) - (CurrentBuilding.ZSize / 2 - 1);
-        x = Mathf.Clamp(x, -60, 60);//-100//92
+        //граница куда можно ставить здания
+        x = Mathf.Clamp(x, -60, 60);
         z = Mathf.Clamp(z, -38, 45);
 
         CurrentBuilding.transform.position = new Vector3(x, 0, z) * CellSize;
@@ -113,7 +106,7 @@ public class BuildingPlacer : MonoBehaviour
         CurrentBuilding.NavMeshObstacle.enabled = false;
     }
 
-    void PlaceBuilding(int xPos, int zPos, Building building)
+    private void PlaceBuilding(int xPos, int zPos, Building building)
     {
         for (int x = 0; x < building.XSize; x++)
             for (int z = 0; z < building.ZSize; z++)
@@ -121,7 +114,6 @@ public class BuildingPlacer : MonoBehaviour
                 Vector2Int coords = new Vector2Int(xPos + x, zPos + z);
                 BuildingsDictionary.Add(coords, building);
             }
-        Debug.Log("есть");
     }
 
     public void ReleasePlace(float xPos, float zPos, Building building)
@@ -139,7 +131,7 @@ public class BuildingPlacer : MonoBehaviour
         }
     }
 
-    bool CheckPlacing(int xPos, int zPos, Building building)
+    private bool CheckPlacing(int xPos, int zPos, Building building)
     {
         try
         {

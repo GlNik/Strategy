@@ -16,6 +16,7 @@ public class HealthBar : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
+
     public void Hide()
     {
         gameObject.SetActive(false);

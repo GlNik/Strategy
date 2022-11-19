@@ -17,38 +17,35 @@ public class Enemy : SelectableObject
 {
     public EnemyState CurrentEnemyState;
 
-    [SerializeField] int _health = 5;
-    Building _targetBuilding;
-    Unit _targetUnit;
-    [SerializeField] float _distanceToFollow = 7f;
-    [SerializeField] float _distanceToAttack = 1.5f;
-
-    [SerializeField] NavMeshAgent _navMeshAgent;
-
-    //[SerializeField] float _attackPeriod = 1f;
-    //private float _timer;
-
-    float _distance;
-
+    [SerializeField] private int _health = 5;
+    private Building _targetBuilding;
+    private Unit _targetUnit;
+    [SerializeField] private float _distanceToFollow = 7f;
+    [SerializeField] private float _distanceToAttack = 1.5f;
+    [SerializeField] private NavMeshAgent _navMeshAgent;
+    private float _distance;
     private int _maxHealth;
-
-    [SerializeField] Animator _animator;
-
+    [SerializeField] private Animator _animator;
     private bool _isGuard = false;
-    [SerializeField] int _damage = 1;
+    [SerializeField] private int _damage = 1;
 
-    void Start()
+    private void Start()
     {
         _maxHealth = _health;
         if (_isGuard)
+        {
             SetState(EnemyState.Idle);
+        }
         else
+        {
             SetState(EnemyState.WalkToBuilding);
+        }
 
+        StartCoroutine(FindTarget());
         UnitsManager.Instance.AddEnemy(this);
     }
 
-    void Update()
+    private void Update()
     {
         if (_navMeshAgent.velocity.magnitude >= 0.05f)
         {
@@ -79,7 +76,6 @@ public class Enemy : SelectableObject
                 break;
             case EnemyState.WalkToUnit:
                 WalkToUnit();
-               // FindTarget();
                 break;
             case EnemyState.Attack:
                 Attack();
@@ -100,10 +96,10 @@ public class Enemy : SelectableObject
             }
             _animator.SetBool("InMotion", false);
         }
-        else if (FindClosestUnit())
-        {
-            SetState(EnemyState.WalkToUnit);
-        }
+        //else if (FindClosestUnit())
+        //{
+        //    SetState(EnemyState.WalkToUnit);
+        //}
         else
         {
             SetState(EnemyState.Idle);
@@ -202,6 +198,21 @@ public class Enemy : SelectableObject
             _targetBuilding.TakeDamage(_damage);
     }
 
+    private IEnumerator FindTarget()
+    {
+        while (true)
+        {
+            if (CurrentEnemyState != EnemyState.Attack && CurrentEnemyState != EnemyState.AttackBuilding)
+            {
+                if (FindClosestUnit())
+                {
+                    SetState(EnemyState.WalkToUnit);
+                }
+            }
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
     private void FaceTarget(Vector3 destination) // for stopping distance
     {
         Vector3 lookPos = destination - transform.position;
@@ -239,16 +250,6 @@ public class Enemy : SelectableObject
         }
     }
 
-    //IEnumerator FindTarget()
-    //{
-    //    while (true)
-    //    {
-    //        yield return new WaitForSeconds(1f);
-    //        FindClosestUnit();
-    //        // yield return null;
-    //    }
-    //}
-
     private bool FindClosestBuilding()
     {
         _targetBuilding = BuildingPlacer.Instance.GetClousestBuilding(transform.position);
@@ -271,12 +272,10 @@ public class Enemy : SelectableObject
         HealthBar.SetHealth(_health, _maxHealth);
     }
 
-    void Die()
+    private void Die()
     {
         Destroy(this);
         Destroy(_navMeshAgent);
-        //Animator.SetBool("InMotion", false);
-        // Animator.SetBool("Attacking", false);
         _animator.SetTrigger("Die");
         Destroy(gameObject, 4f);
     }

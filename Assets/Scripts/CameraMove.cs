@@ -6,38 +6,38 @@ using UnityEngine.UIElements;
 
 public class CameraMove : MonoBehaviour
 {
-    [SerializeField] Camera _raycastCamera;
-    [SerializeField] GameObject _cameraCenter;
-    [SerializeField] GameObject _raycastCameraCenter;
+    [SerializeField] private Camera _raycastCamera;
+    [SerializeField] private GameObject _cameraCenter;
+    [SerializeField] private GameObject _raycastCameraCenter;
 
     //private Vector3 _startPoint;
     private float _startMouseX;
     private float _startMouseY;
-   // private Vector3 _cameraStartPosition;
+    // private Vector3 _cameraStartPosition;
     private Quaternion _cameraStartRotation;
     private Plane _plane;
 
     // доп настройки
-    [SerializeField] float _screenEdgeSpeed=30f;
-    [SerializeField] float _screenEdgeBorderSize=30f;
-    [SerializeField] float _keyBoardSpeed = 30f;
+    [SerializeField] private float _screenEdgeSpeed = 30f;
+    [SerializeField] private float _screenEdgeBorderSize = 30f;
+    [SerializeField] private float _keyBoardSpeed = 30f;
 
     //[SerializeField] float _dragSpeed=500f;
-   // KeyCode _dragKey = KeyCode.Mouse1;
-    Transform _mainTransform;
-    [SerializeField] float _minY = 3.5f;
-    [SerializeField] float _maxY = 50f;
-    [SerializeField] Vector2 _limit;
-    [SerializeField] float _scrollSpeed = 1200f;
+    // KeyCode _dragKey = KeyCode.Mouse1;
+    private Transform _mainTransform;
+    [SerializeField] private float _minY = 3.5f;
+    [SerializeField] private float _maxY = 50f;
+    [SerializeField] private Vector2 _limit;
+    [SerializeField] private float _scrollSpeed = 1200f;
     //
 
-    void Start()
+    private void Start()
     {
         _mainTransform = transform;
         _plane = new Plane(Vector3.up, Vector3.zero);
     }
 
-    void Update()
+    private void Update()
     {
         Vector3 position = _mainTransform.position;
         Ray ray = _raycastCamera.ScreenPointToRay(Input.mousePosition);
@@ -51,12 +51,12 @@ public class CameraMove : MonoBehaviour
             //_startPoint = point;
             _startMouseX = Input.mousePosition.x;
             _startMouseY = Input.mousePosition.y;
-           // _cameraStartPosition = _cameraCenter.transform.position;
+            // _cameraStartPosition = _cameraCenter.transform.position;
             _cameraStartRotation = _cameraCenter.transform.rotation;
         }
 
         if (Input.GetMouseButton(2))
-        {            
+        {
             {
                 float _cameraStartRotationX =
                     _cameraStartRotation.eulerAngles.x > 180 ? _cameraStartRotation.eulerAngles.x - 360 : _cameraStartRotation.eulerAngles.x;
@@ -67,7 +67,7 @@ public class CameraMove : MonoBehaviour
                     _cameraStartRotation.eulerAngles.z);
 
                 _raycastCameraCenter.transform.rotation = _cameraCenter.transform.rotation;
-            }            
+            }
         }
 
 
@@ -106,40 +106,40 @@ public class CameraMove : MonoBehaviour
 
         //    _mainTransform.Translate(desiredDragMove, Space.Self);
         //}
-        
-        
-            // WSAD
-            Vector3 desiredMove = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-            desiredMove *= _keyBoardSpeed;
-            desiredMove *= Time.deltaTime;
-            desiredMove = Quaternion.Euler(new Vector3(0, _mainTransform.eulerAngles.y, 0)) * desiredMove;
-            desiredMove = _mainTransform.InverseTransformDirection(desiredMove);
-
-            _mainTransform.Translate(desiredMove, Space.Self);
 
 
-            // screen edge move
-            Vector3 desiredEdgeMove = new Vector3();
-            Vector3 mousePos = Input.mousePosition;
+        // WSAD
+        Vector3 desiredMove = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-            Rect leftRect = new Rect(0, 0, _screenEdgeBorderSize, Screen.height);
-            Rect rightRect = new Rect(Screen.width - _screenEdgeBorderSize, 0, _screenEdgeBorderSize, Screen.height);
-            Rect upRect = new Rect(0, Screen.height - _screenEdgeBorderSize, Screen.width, _screenEdgeBorderSize);
-            Rect downRect = new Rect(0, 0, Screen.width, _screenEdgeBorderSize);
+        desiredMove *= _keyBoardSpeed;
+        desiredMove *= Time.deltaTime;
+        desiredMove = Quaternion.Euler(new Vector3(0, _mainTransform.eulerAngles.y, 0)) * desiredMove;
+        desiredMove = _mainTransform.InverseTransformDirection(desiredMove);
 
-            desiredEdgeMove.x = leftRect.Contains(mousePos) ? -1 : rightRect.Contains(mousePos) ? 1 : 0;
-            desiredEdgeMove.z = upRect.Contains(mousePos) ? 1 : downRect.Contains(mousePos) ? -1 : 0;
+        _mainTransform.Translate(desiredMove, Space.Self);
 
-            desiredEdgeMove *= _screenEdgeSpeed;
-            desiredEdgeMove *= Time.deltaTime;
-            desiredEdgeMove = Quaternion.Euler(new Vector3(0, _mainTransform.eulerAngles.y, 0)) * desiredEdgeMove;
-            desiredEdgeMove = _mainTransform.InverseTransformDirection(desiredEdgeMove);
 
-            if (!EventSystem.current.IsPointerOverGameObject())
-            {
-                _mainTransform.Translate(desiredEdgeMove, Space.Self);
-            }
-        
-    }     
+        // screen edge move
+        Vector3 desiredEdgeMove = new Vector3();
+        Vector3 mousePos = Input.mousePosition;
+
+        Rect leftRect = new Rect(0, 0, _screenEdgeBorderSize, Screen.height);
+        Rect rightRect = new Rect(Screen.width - _screenEdgeBorderSize, 0, _screenEdgeBorderSize, Screen.height);
+        Rect upRect = new Rect(0, Screen.height - _screenEdgeBorderSize, Screen.width, _screenEdgeBorderSize);
+        Rect downRect = new Rect(0, 0, Screen.width, _screenEdgeBorderSize);
+
+        desiredEdgeMove.x = leftRect.Contains(mousePos) ? -1 : rightRect.Contains(mousePos) ? 1 : 0;
+        desiredEdgeMove.z = upRect.Contains(mousePos) ? 1 : downRect.Contains(mousePos) ? -1 : 0;
+
+        desiredEdgeMove *= _screenEdgeSpeed;
+        desiredEdgeMove *= Time.deltaTime;
+        desiredEdgeMove = Quaternion.Euler(new Vector3(0, _mainTransform.eulerAngles.y, 0)) * desiredEdgeMove;
+        desiredEdgeMove = _mainTransform.InverseTransformDirection(desiredEdgeMove);
+
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            _mainTransform.Translate(desiredEdgeMove, Space.Self);
+        }
+
+    }
 }

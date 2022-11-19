@@ -12,7 +12,7 @@ public class Sprite : MonoBehaviour
         _cameraTransform = Camera.main.transform;
     }
 
-    void Update()
+    private void Update()
     {
         transform.rotation = _cameraTransform.rotation;
     }

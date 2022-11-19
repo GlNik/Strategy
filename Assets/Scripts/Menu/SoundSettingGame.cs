@@ -25,12 +25,9 @@ public class SoundSettingGame : MonoBehaviour
     }
 
     private void Load()
-    {
-        //_musicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.3f);
-        //_soundEffectsVolume = PlayerPrefs.GetFloat("SfxVolume", 0.3f);
-
-        SoundEffectsVolume = PlayerPrefs.GetFloat("SfxVolume", 0.7f); 
-        MusicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.3f); 
+    {       
+        SoundEffectsVolume = PlayerPrefs.GetFloat("SfxVolume", 0.3f);
+        MusicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.3f);
     }
     public float MusicVolume
     {

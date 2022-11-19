@@ -4,7 +4,7 @@ public class PauseMenu : MonoBehaviour
 {
     private bool _pauseGame;
     [SerializeField] private GameObject _pauseGameMenu;
-    [SerializeField] MonoBehaviour[] _componentsToDisable;
+    [SerializeField] private MonoBehaviour[] _componentsToDisable;
     [SerializeField] private GameObject _gameButtons;
     [SerializeField] private GameObject _horizontalPanel;
 
@@ -12,7 +12,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
     }
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -28,7 +28,7 @@ public class PauseMenu : MonoBehaviour
                 _gameButtons.SetActive(false);
                 _horizontalPanel.SetActive(false);
             }
-        }        
+        }
     }
 
     public void Resume()
@@ -53,9 +53,9 @@ public class PauseMenu : MonoBehaviour
         }
     }
     public void Lose()
-    {        
+    {
         _gameButtons.SetActive(true);
-        
+
         Time.timeScale = 0f;
         _pauseGame = true;
         for (int i = 0; i < _componentsToDisable.Length; i++)
@@ -65,7 +65,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void Restart()
     {
-        
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

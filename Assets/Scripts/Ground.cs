@@ -5,4 +5,5 @@ using UnityEngine;
 public class Ground : MonoBehaviour
 {
    //для обращения, что б не по тегу)
+   // хотя наверное надо по слою
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnimationAttack : MonoBehaviour
 {
-    [SerializeField] Knight _knight;
+    [SerializeField] private Knight _knight;
 
     public void Attack()
     {
@@ -12,6 +12,6 @@ public class AnimationAttack : MonoBehaviour
         {
             _knight.AttackFromAnimation();
         }
-            _knight.AttackBuildingFromAnimation();
+        _knight.AttackBuildingFromAnimation();
     }
 }

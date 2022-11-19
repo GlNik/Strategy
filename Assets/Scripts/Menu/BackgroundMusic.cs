@@ -3,7 +3,7 @@ using UnityEngine;
 public class BackgroundMusic : MonoBehaviour
 {
     private AudioSource _audio;
-    void Start()
+    private void Start()
     {
         _audio = GetComponent<AudioSource>();
         _audio.volume = SoundSettingGame.Instance.MusicVolume;

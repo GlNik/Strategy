@@ -8,17 +8,10 @@ public class SoundEffectInGame : MonoBehaviour
         _soundAudio = GetComponent<AudioSource>();
         _soundAudio.volume = SoundSettingGame.Instance.SoundEffectsVolume;
 
-         SoundSettingGame.Instance.CangeSound.AddListener(UpdateVolume);
+        SoundSettingGame.Instance.CangeSound.AddListener(UpdateVolume);
     }
     private void UpdateVolume(float volume)
     {
         _soundAudio.volume = volume;
     }
-    //private void Update()
-    //{
-    //    _soundAudio.volume = SoundSettingGame.Instance.SoundEffectsVolume;
-    //}
-
-    
-
 }

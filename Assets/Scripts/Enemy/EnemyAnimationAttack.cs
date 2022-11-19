@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAnimationAttack : MonoBehaviour
 {
-    [SerializeField] Enemy _enemy;
+    [SerializeField] private Enemy _enemy;
 
     public void Attack()
     {

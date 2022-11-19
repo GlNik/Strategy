@@ -4,8 +4,6 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 
-
-
 public class Knight : Unit
 {
     public UnitState CurrentUnitState;
@@ -13,24 +11,18 @@ public class Knight : Unit
     private Vector3 _targetPoint;
     private Enemy _targetEnemy;
     private EnemyBuilding _targetBuilding;
-    [SerializeField] float _distanceToFollow = 7f;
-    [SerializeField] float _distanceToAttack = 1.5f;
-
-    // [SerializeField] float _attackPeriod = 1f;
-    // private float _timer;
-
-    float _distance;
-    [SerializeField] int _damage = 1;
-    [SerializeField] float _stopAround = 1.5f;
-    private Coroutine _coroutine;
-    [SerializeField] TMP_Text _textMeshPro;
+    [SerializeField] private float _distanceToFollow = 7f;
+    [SerializeField] private float _distanceToAttack = 1.5f;
+    private float _distance;
+    [SerializeField] private int _damage = 1;
+    [SerializeField] private float _stopAround = 1.5f;
 
     public override void Start()
     {
         base.Start();
         SetState(UnitState.Idle);
         UnitsManager.Instance.AddKnight(this);
-        _coroutine = StartCoroutine(FindTarget());
+        StartCoroutine(FindTarget());
     }
 
     public override void SetTarget(SelectableObject target)
@@ -83,17 +75,13 @@ public class Knight : Unit
                 AttackBuilding();
                 break;
         }
-        _textMeshPro.text = CurrentUnitState.ToString();
     }
 
     private void Idle()
     {
         if ((NavMeshAgent.destination - transform.position).magnitude < 0.9f)
-        NavMeshAgent.SetDestination(transform.position);
-        //if (FindClosestEnemy())
-        //{
-        //    SetState(UnitState.WalkToEnemy);
-        //}
+            NavMeshAgent.SetDestination(transform.position);
+        Animator.SetBool("InMotion", false);
     }
 
     private void WalkToPoint()
@@ -114,7 +102,6 @@ public class Knight : Unit
         if (!_targetEnemy)
         {
             SetState(UnitState.Idle);
-            //SetState(UnitState.WalkToPoint);
         }
         else
         {
@@ -136,8 +123,7 @@ public class Knight : Unit
         if (_targetBuilding == null)
         {
             SetState(UnitState.Idle);
-            //NavMeshAgent.SetDestination(transform.position);
-            //break;
+            //NavMeshAgent.SetDestination(transform.position);            
         }
         else
         {
@@ -153,7 +139,6 @@ public class Knight : Unit
         if (!_targetEnemy)
         {
             SetState(UnitState.Idle);
-            //SetState(UnitState.WalkToPoint);
         }
         else
         {
@@ -165,7 +150,6 @@ public class Knight : Unit
             }
         }
     }
-
 
     public void AttackFromAnimation()
     {
@@ -209,15 +193,12 @@ public class Knight : Unit
 
     public void SetState(UnitState UnitState)
     {
-
         cntFramesAfterSetState = 0;
-
         CurrentUnitState = UnitState;
-
 
         switch (CurrentUnitState)
         {
-            //case UnitState.Idle:
+            //case UnitState.Idle:                
             //    break;
             case UnitState.WalkToPoint:
                 NavMeshAgent.stoppingDistance = 0.05f;
@@ -227,6 +208,7 @@ public class Knight : Unit
                 break;
             case UnitState.Attack:
                 NavMeshAgent.stoppingDistance = _stopAround;
+                Animator.SetBool("Attacking", true);
                 break;
             case UnitState.WalkToEnemyBuilding:
                 if (_targetBuilding)
@@ -235,7 +217,7 @@ public class Knight : Unit
                     NavMeshAgent.SetDestination(_targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
                 }
                 break;
-                //case UnitState.AttackBuilding:
+                //case UnitState.AttackBuilding:               
                 //    break;
         }
     }
@@ -250,22 +232,15 @@ public class Knight : Unit
         return _targetEnemy != null;
     }
 
-    // как лучше иногда переопределять врага к которому идти?
-    // хочу что б когда мы бежим к врагу, он иногда искал все таки ближайшего, а то бывает куча большая бежит на одного, 
-    // хотя рядом прям за нашими юнитами бегут рядом прям в притык враги
-    IEnumerator FindTarget()
+    private IEnumerator FindTarget()
     {
         while (true)
         {
-            if (CurrentUnitState != UnitState.Attack || CurrentUnitState != UnitState.AttackBuilding || CurrentUnitState != UnitState.WalkToPoint)
+            if (CurrentUnitState != UnitState.Attack && CurrentUnitState != UnitState.AttackBuilding && CurrentUnitState != UnitState.WalkToPoint)
             {
                 if (FindClosestEnemy())
                 {
                     SetState(UnitState.WalkToEnemy);
-                }
-                else
-                {
-                    SetState(UnitState.Idle);
                 }
             }
             yield return new WaitForSeconds(1f);

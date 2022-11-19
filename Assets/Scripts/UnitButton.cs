@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 public class UnitButton : MonoBehaviour
 {
-	[SerializeField] Transform _buidingPosition;
-	[SerializeField] Unit _unitPrefab;	
-	[SerializeField] Text _priceText;
+    [SerializeField] private Transform _buidingPosition;
+    [SerializeField] private Unit _unitPrefab;
+    [SerializeField] private Text _priceText;
 
-	private void Start()
-	{
-		int price = _unitPrefab.Price;
-		_priceText.text = "÷ена:" + price;
-	}
-	public void TryHire()
-	{
-		// в Barracks.cs
-	}
+    private void Start()
+    {
+        int price = _unitPrefab.Price;
+        _priceText.text = "÷ена:" + price;
+    }
+    public void TryHire()
+    {
+        // в Barracks.cs
+    }
 }

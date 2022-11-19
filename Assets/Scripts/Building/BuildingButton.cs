@@ -6,15 +6,13 @@ using UnityEngine.UI;
 public class BuildingButton : MonoBehaviour
 {
     public BuildingPlacer BuildingPlacer;
-    [SerializeField] GameObject _buildingPrefab;
-
-    [SerializeField] Text _priceText;
+    [SerializeField] private GameObject _buildingPrefab;
+    [SerializeField] private Text _priceText;
     private int _price;
+    [SerializeField] private Image AlertNotEnoughMoney;
+    private Resources _resources;
+    private Coroutine _activeCoroutine;
 
-    [SerializeField]
-    Image AlertNotEnoughMoney;
-
-    Resources _resources;
     private void Start()
     {
         _resources = Resources.Instance;
@@ -33,7 +31,6 @@ public class BuildingButton : MonoBehaviour
             StartCoroutineAlertNotEnoughMoney();
     }
 
-    Coroutine _activeCoroutine;
 
     public void StartCoroutineAlertNotEnoughMoney()
     {

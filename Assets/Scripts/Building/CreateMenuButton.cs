@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class CreateMenuButton : MonoBehaviour
 {
     private bool _isMenuActive;
-    [SerializeField]  GameObject _CreateMenuButton;
+    [SerializeField] private GameObject _CreateMenuButton;
     
     public void ShowMenu()
     {

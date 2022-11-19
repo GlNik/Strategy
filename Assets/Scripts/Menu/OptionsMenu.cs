@@ -5,19 +5,14 @@ using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
 {
-    [SerializeField] Slider _musicSlider;
-    [SerializeField] Slider _sfxSlider;
-   // [SerializeField] Slider _volume;
-
+    [SerializeField] private Slider _musicSlider;
+    [SerializeField] private Slider _sfxSlider;  
     private float _soundFXFloat;
     private float _soundMusicFloat;
+    [SerializeField] private AudioSource _music;
+    [SerializeField] private AudioSource _soundEffects;
 
-    [SerializeField] AudioSource _music;
-    [SerializeField] AudioSource _soundEffects;
-
-   // [SerializeField] private AudioMixer audioMixer;
-
-    void Start()
+    private void Start()
     {
         _soundFXFloat = SoundSettingGame.Instance.SoundEffectsVolume;
         _sfxSlider.value = _soundFXFloat;
@@ -57,8 +52,6 @@ public class OptionsMenu : MonoBehaviour
     //public void SetVolume(float volume) {
     //    audioMixer.SetFloat("SoundVolume", VolumeToDb(volume));
     //}
-
-
 
     //public float baseOfLogarithm = 1.15f;
     //public float VolumeToDb(double volume) {

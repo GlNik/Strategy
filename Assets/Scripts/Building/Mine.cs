@@ -5,13 +5,11 @@ using UnityEngine.UI;
 
 public class Mine : Building
 {
-    Resources _resources;
-    float _startTime;
-    [SerializeField] float _period = 10f;
-    [SerializeField] int _moneyToAdd = 10;
-
-    [SerializeField] Text _plusText;
-
+    private Resources _resources;
+    private float _startTime;
+    [SerializeField] private float _period = 10f;
+    [SerializeField] private int _moneyToAdd = 10;
+    [SerializeField] private Text _plusText;
 
     private void Start()
     {

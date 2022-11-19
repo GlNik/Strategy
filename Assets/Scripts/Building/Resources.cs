@@ -8,8 +8,8 @@ public class Resources : MonoBehaviour
     public static Resources Instance { get; private set; }
 
     [SerializeField] private int _money;
-    [SerializeField] Text _textMoney;
-    Color _initialColor;
+    [SerializeField] private Text _textMoney;
+    private Color _initialColor;
 
     private void Awake()
     {
@@ -26,7 +26,7 @@ public class Resources : MonoBehaviour
 
     private void OnDestroy()
     {
-        if(Instance ==this)
+        if (Instance == this)
         {
             Instance = null;
         }
@@ -38,7 +38,7 @@ public class Resources : MonoBehaviour
         UpdateText();
     }
 
-    void UpdateText()
+    private void UpdateText()
     {
         _textMoney.text = _money.ToString();
         if (_money <= 0) _textMoney.color = new Color(1, 0, 0);

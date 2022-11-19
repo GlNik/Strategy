@@ -15,11 +15,11 @@ public enum SelectionState
 
 public class Management : MonoBehaviour
 {
-    [SerializeField] Camera _camera;
+    [SerializeField] private Camera _camera;
     private SelectableObject _hovered;
     public List<SelectableObject> ListOfSelected;
 
-    [SerializeField] Image _frameImage;
+    [SerializeField] private Image _frameImage;
     private Vector2 _frameStart;
     private Vector2 _frameEnd;
 
@@ -44,7 +44,7 @@ public class Management : MonoBehaviour
         _curSelectionState = SelectionState.Other;
     }
 
-    void Update()
+    private void Update()
     {
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(ray.origin, ray.direction * 10f, Color.blue);
@@ -96,7 +96,7 @@ public class Management : MonoBehaviour
                             UnselectAll();
                             _curSelectionState = SelectionState.EnemyUnitOrStructure;
                             Select(_hovered);
-                        } // иначе ничего не делаем, а передаём управление дальше - там будет SetTarget
+                        } // иначе ничего не делаем, а передаём управление дальше
                     }
                     else
                     {
@@ -119,16 +119,16 @@ public class Management : MonoBehaviour
             {
                 //if (hit.collider.tag == "Ground")
                 //или лучше по слою?
-                if (hit.collider.GetComponent<Ground>()!=null)
+                if (hit.collider.GetComponent<Ground>() != null)
                 {
-                    int rowNumber = Mathf.CeilToInt(Mathf.Sqrt(ListOfSelected.Count));                    
+                    int rowNumber = Mathf.CeilToInt(Mathf.Sqrt(ListOfSelected.Count));
                     Vector3 groupCenter = new Vector3((ListOfSelected.Count - 1) / rowNumber, 0, (ListOfSelected.Count - 1) % rowNumber) / 2f;
 
                     for (int i = 0; i < ListOfSelected.Count; i++)
                     {
                         int row = i / rowNumber;
                         int column = i % rowNumber;
-                        Vector3 point = hit.point + new Vector3(row, 0f, column); //- groupCenter) * 0.75f;
+                        Vector3 point = hit.point + (new Vector3(row, 0f, column) - groupCenter) /** 1f*/;
                         if (ListOfSelected[i] != null)
                         {
                             ListOfSelected[i].WhenClickOnGround(point);
@@ -209,7 +209,7 @@ public class Management : MonoBehaviour
         }
     }
 
-    void Select(SelectableObject selectableObject)
+    private void Select(SelectableObject selectableObject)
     {
         if (selectableObject.GetType().BaseType == typeof(Building))
         {
@@ -239,7 +239,7 @@ public class Management : MonoBehaviour
         _curSelectionState = SelectionState.Other;
     }
 
-    void UnhoverCurrent()
+    private void UnhoverCurrent()
     {
         if (_hovered)
         {
@@ -248,7 +248,7 @@ public class Management : MonoBehaviour
         }
     }
 
-    void SpawnUnit(GameObject UnitPrefab, Transform BuidingPosition)
+    private void SpawnUnit(GameObject UnitPrefab, Transform BuidingPosition)
     {
         Instantiate(UnitPrefab, BuidingPosition);
     }

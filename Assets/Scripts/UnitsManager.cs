@@ -8,6 +8,7 @@ public class UnitsManager : MonoBehaviour
     private List<Enemy> _enemies = new List<Enemy>();
 
     public static UnitsManager Instance;
+
     private void Awake()
     {
         if (Instance == null)

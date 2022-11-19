@@ -17,7 +17,7 @@ public class SelectableObject : MonoBehaviour
             HealthBar.Hide();
     }
 
-    void Start()
+    private void Start()
     {
         SelectionIndicator.SetActive(false);
     }

@@ -9,7 +9,7 @@ public class FollowTarget : MonoBehaviour
     [SerializeField] private bool _position;
     [SerializeField] private bool _rotation;
 
-    void Update()
+    private void Update()
     {
         if (_position)
         {
