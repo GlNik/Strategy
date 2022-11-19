@@ -489,6 +489,7 @@ MonoBehaviour:
   _distanceToAttack: 1.5
   _damage: 1
   _stopAround: 1.5
+  _pointClickFX: {fileID: 5270054754662924514, guid: a9de843a728605e4e9ccf0622d431849, type: 3}
 --- !u!195 &1161856858
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ public class Knight : Unit
     private float _distance;
     [SerializeField] private int _damage = 1;
     [SerializeField] private float _stopAround = 1.5f;
+    [SerializeField] private GameObject _pointClickFX;
 
     public override void Start()
     {
@@ -252,6 +253,7 @@ public class Knight : Unit
         base.WhenClickOnGround(point);
         SetState(UnitState.WalkToPoint);
         NavMeshAgent.SetDestination(point);
+        Instantiate(_pointClickFX, point+new Vector3(0,0.1f,0), Quaternion.identity);
     }
 
 #if UNITY_EDITOR
