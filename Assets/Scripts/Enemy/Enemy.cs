@@ -79,7 +79,7 @@ public class Enemy : SelectableObject
                 break;
             case EnemyState.WalkToUnit:
                 WalkToUnit();
-                FindTarget();
+               // FindTarget();
                 break;
             case EnemyState.Attack:
                 Attack();
@@ -239,15 +239,15 @@ public class Enemy : SelectableObject
         }
     }
 
-    IEnumerator FindTarget()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(1f);
-            FindClosestUnit();
-            // yield return null;
-        }
-    }
+    //IEnumerator FindTarget()
+    //{
+    //    while (true)
+    //    {
+    //        yield return new WaitForSeconds(1f);
+    //        FindClosestUnit();
+    //        // yield return null;
+    //    }
+    //}
 
     private bool FindClosestBuilding()
     {

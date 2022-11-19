@@ -10,9 +10,9 @@ public class UnitsManager : MonoBehaviour
     public static UnitsManager Instance;
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
-            Instance = this;    
+            Instance = this;
         }
         else
         {
@@ -53,23 +53,19 @@ public class UnitsManager : MonoBehaviour
         }
         return clousestUnit;
     }
-    public Enemy GetClousestEnemy(Vector3 position,float distanceToEnemy)
+    public Enemy GetClousestEnemy(Vector3 position, float distanceToEnemy)
     {
         Enemy clousestEnemy = null;
         float minDistance = Mathf.Infinity;
         for (int i = 0; i < _enemies.Count; i++)
         {
             float distance = Vector3.Distance(position, _enemies[i].transform.position);
-            if (distance < minDistance)
+            if (distance < minDistance && distance < distanceToEnemy)
             {
                 minDistance = distance;
                 clousestEnemy = _enemies[i];
             }
-            if (minDistance < distanceToEnemy)
-            {
-                return clousestEnemy;
-            }
         }
-        return null;
+        return clousestEnemy;
     }
 }
