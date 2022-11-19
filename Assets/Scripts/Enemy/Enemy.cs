@@ -21,11 +21,11 @@ public class Enemy : SelectableObject
     Building _targetBuilding;
     Unit _targetUnit;
     [SerializeField] float _distanceToFollow = 7f;
-    [SerializeField] float _distanceToAttack = 1f;
+    [SerializeField] float _distanceToAttack = 1.5f;
 
     [SerializeField] NavMeshAgent _navMeshAgent;
 
-    [SerializeField] float _attackPeriod = 1f;
+    //[SerializeField] float _attackPeriod = 1f;
     //private float _timer;
 
     float _distance;
@@ -72,13 +72,14 @@ public class Enemy : SelectableObject
         {
             case EnemyState.Idle:
                 Idle();
+                _animator.SetBool("InMotion", false);
                 break;
             case EnemyState.WalkToBuilding:
                 WalkToBuilding();
                 break;
-
             case EnemyState.WalkToUnit:
                 WalkToUnit();
+                FindTarget();
                 break;
             case EnemyState.Attack:
                 Attack();
@@ -106,7 +107,7 @@ public class Enemy : SelectableObject
         else
         {
             SetState(EnemyState.Idle);
-            //_animator.SetBool("InMotion", false);
+            _animator.SetBool("InMotion", false);
         }
     }
 
@@ -238,6 +239,16 @@ public class Enemy : SelectableObject
         }
     }
 
+    IEnumerator FindTarget()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            FindClosestUnit();
+            // yield return null;
+        }
+    }
+
     private bool FindClosestBuilding()
     {
         _targetBuilding = BuildingPlacer.Instance.GetClousestBuilding(transform.position);
@@ -267,7 +278,7 @@ public class Enemy : SelectableObject
         //Animator.SetBool("InMotion", false);
         // Animator.SetBool("Attacking", false);
         _animator.SetTrigger("Die");
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, 4f);
     }
 
     private void OnDestroy()

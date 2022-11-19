@@ -485,10 +485,10 @@ MonoBehaviour:
   Animator: {fileID: 1025595763942353885}
   CurrentUnitState: 0
   _distanceToFollow: 7
-  _distanceToAttack: 1
+  _distanceToAttack: 1.5
   _attackPeriod: 1
   _damage: 1
-  _stopAround: 0.9
+  _stopAround: 1.5
 --- !u!195 &1161856858
 NavMeshAgent:
   m_ObjectHideFlags: 0

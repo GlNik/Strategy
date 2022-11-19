@@ -119,7 +119,7 @@ public class Management : MonoBehaviour
             {
                 //if (hit.collider.tag == "Ground")
                 //или лучше по слою?
-                if (hit.collider.GetComponent<Ground>())
+                if (hit.collider.GetComponent<Ground>()!=null)
                 {
                     int rowNumber = Mathf.CeilToInt(Mathf.Sqrt(ListOfSelected.Count));                    
                     Vector3 groupCenter = new Vector3((ListOfSelected.Count - 1) / rowNumber, 0, (ListOfSelected.Count - 1) % rowNumber) / 2f;
@@ -128,7 +128,7 @@ public class Management : MonoBehaviour
                     {
                         int row = i / rowNumber;
                         int column = i % rowNumber;
-                        Vector3 point = hit.point + (new Vector3(row, 0f, column) - groupCenter) * 0.75f;
+                        Vector3 point = hit.point + new Vector3(row, 0f, column); //- groupCenter) * 0.75f;
                         if (ListOfSelected[i] != null)
                         {
                             ListOfSelected[i].WhenClickOnGround(point);
@@ -138,6 +138,7 @@ public class Management : MonoBehaviour
                 // как избежать GetComponentInParent ?
                 if (hit.collider.GetComponentInParent<SelectableObject>())
                 {
+                    //if (ListOfSelected[0]!=null)
                     if (ListOfSelected.Count > 0 && ListOfSelected[0].GetComponent<Unit>())
                         for (int i = 0; i < ListOfSelected.Count; i++)
                         {

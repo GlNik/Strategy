@@ -10,10 +10,10 @@ public class CameraMove : MonoBehaviour
     [SerializeField] GameObject _cameraCenter;
     [SerializeField] GameObject _raycastCameraCenter;
 
-    private Vector3 _startPoint;
+    //private Vector3 _startPoint;
     private float _startMouseX;
     private float _startMouseY;
-    private Vector3 _cameraStartPosition;
+   // private Vector3 _cameraStartPosition;
     private Quaternion _cameraStartRotation;
     private Plane _plane;
 
@@ -22,8 +22,8 @@ public class CameraMove : MonoBehaviour
     [SerializeField] float _screenEdgeBorderSize=30f;
     [SerializeField] float _keyBoardSpeed = 30f;
 
-    [SerializeField] float _dragSpeed=500f;
-    KeyCode _dragKey = KeyCode.Mouse1;
+    //[SerializeField] float _dragSpeed=500f;
+   // KeyCode _dragKey = KeyCode.Mouse1;
     Transform _mainTransform;
     [SerializeField] float _minY = 3.5f;
     [SerializeField] float _maxY = 50f;
@@ -48,10 +48,10 @@ public class CameraMove : MonoBehaviour
 
         if (Input.GetMouseButtonDown(2))
         {
-            _startPoint = point;
+            //_startPoint = point;
             _startMouseX = Input.mousePosition.x;
             _startMouseY = Input.mousePosition.y;
-            _cameraStartPosition = _cameraCenter.transform.position;
+           // _cameraStartPosition = _cameraCenter.transform.position;
             _cameraStartRotation = _cameraCenter.transform.rotation;
         }
 

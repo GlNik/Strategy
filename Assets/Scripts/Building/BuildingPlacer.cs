@@ -55,7 +55,7 @@ public class BuildingPlacer : MonoBehaviour
         int x = Mathf.RoundToInt(point.x) - (CurrentBuilding.XSize / 2 - 1);
         int z = Mathf.RoundToInt(point.z) - (CurrentBuilding.ZSize / 2 - 1);
         x = Mathf.Clamp(x, -60, 60);//-100//92
-        z = Mathf.Clamp(z, -38, 60);
+        z = Mathf.Clamp(z, -38, 45);
 
         CurrentBuilding.transform.position = new Vector3(x, 0, z) * CellSize;
 

@@ -13,15 +13,15 @@ public class Knight : Unit
     private Enemy _targetEnemy;
     private EnemyBuilding _targetBuilding;
     [SerializeField] float _distanceToFollow = 7f;
-    [SerializeField] float _distanceToAttack = 1f;
+    [SerializeField] float _distanceToAttack = 1.5f;
 
-    [SerializeField] float _attackPeriod = 1f;
-    private float _timer;
+   // [SerializeField] float _attackPeriod = 1f;
+   // private float _timer;
 
     float _distance;
     [SerializeField] int _damage = 1;
-    [SerializeField] float _stopAround = 0.9f;
-
+    [SerializeField] float _stopAround = 1.5f;
+    private Coroutine _coroutine;
 
     public override void Start()
     {
@@ -104,7 +104,7 @@ public class Knight : Unit
         if (!_targetEnemy)
         {
             SetState(UnitState.Idle);
-            //break;
+            //break;          
         }
         else
         {
@@ -147,19 +147,18 @@ public class Knight : Unit
             _distance = Vector3.Distance(transform.position, _targetEnemy.transform.position);
             if (_distance > _distanceToAttack)
                 SetState(UnitState.WalkToEnemy);
-            //_timer += Time.deltaTime;
-            //if (_timer > _attackPeriod)
-            //{
-            //    _timer = 0;
-            //    _targetEnemy.TakeDamage(_damage);
-            //}
+
+
+
+            //StartCoroutine(FindTarget());
         }
     }
 
+
     public void AttackFromAnimation()
     {
-        if(_targetEnemy)
-        _targetEnemy.TakeDamage(_damage);
+        if (_targetEnemy)
+            _targetEnemy.TakeDamage(_damage);
     }
 
     private void AttackBuilding()
@@ -176,12 +175,6 @@ public class Knight : Unit
             _distance = Vector3.Distance(transform.position, _targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
             if (_distance > _distanceToAttack)
                 SetState(UnitState.WalkToEnemyBuilding);
-            //_timer += Time.deltaTime;
-            //if (_timer > _attackPeriod)
-            //{
-            //    _timer = 0;
-            //    _targetBuilding.TakeDamage(_damage);
-            //}
         }
     }
 
@@ -214,7 +207,7 @@ public class Knight : Unit
             case UnitState.Idle:
                 break;
             case UnitState.WalkToPoint:
-                NavMeshAgent.stoppingDistance = 0f;
+                NavMeshAgent.stoppingDistance = 0.05f;
                 break;
             case UnitState.WalkToEnemy:
                 NavMeshAgent.stoppingDistance = _stopAround;
@@ -244,15 +237,20 @@ public class Knight : Unit
         return _targetEnemy != null;
     }
 
-    IEnumerator FindTarget()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(1f);
-            FindClosestEnemy();
-            // yield return null;
-        }
-    }
+    // как лучше иногда переопределять врага к которому идти?
+    // хочу что б когда мы бежим к врагу, он иногда искал все таки ближайшего, а то бывает куча большая бежит на одного, 
+    // хотя рядом прям за нашими юнитами бегут рядом прям в притык враги
+    //IEnumerator FindTarget()
+    //{
+    //    while (true)
+    //    {
+    //        yield return new WaitForSeconds(1f);
+    //        FindClosestEnemy();
+    //        SetState(UnitState.WalkToEnemy);
+    //        print("work");
+    //        // yield return null;
+    //    }
+    //}
 
     public override void WhenClickOnGround(Vector3 point)
     {

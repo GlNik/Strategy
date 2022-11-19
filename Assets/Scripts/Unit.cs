@@ -24,7 +24,7 @@ public class Unit : SelectableObject
 
     public virtual void Start()
     {
-        _maxHealth = _health;      
+        _maxHealth = _health;
     }
 
     public virtual void SetTarget(SelectableObject target)
@@ -35,11 +35,11 @@ public class Unit : SelectableObject
     public virtual void Update()
     {
         if (NavMeshAgent.velocity.magnitude >= 0.05f)
-        { 
+        {
             Animator.SetBool("InMotion", true);
         }
         else
-        { 
+        {
             Animator.SetBool("InMotion", false);
         }
     }
@@ -65,10 +65,12 @@ public class Unit : SelectableObject
     {
         Destroy(this);
         Destroy(NavMeshAgent);
-        //Animator.SetBool("InMotion", false);
-       // Animator.SetBool("Attacking", false);
+        if (Management.Instance)
+        {
+            Management.Instance.Unselect(this);
+        }        
         Animator.SetTrigger("Die");
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, 4f);
     }
 
     private void OnDestroy()
