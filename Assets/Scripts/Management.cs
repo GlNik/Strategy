@@ -222,7 +222,6 @@ public class Management : MonoBehaviour
             ListOfSelected.Add(selectableObject);
             selectableObject.Select();
         }
-
     }
 
     public void Unselect(SelectableObject selectableObject)

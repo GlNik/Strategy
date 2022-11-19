@@ -5,13 +5,14 @@ using UnityEngine;
 public class EnemyCreator : MonoBehaviour
 {
     [SerializeField] private Transform _spawn;
-    [SerializeField] private float _spawnPeriod = 5;
+    private float _spawnPeriod;
     [SerializeField] private Enemy _enemyPrefab;
     private float _timer;
 
     private void Update()
     {
         _timer += Time.deltaTime;
+        _spawnPeriod = Random.Range(20f, 35f);
         if (_timer > _spawnPeriod)
         {
             _timer = 0;

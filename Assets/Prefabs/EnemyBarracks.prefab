@@ -424,8 +424,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.0299473, y: 7.6514626, z: 5.905235}
-  m_Center: {x: 0.19728947, y: 2.2265491, z: -0.21138096}
+  m_Size: {x: 6.3130217, y: 7.6514626, z: 6.5559034}
+  m_Center: {x: 0.026442051, y: 2.2265491, z: -0.026295185}
 --- !u!208 &6828563627081073340
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -436,11 +436,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 2.56, y: 4, z: 2.605}
+  m_Extents: {x: 3.235, y: 4, z: 3.305}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 2.46, z: 0}
+  m_Center: {x: 0.11, y: 2.46, z: -0.08}
   m_TimeToStationary: 0.5
 --- !u!114 &2872470691808709298
 MonoBehaviour:
@@ -475,7 +475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1522932519211582400, guid: 157532ce44be50d4c953ea9f8412d187, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.93
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1522932519211582400, guid: 157532ce44be50d4c953ea9f8412d187, type: 3}
       propertyPath: m_LocalPosition.y
