@@ -21,11 +21,7 @@ public class BottonGroupAnimation : MonoBehaviour
     {
         AnimationPanel(_showTransformPosition, 1f);
     }
-    //private void Start()
-    //{
-    //   AnimationPanel(_showTransformPosition, 1f) ;
-    //}
-
+    
     public void AnimationPanel(Transform transform, float delay)
     {
         _buttonPanel.DOMoveY(transform.position.y, 1).SetDelay(delay);

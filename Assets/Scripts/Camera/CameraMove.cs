@@ -18,8 +18,8 @@ public class CameraMove : MonoBehaviour
     [SerializeField] private float _screenEdgeBorderSize = 30f;
     [SerializeField] private float _keyBoardSpeed = 30f;
     // click drag
-    [SerializeField] float _dragSpeed = 500f;
-    KeyCode _dragKey = KeyCode.Mouse1;
+    //[SerializeField] float _dragSpeed = 500f;
+    //KeyCode _dragKey = KeyCode.Mouse1;
     private Transform _mainTransform;
     [SerializeField] private float _minY = 3.5f;
     [SerializeField] private float _maxY = 50f;
@@ -90,15 +90,15 @@ public class CameraMove : MonoBehaviour
     private void Move()
     {
         //опционально пока думаю добавлять ли такой способ)
-        if (Input.GetKey(_dragKey))
-        {
-            // click drag
-            Vector3 desiredDragMove = new Vector3(-Input.GetAxis("Mouse X"), 0, -Input.GetAxis("Mouse Y")) * _dragSpeed;
-            desiredDragMove = Quaternion.Euler(new Vector3(0, _mainTransform.eulerAngles.y, 0)) * desiredDragMove * Time.deltaTime;
-            desiredDragMove = _mainTransform.InverseTransformDirection(desiredDragMove);
+        //if (Input.GetKey(_dragKey))
+        //{
+        //    // click drag
+        //    Vector3 desiredDragMove = new Vector3(-Input.GetAxis("Mouse X"), 0, -Input.GetAxis("Mouse Y")) * _dragSpeed;
+        //    desiredDragMove = Quaternion.Euler(new Vector3(0, _mainTransform.eulerAngles.y, 0)) * desiredDragMove * Time.deltaTime;
+        //    desiredDragMove = _mainTransform.InverseTransformDirection(desiredDragMove);
 
-            _mainTransform.Translate(desiredDragMove, Space.Self);
-        }
+        //    _mainTransform.Translate(desiredDragMove, Space.Self);
+        //}
 
         // WSAD
         Vector3 desiredMove = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));

@@ -27,7 +27,12 @@ public class BuildingButton : MonoBehaviour
         _price = _buildingPrefab.Price;
         _priceText.text = "Цена: " + _price;
     }
-  
+
+    private void OnEnable()
+    {
+        _buyButton.onClick.AddListener(() => TryBuy());
+    }
+
     public void TryBuy()
     {
         // списываем только при проставке здания!

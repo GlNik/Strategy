@@ -32,8 +32,7 @@ public class WinManager : MonoBehaviour
 
     private void Start()
     {
-        _ourBarraks = new List<Building>();
-        //_enemyBuildings= new List<EnemyBuilding>();
+        _ourBarraks = new List<Building>();        
         _winPannel.SetActive(false);
         _losePannel.SetActive(false);
     }
