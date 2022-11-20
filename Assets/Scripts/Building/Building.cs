@@ -85,9 +85,9 @@ public class Building : SelectableObject
     }
 
     public void DestroyBuilding()
-    {
+    {        
         BuildingPlacer.Instance.ReleasePlace(transform.position.x, transform.position.z, this);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     public void TakeDamage(int damageValue)
@@ -98,11 +98,6 @@ public class Building : SelectableObject
             DestroyBuilding();
         }
         HealthBar.SetHealth(_health, _maxHealth);
-    }
-
-    private void OnDestroy()
-    {
-        WinManager.Instance.RemoveOutBuilding(this);
-    }
+    }   
 
 }

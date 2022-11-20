@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class BuildingButton : MonoBehaviour
 {
@@ -9,20 +8,34 @@ public class BuildingButton : MonoBehaviour
     [SerializeField] private Building _buildingPrefab;
     [SerializeField] private Text _priceText;
     private int _price;
-    [SerializeField] private Image _alertNotEnoughMoney;
+    [SerializeField] private CanvasGroup _alertNotEnoughMoney;
     private Resources _resources;
     private Coroutine _activeCoroutine;
 
+    private Button _buyButton;
+    private bool _showState;
     // если попробовал купить и не хватило денег, то если не дождаться остановки корутины и
     // переключишься между вкладками (основное, ресурсы, войска)
     // то табличка с "недостаточно денег" останется, пока опять не запустишь корутину
     // как это пофиксить?
 
+    private void Awake()
+    {
+        _alertNotEnoughMoney.alpha = 0;
+        _buyButton = GetComponent<Button>();
+    }
+
     private void Start()
     {
-        _resources = Resources.Instance;       
+        _resources = Resources.Instance;
         _price = _buildingPrefab.Price;
         _priceText.text = "Цена: " + _price;
+    }
+
+    private void OnEnable()
+    {
+
+        _buyButton.onClick.AddListener(() => TryBuy());
     }
 
     public void TryBuy()
@@ -33,34 +46,19 @@ public class BuildingButton : MonoBehaviour
             BuildingPlacer.CreateBuilding(_buildingPrefab);
         }
         else
-            StartCoroutineAlertNotEnoughMoney();
+            ShowNoMoneyFrame();
     }
 
-
-    public void StartCoroutineAlertNotEnoughMoney()
+    private void ShowNoMoneyFrame()
     {
-        if (_activeCoroutine != null)
+        if (!_showState)
         {
-            StopCoroutine(_activeCoroutine);
+            _showState = true;
+            Tween tween = _alertNotEnoughMoney.DOFade(1, 0.1f);
+            tween = _alertNotEnoughMoney.DOFade(0, 0.5f).SetDelay(1);
+            tween.onComplete += () => { _showState = false; };
         }
-        _activeCoroutine = StartCoroutine(ShowAlertNotEnoughMoney());
     }
-
-    public IEnumerator ShowAlertNotEnoughMoney()
-    {
-        _alertNotEnoughMoney.gameObject.SetActive(true);
-
-        Text childText = _alertNotEnoughMoney.transform.GetChild(0).GetComponent<Text>();
-
-        for (float t = 2f; t > 0f; t -= Time.deltaTime * 1f)
-        {
-            _alertNotEnoughMoney.color = new Color(1f, 0f, 0f, Mathf.Clamp01(t) * 0.5f);
-            childText.color = new Color(1f, 1f, 0f, Mathf.Clamp01(t));
-            yield return null;
-        }
-        _alertNotEnoughMoney.gameObject.SetActive(false);
-    }
-
 
     private void OnDisable()
     {
@@ -69,5 +67,4 @@ public class BuildingButton : MonoBehaviour
             StopCoroutine(_activeCoroutine);
         }
     }
-    
 }

@@ -1,16 +1,22 @@
-using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WinManager : MonoBehaviour
 {
-    private List<EnemyBuilding> _enemyBuildings = new List<EnemyBuilding>();
-    private List<Building> _ourBarraks = new List<Building>();
+    public List<EnemyBuilding> _enemyBuildings  = new List<EnemyBuilding>();
 
+
+    private List<Building> _ourBarraks;
     public static WinManager Instance;
 
     [SerializeField] private GameObject _winPannel;
     [SerializeField] private GameObject _losePannel;
+
+    public void AddEnemy(EnemyBuilding enemyBuilding)
+    {
+        _enemyBuildings.Add(enemyBuilding);
+    }
 
     private void Awake()
     {
@@ -26,6 +32,8 @@ public class WinManager : MonoBehaviour
 
     private void Start()
     {
+        _ourBarraks = new List<Building>();
+        //_enemyBuildings= new List<EnemyBuilding>();
         _winPannel.SetActive(false);
         _losePannel.SetActive(false);
     }
@@ -38,6 +46,7 @@ public class WinManager : MonoBehaviour
     public void RemoveOutBuilding(Building building)
     {
         _ourBarraks.Remove(building);
+
         if (_ourBarraks.Count == 0)
         {
             _losePannel.SetActive(true);
@@ -52,11 +61,8 @@ public class WinManager : MonoBehaviour
     public void RemoveEnemyBuilding(EnemyBuilding building)
     {
         _enemyBuildings.Remove(building);
-        // чет ругается, почему? то ругается, то не ругается, хотя вроде норм все?
-        if (_enemyBuildings.Count == 0)
-        {
-            _winPannel.SetActive(true);
-        }
-    }
 
+        if (_enemyBuildings.Count == 0)
+            _winPannel.SetActive(true);
+    }
 }

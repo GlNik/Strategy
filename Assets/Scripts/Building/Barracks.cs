@@ -48,4 +48,9 @@ public class Barracks : Building
         }
         _alertNotEnoughMoney.gameObject.SetActive(false);
     }
+
+    private void OnDestroy()
+    {
+        WinManager.Instance.RemoveOutBuilding(this);
+    }
 }
