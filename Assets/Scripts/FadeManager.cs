@@ -6,10 +6,11 @@ public class FadeManager : MonoBehaviour
     public static FadeManager Instance;
 
     private CanvasGroup _fade;
+    private Tween _tween;
 
     private void Awake()
     {
-        if (Instance) 
+        if (Instance)
             Destroy(gameObject);
         else
             Instance = this;
@@ -35,10 +36,15 @@ public class FadeManager : MonoBehaviour
 
     public void LoadGameScene(int index)
     {
-        Tween tween = _fade.DOFade(1, 1);
-        tween.onComplete += () =>
+        _tween = _fade.DOFade(1, 1);
+        _tween.onComplete += () =>
         {
             LevelManager.Instance.OpenScene(index);
         };
+    }
+
+    private void OnDestroy()
+    {
+        DOTween.Kill(_tween);
     }
 }

@@ -20,7 +20,7 @@ public class Mine : Building
 
     private void Update()
     {
-        if (BuildingIsPlaced) // так совпало, что "проблемы первой секунды" не возникает, так что пусть код остаётся в таком виде
+        if (BuildingIsPlaced)
         {
             if (Time.time - _startTime > _period)
             {

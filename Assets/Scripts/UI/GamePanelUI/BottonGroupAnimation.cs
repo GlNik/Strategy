@@ -17,10 +17,14 @@ public class BottonGroupAnimation : MonoBehaviour
             Instance = this;
     }
 
-    private void Start()
+    private void OnEnable()
     {
         AnimationPanel(_showTransformPosition, 1f);
     }
+    //private void Start()
+    //{
+    //   AnimationPanel(_showTransformPosition, 1f) ;
+    //}
 
     public void AnimationPanel(Transform transform, float delay)
     {

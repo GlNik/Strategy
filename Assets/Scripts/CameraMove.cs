@@ -131,7 +131,6 @@ public class CameraMove : MonoBehaviour
         {
             _mainTransform.Translate(desiredEdgeMove, Space.Self);
         }
-
     }
 
     private void HeightCalculation()

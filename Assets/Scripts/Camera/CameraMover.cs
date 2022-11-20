@@ -12,6 +12,8 @@ public class CameraMover : MonoBehaviour
     private int direction = 1;
     Transform _cameraTransform;
     private Vector3 _startPosition;
+    private Tween _tween;
+
 
     private void Awake()
     {
@@ -33,16 +35,21 @@ public class CameraMover : MonoBehaviour
     {
         direction *= -1;
         int directionY = Random.Range(-1f, 1f) > 0 ? 1 : -1;
-        // Vector3 randomDirection = new Vector3(Random.Range(_X, _X * 3) * direction, Random.Range(_Y, _Y * 3) * direction, Random.Range(_Z, _Z * 3) * direction);
         Vector3 randomDirection = new Vector3(Random.Range(_X, _X * 3) * direction, Random.Range(_Y, _Y * 3) * directionY, Random.Range(_Z, _Z * 3) * direction);
         Vector3 newPosition = _startPosition + randomDirection;
 
         float distance = Vector3.Distance(_cameraTransform.position, newPosition);
 
-        Tween tween = _cameraTransform.DOMove(newPosition, distance / _speed).SetEase(_curve);
-        tween.onComplete += () =>
+        _tween = _cameraTransform.DOMove(newPosition, distance / _speed).SetEase(_curve);
+        _tween.onComplete += () =>
         {
             CameraMove();
         };
     }
+
+    private void OnDisable()
+    {
+        _tween.Kill();
+    }
+   
 }

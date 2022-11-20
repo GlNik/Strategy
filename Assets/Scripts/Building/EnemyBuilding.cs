@@ -10,6 +10,7 @@ public class EnemyBuilding : SelectableObject
 	{
 		_maxHealth = _health;
 	}
+
 	private void Start()
 	{
         WinManager.Instance.AddEnemyBuilding(this);
@@ -19,6 +20,7 @@ public class EnemyBuilding : SelectableObject
 	{
 		base.Select();
 	}
+
 	public override void Unselect()
 	{
 		base.Unselect();

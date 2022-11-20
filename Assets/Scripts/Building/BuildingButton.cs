@@ -13,11 +13,7 @@ public class BuildingButton : MonoBehaviour
     private Coroutine _activeCoroutine;
 
     private Button _buyButton;
-    private bool _showState;
-    // если попробовал купить и не хватило денег, то если не дождаться остановки корутины и
-    // переключишься между вкладками (основное, ресурсы, войска)
-    // то табличка с "недостаточно денег" останется, пока опять не запустишь корутину
-    // как это пофиксить?
+    private bool _showState;    
 
     private void Awake()
     {
@@ -31,13 +27,7 @@ public class BuildingButton : MonoBehaviour
         _price = _buildingPrefab.Price;
         _priceText.text = "Цена: " + _price;
     }
-
-    private void OnEnable()
-    {
-
-        _buyButton.onClick.AddListener(() => TryBuy());
-    }
-
+  
     public void TryBuy()
     {
         // списываем только при проставке здания!
