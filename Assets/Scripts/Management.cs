@@ -119,6 +119,7 @@ public class Management : MonoBehaviour
             {
                 //if (hit.collider.tag == "Ground")
                 //или лучше по слою?
+                // а как по слою?
                 if (hit.collider.GetComponent<Ground>() != null)
                 {
                     int rowNumber = Mathf.CeilToInt(Mathf.Sqrt(ListOfSelected.Count));

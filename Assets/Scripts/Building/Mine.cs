@@ -15,7 +15,7 @@ public class Mine : Building
     {
         _resources = Resources.Instance;
         _startTime = Time.time;
-        _plusText.text = "+" + _moneyToAdd.ToString();
+        _plusText.text = "+" + _moneyToAdd;
     }
 
     private void Update()

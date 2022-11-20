@@ -3557,7 +3557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d2c9dc909983334ebb2d310a5948636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _knight: {fileID: 5267064725682370532}
+  _viking: {fileID: 5267064725682370532}
 --- !u!1 &8285202264694653517
 GameObject:
   m_ObjectHideFlags: 0

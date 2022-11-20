@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class AnimationAttack : MonoBehaviour
 {
-    [SerializeField] private Knight _knight;
+    [SerializeField] private Viking _viking;
 
     public void Attack()
     {
-        if (_knight != null)
+        if (_viking != null)
         {
-            _knight.AttackFromAnimation();
+            _viking.AttackFromAnimation();
         }
-        _knight.AttackBuildingFromAnimation();
+        _viking.AttackBuildingFromAnimation();
     }
 }

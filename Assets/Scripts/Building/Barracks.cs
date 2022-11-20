@@ -7,12 +7,14 @@ public class Barracks : Building
 {
     [SerializeField] private Unit _unitPrefab;
     private Resources _resources;
-    [SerializeField] private Image AlertNotEnoughMoney;
+    [SerializeField] private Image _alertNotEnoughMoney;
     private Coroutine _activeCoroutine;
 
     private void Start()
     {
         _resources = Resources.Instance;
+
+        WinManager.Instance.AddOurBuilding(this);
     }
 
     public void TryHire()
@@ -26,23 +28,24 @@ public class Barracks : Building
     public void StartCoroutineAlertNotEnoughMoney()
     {
         if (_activeCoroutine != null)
+        {
             StopCoroutine(_activeCoroutine);
-
+        }
         _activeCoroutine = StartCoroutine(ShowAlertNotEnoughMoney());
     }
 
     public IEnumerator ShowAlertNotEnoughMoney()
     {
-        AlertNotEnoughMoney.gameObject.SetActive(true);
+        _alertNotEnoughMoney.gameObject.SetActive(true);
 
-        Text childText = AlertNotEnoughMoney.transform.GetChild(0).GetComponent<Text>();
+        Text childText = _alertNotEnoughMoney.transform.GetChild(0).GetComponent<Text>();
 
         for (float t = 2f; t > 0f; t -= Time.deltaTime * 1f)
         {
-            AlertNotEnoughMoney.color = new Color(1f, 0f, 0f, Mathf.Clamp01(t) * 0.5f);
+            _alertNotEnoughMoney.color = new Color(1f, 0f, 0f, Mathf.Clamp01(t) * 0.5f);
             childText.color = new Color(1f, 1f, 0f, Mathf.Clamp01(t));
             yield return null;
         }
-        AlertNotEnoughMoney.gameObject.SetActive(false);
+        _alertNotEnoughMoney.gameObject.SetActive(false);
     }
 }

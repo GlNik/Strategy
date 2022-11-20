@@ -4,7 +4,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 
-public class Knight : Unit
+public class Viking : Unit
 {
     public UnitState CurrentUnitState;
 
@@ -22,7 +22,7 @@ public class Knight : Unit
     {
         base.Start();
         SetState(UnitState.Idle);
-        UnitsManager.Instance.AddKnight(this);
+        UnitsManager.Instance.AddViking(this);
         StartCoroutine(FindTarget());
     }
 
@@ -114,7 +114,10 @@ public class Knight : Unit
             else
             {
                 NavMeshAgent.SetDestination(_targetEnemy.transform.position);
-                SetState(UnitState.Attack);
+                if (_distance < _distanceToAttack)
+                {
+                    SetState(UnitState.Attack);
+                }
             }
         }
     }
@@ -143,10 +146,10 @@ public class Knight : Unit
         }
         else
         {
+            FaceTarget(_targetEnemy.transform.position);
             _distance = Vector3.Distance(transform.position, _targetEnemy.transform.position);
             if (_distance > _distanceToAttack)
             {
-                FaceTarget(_targetEnemy.transform.position);
                 SetState(UnitState.WalkToEnemy);
             }
         }
@@ -167,10 +170,10 @@ public class Knight : Unit
         else
         {
             // как избежать GetComponentInChildren ?
+            FaceTarget(_targetBuilding.transform.position);
             _distance = Vector3.Distance(transform.position, _targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
             if (_distance > _distanceToAttack)
             {
-                FaceTarget(_targetBuilding.transform.position);
                 SetState(UnitState.WalkToEnemyBuilding);
             }
         }
@@ -225,7 +228,7 @@ public class Knight : Unit
 
     private void OnDestroy()
     {
-        UnitsManager.Instance.RemoveKnight(this);
+        UnitsManager.Instance.RemoveViking(this);
     }
     private bool FindClosestEnemy()
     {
@@ -253,7 +256,7 @@ public class Knight : Unit
         base.WhenClickOnGround(point);
         SetState(UnitState.WalkToPoint);
         NavMeshAgent.SetDestination(point);
-        Instantiate(_pointClickFX, point+new Vector3(0,0.1f,0), Quaternion.identity);
+        Instantiate(_pointClickFX, point + new Vector3(0, 0.1f, 0), Quaternion.identity);
     }
 
 #if UNITY_EDITOR

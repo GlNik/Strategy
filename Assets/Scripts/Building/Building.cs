@@ -28,6 +28,7 @@ public class Building : SelectableObject
         _maxHealth = _health;
         _buildingMenu.SetActive(false);
     }
+   
 
     public override void Select()
     {
@@ -99,5 +100,9 @@ public class Building : SelectableObject
         HealthBar.SetHealth(_health, _maxHealth);
     }
 
+    private void OnDestroy()
+    {
+        WinManager.Instance.RemoveOutBuilding(this);
+    }
 
 }

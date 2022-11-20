@@ -11,7 +11,7 @@ public class BuildingPlacer : MonoBehaviour
     [SerializeField] private Camera _raycastCamera;
     private Plane _plane;
     public Building CurrentBuilding;
-    public GameObject ReadyBuilding;
+    public Building ReadyBuilding;
     public Dictionary<Vector2Int, Building> BuildingsDictionary = new Dictionary<Vector2Int, Building>();
     private Resources _resources;
     public static BuildingPlacer Instance;
@@ -46,7 +46,9 @@ public class BuildingPlacer : MonoBehaviour
 
         int x = Mathf.RoundToInt(point.x) - (CurrentBuilding.XSize / 2 - 1);
         int z = Mathf.RoundToInt(point.z) - (CurrentBuilding.ZSize / 2 - 1);
-        //граница куда можно ставить здания
+
+        // граница куда можно ставить здания
+        // как лучше клампать то где можем строить? что б вот так не подбирать? 
         x = Mathf.Clamp(x, -60, 60);
         z = Mathf.Clamp(z, -38, 45);
 
@@ -56,15 +58,17 @@ public class BuildingPlacer : MonoBehaviour
         {
             CurrentBuilding.DisplayAcceptablePosition();
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-            {
-                int price = CurrentBuilding.GetComponent<Building>().Price;
+            {              
+                int price = CurrentBuilding.Price;
                 _resources.SpendMoney(price);
-                //
+               
                 var placedBuilding = Instantiate(ReadyBuilding, CurrentBuilding.transform.position, Quaternion.identity);
-                placedBuilding.GetComponent<Building>().BuildingIsPlaced = true;
-                PlaceBuilding(x, z, placedBuilding.GetComponent<Building>());
+              
+                placedBuilding.BuildingIsPlaced = true;
+                PlaceBuilding(x, z, placedBuilding);
+               
                 Destroy(CurrentBuilding.gameObject);
-                //
+                
                 CurrentBuilding = null;
             }
         }
@@ -94,14 +98,14 @@ public class BuildingPlacer : MonoBehaviour
         }
         return clousestBuilding;
     }
-    public void CreateBuilding(GameObject buildingPrefab)
+    public void CreateBuilding(Building buildingPrefab)
     {
         if (CurrentBuilding)
             Destroy(CurrentBuilding.gameObject);
         //
         Management.Instance.UnselectAll();
-        GameObject newBuilding = Instantiate(buildingPrefab);
-        CurrentBuilding = newBuilding.GetComponent<Building>();
+        Building newBuilding = Instantiate(buildingPrefab);
+        CurrentBuilding = newBuilding;
         ReadyBuilding = buildingPrefab;
         CurrentBuilding.NavMeshObstacle.enabled = false;
     }
@@ -142,8 +146,7 @@ public class BuildingPlacer : MonoBehaviour
         catch
         {
             Debug.LogError("SelectableCollider не найден, может стоит иначе обрабатывать ошибку?");
-        }
-        // интересно, вместе с проверкой коллайдера выше получается двойная проверка допустимости позиции, больше надёжности. Пусть будет.
+        }       
         for (int x = 0; x < building.XSize; x++)
             for (int z = 0; z < building.ZSize; z++)
             {

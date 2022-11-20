@@ -185,7 +185,6 @@ MonoBehaviour:
   _distanceToFollow: 7
   _distanceToAttack: 1.5
   _navMeshAgent: {fileID: 5421573035067912795}
-  _attackPeriod: 1
   _animator: {fileID: 6709920032888316196}
   _damage: 1
 --- !u!195 &5421573035067912795

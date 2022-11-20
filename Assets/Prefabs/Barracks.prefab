@@ -1022,7 +1022,7 @@ MonoBehaviour:
   _buildingMenu: {fileID: 7690261433785762996}
   BuildingIsPlaced: 0
   _unitPrefab: {fileID: 5267064725682370532, guid: c0911f76138aca843b8bb7d1b0423922, type: 3}
-  AlertNotEnoughMoney: {fileID: 5820494145549638983}
+  _alertNotEnoughMoney: {fileID: 5820494145549638983}
 --- !u!54 &7783306157679881722
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class UnitsManager : MonoBehaviour
 {
-    private List<Knight> _knight = new List<Knight>();
-    private List<Enemy> _enemies = new List<Enemy>();
+    private List<Viking> _viking = new List<Viking>();
+    private List<Enemy> _enemy = new List<Enemy>();
 
     public static UnitsManager Instance;
 
@@ -20,36 +20,36 @@ public class UnitsManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void AddKnight(Knight knithg)
+    public void AddViking(Viking viking)
     {
-        _knight.Add(knithg);
+        _viking.Add(viking);
     }
 
     public void AddEnemy(Enemy enemy)
     {
-        _enemies.Add(enemy);
+        _enemy.Add(enemy);
     }
 
-    public void RemoveKnight(Knight knight)
+    public void RemoveViking(Viking viking)
     {
-        _knight.Remove(knight);
+        _viking.Remove(viking);
     }
 
     public void RemoveEnemy(Enemy enemy)
     {
-        _enemies.Remove(enemy);
+        _enemy.Remove(enemy);
     }
     public Unit GetClousestUnit(Vector3 position)
     {
         Unit clousestUnit = null;
         float minDistance = Mathf.Infinity;
-        for (int i = 0; i < _knight.Count; i++)
+        for (int i = 0; i < _viking.Count; i++)
         {
-            float distance = Vector3.Distance(position, _knight[i].transform.position);
+            float distance = Vector3.Distance(position, _viking[i].transform.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
-                clousestUnit = _knight[i];
+                clousestUnit = _viking[i];
             }
         }
         return clousestUnit;
@@ -58,13 +58,13 @@ public class UnitsManager : MonoBehaviour
     {
         Enemy clousestEnemy = null;
         float minDistance = Mathf.Infinity;
-        for (int i = 0; i < _enemies.Count; i++)
+        for (int i = 0; i < _enemy.Count; i++)
         {
-            float distance = Vector3.Distance(position, _enemies[i].transform.position);
+            float distance = Vector3.Distance(position, _enemy[i].transform.position);
             if (distance < minDistance && distance < distanceToEnemy)
             {
                 minDistance = distance;
-                clousestEnemy = _enemies[i];
+                clousestEnemy = _enemy[i];
             }
         }
         return clousestEnemy;
