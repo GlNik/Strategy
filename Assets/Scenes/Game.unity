@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 679429258}
   m_IndirectSpecularColor: {r: 0.44657558, g: 0.49641156, b: 0.5748166, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 6655f20b313bcdd46ba2ee025fa1ca8a, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -20809,7 +20809,6 @@ MonoBehaviour:
   _screenEdgeSpeed: 30
   _screenEdgeBorderSize: 30
   _keyBoardSpeed: 30
-  _dragSpeed: 500
   _minY: 6.5
   _maxY: 50
   _limit: {x: 100, y: 100}
@@ -25492,8 +25491,8 @@ MonoBehaviour:
   _componentsToDisable:
   - {fileID: 963194229}
   - {fileID: 1353534735}
-  _gameButtons: {fileID: 1622902399}
-  _horizontalPanel: {fileID: 965928662}
+  _gameButtons: {fileID: 965928662}
+  _horizontalPanel: {fileID: 421971469}
 --- !u!4 &1196123964
 Transform:
   m_ObjectHideFlags: 0

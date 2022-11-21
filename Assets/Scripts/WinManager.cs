@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WinManager : MonoBehaviour
 {
-    public List<EnemyBuilding> _enemyBuildings  = new List<EnemyBuilding>();
+    public List<EnemyBuilding> _enemyBuildings = new List<EnemyBuilding>();
 
 
     private List<Building> _ourBarraks;
@@ -32,7 +32,7 @@ public class WinManager : MonoBehaviour
 
     private void Start()
     {
-        _ourBarraks = new List<Building>();        
+        _ourBarraks = new List<Building>();
         _winPannel.SetActive(false);
         _losePannel.SetActive(false);
     }
@@ -48,7 +48,8 @@ public class WinManager : MonoBehaviour
 
         if (_ourBarraks.Count == 0)
         {
-            _losePannel.SetActive(true);
+            if (_losePannel != null)
+                _losePannel.SetActive(true);
         }
     }
 
@@ -62,6 +63,9 @@ public class WinManager : MonoBehaviour
         _enemyBuildings.Remove(building);
 
         if (_enemyBuildings.Count == 0)
-            _winPannel.SetActive(true);
+        {
+            if (_losePannel != null)
+                _winPannel.SetActive(true);
+        }
     }
 }

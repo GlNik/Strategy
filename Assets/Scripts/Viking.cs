@@ -240,7 +240,8 @@ public class Viking : Unit
     {
         while (true)
         {
-            if (CurrentUnitState != UnitState.Attack && CurrentUnitState != UnitState.AttackBuilding && CurrentUnitState != UnitState.WalkToPoint)
+            if (CurrentUnitState != UnitState.Attack && CurrentUnitState != UnitState.AttackBuilding
+                && CurrentUnitState != UnitState.WalkToPoint && CurrentUnitState != UnitState.WalkToEnemyBuilding)
             {
                 if (FindClosestEnemy())
                 {
