@@ -14,6 +14,13 @@ public class BuildingPlacer : MonoBehaviour
     public Building ReadyBuilding;
     public Dictionary<Vector2Int, Building> BuildingsDictionary = new Dictionary<Vector2Int, Building>();
     private Resources _resources;
+
+    [SerializeField] private Transform _cornerA;
+    [SerializeField] private Transform _cornerB;
+
+    private Vector3Int _cornerAPosition;
+    private Vector3Int _cornerBPosition;
+
     public static BuildingPlacer Instance;
 
     private void Awake()
@@ -32,6 +39,24 @@ public class BuildingPlacer : MonoBehaviour
     {
         _plane = new Plane(Vector3.up, Vector3.zero);
         _resources = Resources.Instance;
+        SetSizeMap();
+    }
+
+    private void OnDrawGizmos()
+    {
+        SetSizeMap();
+
+        Vector3 center = (Vector3)(_cornerAPosition + _cornerBPosition) * CellSize / 2f;
+        Vector3 size = (Vector3)(_cornerBPosition - _cornerAPosition) * CellSize;
+        size.y = 0f;
+        Gizmos.color = Color.black;
+        Gizmos.DrawCube(center, size);
+    }
+
+    private void SetSizeMap()
+    {
+        _cornerAPosition = new Vector3Int(Mathf.RoundToInt(_cornerA.position.x / CellSize), 0, Mathf.RoundToInt(_cornerA.position.z / CellSize));
+        _cornerBPosition = new Vector3Int(Mathf.RoundToInt(_cornerB.position.x / CellSize), 0, Mathf.RoundToInt(_cornerB.position.z / CellSize));
     }
 
     private void Update()
@@ -49,8 +74,10 @@ public class BuildingPlacer : MonoBehaviour
 
         // граница куда можно ставить здания
         // как лучше клампать то где можем строить? что б вот так не подбирать? 
-        x = Mathf.Clamp(x, -60, 60);
-        z = Mathf.Clamp(z, -38, 45);
+        //x = Mathf.Clamp(x, -60, 60);
+        //z = Mathf.Clamp(z, -38, 45);
+        x = Mathf.Clamp(x, _cornerAPosition.x, _cornerBPosition.x);
+        z = Mathf.Clamp(z, _cornerAPosition.z, _cornerBPosition.z);
 
         CurrentBuilding.transform.position = new Vector3(x, 0, z) * CellSize;
 

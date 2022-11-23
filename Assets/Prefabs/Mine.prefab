@@ -699,6 +699,7 @@ GameObject:
   - component: {fileID: 4691739174637419849}
   - component: {fileID: 4691739174637419846}
   - component: {fileID: 8156130614225299448}
+  - component: {fileID: 8527032520445540905}
   m_Layer: 0
   m_Name: Mine
   m_TagString: Untagged
@@ -755,6 +756,9 @@ MonoBehaviour:
   NavMeshObstacle: {fileID: 2532867025601183389}
   _buildingMenu: {fileID: 3991901586867959411}
   BuildingIsPlaced: 0
+  OnChangeHealth:
+    m_PersistentCalls:
+      m_Calls: []
   _period: 10
   _moneyToAdd: 10
   _plusText: {fileID: 6683886863979231143}
@@ -774,6 +778,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8527032520445540905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4691739174637419847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3879fb9c867f3ec4b8f767096ba29b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _building: {fileID: 4691739174637419846}
+  _slider: {fileID: 1942919128760015763}
 --- !u!1 &4691739174994181998
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,7 +948,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.38, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &636677185563029268
@@ -963,7 +981,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 1
+    m_FontSize: 2
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -1426,9 +1444,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 200
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 200
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1520,8 +1538,7 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -5146959518971424489, guid: 585568937bffba640bb2757cc91a7b6c, type: 3}
+    m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 585568937bffba640bb2757cc91a7b6c, type: 3}
 --- !u!23 &337631864657433009 stripped
@@ -1542,11 +1559,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2059082264189363565}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 14.075434, y: 11.433572, z: 13.991123}
-  m_Center: {x: 0.8768326, y: 4.5406146, z: -2.527804}
+  m_Size: {x: 11.42992, y: 11.433572, z: 11.3879385}
+  m_Center: {x: 0.59048176, y: 4.5406146, z: -2.3716145}
 --- !u!208 &2532867025601183389
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1557,11 +1574,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 6.79, y: 5.7170005, z: 6.55}
+  m_Extents: {x: 5.5, y: 5.7170005, z: 5.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0.8, y: 4.5410004, z: -2.6}
+  m_Center: {x: 0.6, y: 4.5410004, z: -2.4}
   m_TimeToStationary: 0.5
 --- !u!114 &7831919011867160904
 MonoBehaviour:

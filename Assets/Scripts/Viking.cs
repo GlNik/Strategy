@@ -91,9 +91,9 @@ public class Viking : Unit
             // обезопашиваемся от нуля
             if (NavMeshAgent.remainingDistance < Mathf.Clamp(NavMeshAgent.stoppingDistance, 0.01f, float.MaxValue))
             {
-                if (NavMeshAgent.velocity.magnitude == 0)
+                if (NavMeshAgent.velocity.magnitude <= 0.01f)
                 {
-                    SetState(UnitState.Idle);
+                    SetState(UnitState.Idle);                  
                 }
             }
     }
@@ -205,7 +205,7 @@ public class Viking : Unit
             //case UnitState.Idle:                
             //    break;
             case UnitState.WalkToPoint:
-                NavMeshAgent.stoppingDistance = 0.05f;
+                NavMeshAgent.stoppingDistance = 0.05f;//0.05           
                 break;
             case UnitState.WalkToEnemy:
                 NavMeshAgent.stoppingDistance = _stopAround;
@@ -240,15 +240,17 @@ public class Viking : Unit
     {
         while (true)
         {
-            if (CurrentUnitState != UnitState.Attack && CurrentUnitState != UnitState.AttackBuilding
-                && CurrentUnitState != UnitState.WalkToPoint && CurrentUnitState != UnitState.WalkToEnemyBuilding)
+            //if (CurrentUnitState != UnitState.Attack && CurrentUnitState != UnitState.AttackBuilding
+            //    && CurrentUnitState != UnitState.WalkToPoint && CurrentUnitState != UnitState.WalkToEnemyBuilding)
+            if(CurrentUnitState == UnitState.Idle)
+
             {
                 if (FindClosestEnemy())
                 {
                     SetState(UnitState.WalkToEnemy);
                 }
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 

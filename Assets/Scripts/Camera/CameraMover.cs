@@ -14,7 +14,6 @@ public class CameraMover : MonoBehaviour
     private Vector3 _startPosition;
     private Tween _tween;
 
-
     private void Awake()
     {
         _cameraTransform = transform;

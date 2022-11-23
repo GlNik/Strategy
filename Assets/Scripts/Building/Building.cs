@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class Building : SelectableObject
 {
@@ -18,6 +19,7 @@ public class Building : SelectableObject
     [SerializeField] private GameObject _buildingMenu;
 
     public bool BuildingIsPlaced = false;
+    public UnityEvent<int, int> OnChangeHealth;
 
     private void Awake()
     {
@@ -28,7 +30,7 @@ public class Building : SelectableObject
         _maxHealth = _health;
         _buildingMenu.SetActive(false);
     }
-   
+
 
     public override void Select()
     {
@@ -85,7 +87,7 @@ public class Building : SelectableObject
     }
 
     public void DestroyBuilding()
-    {        
+    {
         BuildingPlacer.Instance.ReleasePlace(transform.position.x, transform.position.z, this);
         Destroy(gameObject);
     }
@@ -98,6 +100,7 @@ public class Building : SelectableObject
             DestroyBuilding();
         }
         HealthBar.SetHealth(_health, _maxHealth);
-    }   
+        OnChangeHealth.Invoke(_health, _maxHealth);
+    }
 
 }

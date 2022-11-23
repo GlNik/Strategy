@@ -24,8 +24,10 @@ public class Management : MonoBehaviour
     private Vector2 _frameEnd;
 
     private SelectionState _curSelectionState;
+    private bool _frameStarted;
 
     public static Management Instance;
+    private int _layerMaskGround;
 
     private void Awake()
     {
@@ -42,6 +44,7 @@ public class Management : MonoBehaviour
     private void Start()
     {
         _curSelectionState = SelectionState.Other;
+        _layerMaskGround = LayerMask.NameToLayer("Ground");
     }
 
     private void Update()
@@ -83,7 +86,7 @@ public class Management : MonoBehaviour
             UnhoverCurrent();
         }
 
-        if (Input.GetMouseButtonUp(0) && !_frameImage.enabled)
+        if (Input.GetMouseButtonUp(0) && !_frameImage.enabled && !EventSystem.current.IsPointerOverGameObject()) //0
         {
             if (_hovered)
             {
@@ -105,22 +108,20 @@ public class Management : MonoBehaviour
                         Select(_hovered);
                     }
                 }
-                else if (Input.GetKey(KeyCode.LeftControl) && !_hovered.GetComponent<Enemy>() && !_hovered.GetComponent<EnemyBuilding>())
-                {
-                    _curSelectionState = SelectionState.UnitsSelected;
-                    Select(_hovered);
-                }
+                //else if (/*Input.GetMouseButtonUp(0) &&*/ Input.GetKey(KeyCode.LeftControl) && !_hovered.GetComponent<Enemy>() && !_hovered.GetComponent<EnemyBuilding>())
+                //{
+                //    _curSelectionState = SelectionState.UnitsSelected;
+                //    Select(_hovered);
+                //}
             }
         }
 
         if (_curSelectionState == SelectionState.UnitsSelected)
         {
-            if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
+            if (Input.GetMouseButtonUp(1) && !EventSystem.current.IsPointerOverGameObject())//0
             {
-                //if (hit.collider.tag == "Ground")
-                //или лучше по слою?
-                // а как по слою?
-                if (hit.collider.GetComponent<Ground>() != null)
+                // if (hit.collider.GetComponent<Ground>() != null)
+                if (hit.collider.gameObject.layer == _layerMaskGround)
                 {
                     int rowNumber = Mathf.CeilToInt(Mathf.Sqrt(ListOfSelected.Count));
                     Vector3 groupCenter = new Vector3((ListOfSelected.Count - 1) / rowNumber, 0, (ListOfSelected.Count - 1) % rowNumber) / 2f;
@@ -129,23 +130,20 @@ public class Management : MonoBehaviour
                     {
                         int row = i / rowNumber;
                         int column = i % rowNumber;
-                        Vector3 point = hit.point + (new Vector3(row, 0f, column) - groupCenter) /** 1f*/;
+                        Vector3 point = hit.point + (new Vector3(row, 0f, column) - groupCenter) * 1.1f;
                         if (ListOfSelected[i] != null)
                         {
                             ListOfSelected[i].WhenClickOnGround(point);
                         }
                     }
                 }
-                // как избежать GetComponentInParent ?
                 if (hit.collider.GetComponentInParent<SelectableObject>())
                 {
-                    //if (ListOfSelected[0]!=null)
                     if (ListOfSelected.Count > 0 && ListOfSelected[0].GetComponent<Unit>())
                         for (int i = 0; i < ListOfSelected.Count; i++)
                         {
                             if (ListOfSelected[i].GetComponent<Unit>() != null)
                             {
-                                // как избежать GetComponentInParent ?
                                 ((Unit)ListOfSelected[i]).SetTarget(hit.collider.GetComponentInParent<SelectableObject>());
                             }
                         }
@@ -153,53 +151,58 @@ public class Management : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())//1
         {
             UnselectAll();
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             _frameStart = Input.mousePosition;
+            _frameStarted = true;
         }
 
         if (Input.GetMouseButton(0))
         {
-
-            _frameEnd = Input.mousePosition;
-
-            Vector2 min = Vector2.Min(_frameStart, _frameEnd);
-            Vector2 max = Vector2.Max(_frameStart, _frameEnd);
-
-            _frameImage.rectTransform.anchoredPosition = min;
-
-            Vector2 size = max - min;
-
-            if (size.magnitude > 10)
+            if (_frameStarted)
             {
-                _curSelectionState = SelectionState.Frame;
-                _frameImage.enabled = true;
 
-                _frameImage.rectTransform.sizeDelta = size;
+                _frameEnd = Input.mousePosition;
 
-                Rect rect = new Rect(min, size);
+                Vector2 min = Vector2.Min(_frameStart, _frameEnd);
+                Vector2 max = Vector2.Max(_frameStart, _frameEnd);
 
-                Unit[] allUnits = FindObjectsOfType<Unit>();
+                _frameImage.rectTransform.anchoredPosition = min;
 
-                UnselectAll();
-                foreach (Unit U in allUnits)
+                Vector2 size = max - min;
+
+                if (size.magnitude > 10)
                 {
-                    Vector2 screenPosition = _camera.WorldToScreenPoint(U.transform.position);
-                    if (rect.Contains(screenPosition))
-                        Select(U);
-                }
+                    _curSelectionState = SelectionState.Frame;
+                    _frameImage.enabled = true;
 
+                    _frameImage.rectTransform.sizeDelta = size;
+
+                    Rect rect = new Rect(min, size);
+
+                    Unit[] allUnits = FindObjectsOfType<Unit>();
+
+                    UnselectAll();
+                    foreach (Unit U in allUnits)
+                    {
+                        Vector2 screenPosition = _camera.WorldToScreenPoint(U.transform.position);
+                        if (rect.Contains(screenPosition))
+                            Select(U);
+                    }
+
+                }
             }
         }
 
         if (Input.GetMouseButtonUp(0))
         {
             _frameImage.enabled = false;
+            _frameStarted = false;
             if (_curSelectionState != SelectionState.Building && _curSelectionState != SelectionState.EnemyUnitOrStructure)
             {
                 if (ListOfSelected.Count > 0)
