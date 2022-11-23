@@ -50,16 +50,28 @@ public class Building : SelectableObject
         catch { };
     }
 
+    //private void OnDrawGizmos()
+    //{
+    //    float cellSize = BuildingPlacer.Instance.CellSize;
+
+    //    for (int x = 0; x < XSize; x++)
+    //        for (int z = 0; z < ZSize; z++)
+    //        {
+    //            Gizmos.DrawWireCube(transform.position + new Vector3(x, 0, z) * cellSize, new Vector3(1, 0, 1) * cellSize);
+    //        }
+    //}
+
     private void OnDrawGizmos()
     {
         float cellSize = BuildingPlacer.Instance.CellSize;
-
-        for (int x = 0; x < XSize; x++)
-            for (int z = 0; z < ZSize; z++)
+        Vector2 offset = new Vector2((XSize - 1f) * 0.5f, (ZSize - 1f) * 0.5f);
+        for (int i = 0; i < XSize; i++)
+        {
+            for (int j = 0; j < ZSize; j++)
             {
-                Gizmos.DrawWireCube(transform.position + new Vector3(x, 0, z) * cellSize, new Vector3(1, 0, 1) * cellSize);
+                Gizmos.DrawWireCube(transform.position + new Vector3(i - offset.x, 0f, j - offset.y) * cellSize, new Vector3(1f, 0f, 1f) * cellSize);
             }
-
+        }
     }
 
     public void DisplayUnacceptablePosition()

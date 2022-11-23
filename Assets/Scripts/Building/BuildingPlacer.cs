@@ -20,6 +20,7 @@ public class BuildingPlacer : MonoBehaviour
 
     private Vector3Int _cornerAPosition;
     private Vector3Int _cornerBPosition;
+    private float _elapsedTime;
 
     public static BuildingPlacer Instance;
 
@@ -72,8 +73,6 @@ public class BuildingPlacer : MonoBehaviour
         int x = Mathf.RoundToInt(point.x) - (CurrentBuilding.XSize / 2 - 1);
         int z = Mathf.RoundToInt(point.z) - (CurrentBuilding.ZSize / 2 - 1);
 
-        // граница куда можно ставить здания
-        // как лучше клампать то где можем строить? что б вот так не подбирать? 
         //x = Mathf.Clamp(x, -60, 60);
         //z = Mathf.Clamp(z, -38, 45);
         x = Mathf.Clamp(x, _cornerAPosition.x, _cornerBPosition.x);
@@ -85,17 +84,17 @@ public class BuildingPlacer : MonoBehaviour
         {
             CurrentBuilding.DisplayAcceptablePosition();
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-            {              
+            {
                 int price = CurrentBuilding.Price;
                 _resources.SpendMoney(price);
-               
+
                 var placedBuilding = Instantiate(ReadyBuilding, CurrentBuilding.transform.position, Quaternion.identity);
-              
                 placedBuilding.BuildingIsPlaced = true;
+
                 PlaceBuilding(x, z, placedBuilding);
-               
+
                 Destroy(CurrentBuilding.gameObject);
-                
+
                 CurrentBuilding = null;
             }
         }
@@ -106,6 +105,16 @@ public class BuildingPlacer : MonoBehaviour
         {
             Destroy(CurrentBuilding.gameObject);
             CurrentBuilding = null;
+        }
+
+        _elapsedTime += Time.deltaTime;
+        if (Input.GetKey(KeyCode.C) && _elapsedTime > 0.2f)
+        {
+            RotateBuilding(90f);
+        }
+        if (Input.GetKey(KeyCode.V) && _elapsedTime > 0.2f)
+        {
+            RotateBuilding(-90f);
         }
 
     }
@@ -125,6 +134,7 @@ public class BuildingPlacer : MonoBehaviour
         }
         return clousestBuilding;
     }
+
     public void CreateBuilding(Building buildingPrefab)
     {
         if (CurrentBuilding)
@@ -166,14 +176,13 @@ public class BuildingPlacer : MonoBehaviour
     {
         try
         {
-            // как убрать GetComponentInChildren ?
             if (building.GetComponentInChildren<SelectableCollider>().IntersectingWithSth)
                 return false;
         }
         catch
         {
             Debug.LogError("SelectableCollider не найден, может стоит иначе обрабатывать ошибку?");
-        }       
+        }
         for (int x = 0; x < building.XSize; x++)
             for (int z = 0; z < building.ZSize; z++)
             {
@@ -182,6 +191,16 @@ public class BuildingPlacer : MonoBehaviour
                     return false;
             }
         return true;
+    }
+
+    private void RotateBuilding(float degrees)
+    {
+        _elapsedTime = 0f;
+
+        //Quaternion rotationRightReady = Quaternion.Euler(new Vector3(0f, degrees, 0f)) * ReadyBuilding.transform.rotation;
+        Quaternion rotationRight = Quaternion.Euler(new Vector3(0f, degrees, 0f)) * CurrentBuilding.transform.rotation;
+        CurrentBuilding.transform.rotation = rotationRight;
+        // ReadyBuilding.transform.rotation = rotationRightReady;
     }
 
 }
