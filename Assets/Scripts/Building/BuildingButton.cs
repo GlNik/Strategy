@@ -13,7 +13,7 @@ public class BuildingButton : MonoBehaviour
     private Coroutine _activeCoroutine;
 
     private Button _buyButton;
-    private bool _showState;    
+    private bool _showState;
 
     private void Awake()
     {

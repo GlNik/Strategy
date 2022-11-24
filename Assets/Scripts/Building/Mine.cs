@@ -10,12 +10,14 @@ public class Mine : Building
     [SerializeField] private float _period = 10f;
     [SerializeField] private int _moneyToAdd = 10;
     [SerializeField] private Text _plusText;
+    Coroutine _activeCoroutine;
 
     private void Start()
     {
         _resources = Resources.Instance;
         _startTime = Time.time;
         _plusText.text = "+" + _moneyToAdd;
+        WinManager.Instance.AddOurBuilding(this);
     }
 
     private void Update()
@@ -32,7 +34,6 @@ public class Mine : Building
 
     }
 
-    Coroutine _activeCoroutine;
     public void StartCoroutinePlusMoney()
     {
         if (_activeCoroutine != null)
@@ -56,5 +57,10 @@ public class Mine : Building
             yield return null;
         }
         _plusText.gameObject.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        WinManager.Instance.RemoveOutBuilding(this);
     }
 }

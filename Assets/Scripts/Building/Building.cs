@@ -31,7 +31,6 @@ public class Building : SelectableObject
         _buildingMenu.SetActive(false);
     }
 
-
     public override void Select()
     {
         if (BuildingIsPlaced)
