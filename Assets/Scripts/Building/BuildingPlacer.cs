@@ -107,15 +107,15 @@ public class BuildingPlacer : MonoBehaviour
             CurrentBuilding = null;
         }
 
-        _elapsedTime += Time.deltaTime;
-        if (Input.GetKey(KeyCode.C) && _elapsedTime > 0.2f)
-        {
-            RotateBuilding(90f);
-        }
-        if (Input.GetKey(KeyCode.V) && _elapsedTime > 0.2f)
-        {
-            RotateBuilding(-90f);
-        }
+        //_elapsedTime += Time.deltaTime;
+        //if (Input.GetKey(KeyCode.C) && _elapsedTime > 0.2f)
+        //{
+        //    RotateBuilding(90f);
+        //}
+        //if (Input.GetKey(KeyCode.V) && _elapsedTime > 0.2f)
+        //{
+        //    RotateBuilding(-90f);
+        //}
 
     }
 
