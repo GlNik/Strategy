@@ -35,6 +35,10 @@ public class BuildingButton : MonoBehaviour
 
     public void TryBuy()
     {
+        if (BuildingPlacer.Instance.CheckBuidling() is Building building)
+        {
+            Destroy(building.gameObject);
+        }
         // списываем только при проставке здания!
         if (_resources.CheckMoney(_price))
         {

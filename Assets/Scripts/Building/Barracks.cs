@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Barracks : Building
 {
     [SerializeField] private Unit _unitPrefab;

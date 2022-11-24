@@ -21,7 +21,8 @@ public class BuildingPlacer : MonoBehaviour
     private Vector3Int _cornerAPosition;
     private Vector3Int _cornerBPosition;
     private float _elapsedTime;
-
+    public int X;
+    public int Z;
     public static BuildingPlacer Instance;
 
     private void Awake()
@@ -64,23 +65,33 @@ public class BuildingPlacer : MonoBehaviour
     {
         if (CurrentBuilding == null) return;
 
+        _elapsedTime += Time.deltaTime;
+        if (Input.GetKey(KeyCode.C) && _elapsedTime > 0.2f)
+        {
+            RotateBuilding(90f);
+        }
+        if (Input.GetKey(KeyCode.V) && _elapsedTime > 0.2f)
+        {
+            RotateBuilding(-90f);
+        }
+
         Ray ray = _raycastCamera.ScreenPointToRay(Input.mousePosition);
 
         float distance;
         _plane.Raycast(ray, out distance);
         Vector3 point = ray.GetPoint(distance) / CellSize;
 
-        int x = Mathf.RoundToInt(point.x) - (CurrentBuilding.XSize / 2 - 1);
-        int z = Mathf.RoundToInt(point.z) - (CurrentBuilding.ZSize / 2 - 1);
+         X = Mathf.RoundToInt(point.x) - (CurrentBuilding.XSize / 2 - 1);
+         Z = Mathf.RoundToInt(point.z) - (CurrentBuilding.ZSize / 2 - 1);
 
         //x = Mathf.Clamp(x, -60, 60);
         //z = Mathf.Clamp(z, -38, 45);
-        x = Mathf.Clamp(x, _cornerAPosition.x, _cornerBPosition.x);
-        z = Mathf.Clamp(z, _cornerAPosition.z, _cornerBPosition.z);
+        X = Mathf.Clamp(X, _cornerAPosition.x, _cornerBPosition.x);
+        Z = Mathf.Clamp(Z, _cornerAPosition.z, _cornerBPosition.z);
 
-        CurrentBuilding.transform.position = new Vector3(x, 0, z) * CellSize;
+        CurrentBuilding.transform.position = new Vector3(X, 0, Z) * CellSize;
 
-        if (CheckPlacing(x, z, CurrentBuilding))
+        if (CheckPlacing(X, Z, CurrentBuilding))
         {
             CurrentBuilding.DisplayAcceptablePosition();
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
@@ -88,12 +99,13 @@ public class BuildingPlacer : MonoBehaviour
                 int price = CurrentBuilding.Price;
                 _resources.SpendMoney(price);
 
-                var placedBuilding = Instantiate(ReadyBuilding, CurrentBuilding.transform.position, Quaternion.identity);
-                placedBuilding.BuildingIsPlaced = true;
+                //var placedBuilding = Instantiate(ReadyBuilding, CurrentBuilding.transform.position, Quaternion.identity);
+                //placedBuilding.BuildingIsPlaced = true;
+                CurrentBuilding.BuildingIsPlaced = true;
+                //PlaceBuilding(x, z, placedBuilding);
+                PlaceBuilding(X, Z, CurrentBuilding);
 
-                PlaceBuilding(x, z, placedBuilding);
-
-                Destroy(CurrentBuilding.gameObject);
+                //Destroy(CurrentBuilding.gameObject);
 
                 CurrentBuilding = null;
             }
@@ -106,30 +118,20 @@ public class BuildingPlacer : MonoBehaviour
             Destroy(CurrentBuilding.gameObject);
             CurrentBuilding = null;
         }
-
-        //_elapsedTime += Time.deltaTime;
-        //if (Input.GetKey(KeyCode.C) && _elapsedTime > 0.2f)
-        //{
-        //    RotateBuilding(90f);
-        //}
-        //if (Input.GetKey(KeyCode.V) && _elapsedTime > 0.2f)
-        //{
-        //    RotateBuilding(-90f);
-        //}
-
     }
 
     public Building GetClousestBuilding(Vector3 position)
     {
         Building clousestBuilding = null;
         float minDistance = Mathf.Infinity;
-        foreach (var item in BuildingsDictionary)
-        {
-            float distance = Vector3.Distance(position, item.Value.transform.position);
+        //foreach (var item in BuildingsDictionary)
+            foreach (var item in WinManager.Instance.OurBarraks)
+            {
+            float distance = Vector3.Distance(position, item.transform.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
-                clousestBuilding = item.Value;
+                clousestBuilding = item;
             }
         }
         return clousestBuilding;
@@ -147,13 +149,17 @@ public class BuildingPlacer : MonoBehaviour
         CurrentBuilding.NavMeshObstacle.enabled = false;
     }
 
-    private void PlaceBuilding(int xPos, int zPos, Building building)
+    public void PlaceBuilding(int xPos, int zPos, Building building)
     {
         for (int x = 0; x < building.XSize; x++)
             for (int z = 0; z < building.ZSize; z++)
             {
                 Vector2Int coords = new Vector2Int(xPos + x, zPos + z);
                 BuildingsDictionary.Add(coords, building);
+                //
+                CurrentBuilding.DisplayUsual();
+                CurrentBuilding.NavMeshObstacle.enabled = true;
+                //
             }
     }
 
@@ -196,11 +202,16 @@ public class BuildingPlacer : MonoBehaviour
     private void RotateBuilding(float degrees)
     {
         _elapsedTime = 0f;
-
-        //Quaternion rotationRightReady = Quaternion.Euler(new Vector3(0f, degrees, 0f)) * ReadyBuilding.transform.rotation;
+       
         Quaternion rotationRight = Quaternion.Euler(new Vector3(0f, degrees, 0f)) * CurrentBuilding.transform.rotation;
         CurrentBuilding.transform.rotation = rotationRight;
-        // ReadyBuilding.transform.rotation = rotationRightReady;
+        int temp = CurrentBuilding.XSize;
+        CurrentBuilding.XSize = CurrentBuilding.ZSize;
+        CurrentBuilding.ZSize = temp;
     }
 
+    public Building CheckBuidling()
+    {
+        return CurrentBuilding;
+    }
 }

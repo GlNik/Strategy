@@ -2,12 +2,11 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[DefaultExecutionOrder(-10)]
 public class WinManager : MonoBehaviour
 {
     public List<EnemyBuilding> _enemyBuildings = new List<EnemyBuilding>();
-
-
-    private List<Building> _ourBarraks;
+    public List<Building> OurBarraks;
     public static WinManager Instance;
 
     [SerializeField] private GameObject _winPannel;
@@ -32,21 +31,21 @@ public class WinManager : MonoBehaviour
 
     private void Start()
     {
-        _ourBarraks = new List<Building>();
+        OurBarraks = new List<Building>();
         _winPannel.SetActive(false);
         _losePannel.SetActive(false);
     }
 
     public void AddOurBuilding(Building building)
     {
-        _ourBarraks.Add(building);
+        OurBarraks.Add(building);
     }
 
     public void RemoveOutBuilding(Building building)
     {
-        _ourBarraks.Remove(building);
+        OurBarraks.Remove(building);
 
-        if (_ourBarraks.Count == 0)
+        if (OurBarraks.Count == 0)
         {
             if (_losePannel != null)
                 _losePannel.SetActive(true);
