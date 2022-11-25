@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
+
 public class BottonGroupAnimation : MonoBehaviour
 {
     public static BottonGroupAnimation Instance;
@@ -21,9 +22,10 @@ public class BottonGroupAnimation : MonoBehaviour
     {
         AnimationPanel(_showTransformPosition, 1f);
     }
-    
+
     public void AnimationPanel(Transform transform, float delay)
     {
         _buttonPanel.DOMoveY(transform.position.y, 1).SetDelay(delay);
+        Debug.Log(transform.position.y);
     }
 }

@@ -22,6 +22,18 @@ public class FadeManager : MonoBehaviour
     {
         _fade.alpha = 1;
         HideFade();
+        if(_tween != null)
+        {
+            _tween.Play();
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (_tween != null)
+        {
+            _tween.Pause();
+        }
     }
 
     public void ShowFade()

@@ -127,7 +127,7 @@ public class Viking : Unit
         if (_targetBuilding == null)
         {
             SetState(UnitState.Idle);
-            //NavMeshAgent.SetDestination(transform.position);            
+            NavMeshAgent.SetDestination(transform.position);            
         }
         else
         {

@@ -81,8 +81,8 @@ public class BuildingPlacer : MonoBehaviour
         _plane.Raycast(ray, out distance);
         Vector3 point = ray.GetPoint(distance) / CellSize;
 
-         X = Mathf.RoundToInt(point.x) - (CurrentBuilding.XSize / 2 - 1);
-         Z = Mathf.RoundToInt(point.z) - (CurrentBuilding.ZSize / 2 - 1);
+        X = Mathf.RoundToInt(point.x) - (CurrentBuilding.XSize / 2 - 1);
+        Z = Mathf.RoundToInt(point.z) - (CurrentBuilding.ZSize / 2 - 1);
 
         //x = Mathf.Clamp(x, -60, 60);
         //z = Mathf.Clamp(z, -38, 45);
@@ -125,8 +125,8 @@ public class BuildingPlacer : MonoBehaviour
         Building clousestBuilding = null;
         float minDistance = Mathf.Infinity;
         //foreach (var item in BuildingsDictionary)
-            foreach (var item in WinManager.Instance.OurBarraks)
-            {
+        foreach (var item in WinManager.Instance.OurBarraks)
+        {
             float distance = Vector3.Distance(position, item.transform.position);
             if (distance < minDistance)
             {
@@ -202,9 +202,11 @@ public class BuildingPlacer : MonoBehaviour
     private void RotateBuilding(float degrees)
     {
         _elapsedTime = 0f;
-       
+
         Quaternion rotationRight = Quaternion.Euler(new Vector3(0f, degrees, 0f)) * CurrentBuilding.transform.rotation;
-        CurrentBuilding.transform.rotation = rotationRight;
+        //CurrentBuilding.transform.rotation = Quaternion.Lerp(CurrentBuilding.transform.rotation, rotationRight, Time.deltaTime * 5f);
+        CurrentBuilding.transform.rotation = rotationRight ;
+
         int temp = CurrentBuilding.XSize;
         CurrentBuilding.XSize = CurrentBuilding.ZSize;
         CurrentBuilding.ZSize = temp;
@@ -214,4 +216,5 @@ public class BuildingPlacer : MonoBehaviour
     {
         return CurrentBuilding;
     }
+
 }
