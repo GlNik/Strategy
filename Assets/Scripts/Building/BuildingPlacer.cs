@@ -205,7 +205,7 @@ public class BuildingPlacer : MonoBehaviour
 
         Quaternion rotationRight = Quaternion.Euler(new Vector3(0f, degrees, 0f)) * CurrentBuilding.transform.rotation;
         //CurrentBuilding.transform.rotation = Quaternion.Lerp(CurrentBuilding.transform.rotation, rotationRight, Time.deltaTime * 5f);
-        CurrentBuilding.transform.rotation = rotationRight ;
+        CurrentBuilding.transform.rotation = rotationRight;
 
         int temp = CurrentBuilding.XSize;
         CurrentBuilding.XSize = CurrentBuilding.ZSize;

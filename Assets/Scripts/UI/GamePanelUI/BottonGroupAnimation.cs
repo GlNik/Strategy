@@ -26,6 +26,5 @@ public class BottonGroupAnimation : MonoBehaviour
     public void AnimationPanel(Transform transform, float delay)
     {
         _buttonPanel.DOMoveY(transform.position.y, 1).SetDelay(delay);
-        Debug.Log(transform.position.y);
     }
 }

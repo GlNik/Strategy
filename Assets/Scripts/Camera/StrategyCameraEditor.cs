@@ -68,6 +68,7 @@ public class StrategyCameraEditor : Editor
             EditorGUILayout.PropertyField(serializedObject.FindProperty("CamBorderMovement"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("CamMovementSpeed"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("CamSmoothness"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("RotateCamera"));
 
         }
 

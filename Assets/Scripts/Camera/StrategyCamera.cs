@@ -75,9 +75,8 @@ public class StrategyCamera : MonoBehaviour
     private float targetZoom;
     private float currentZoom;
 
-
-
-
+    [Header("Rotation")]
+    public Transform RotateCamera;
 
 
     void Awake()
@@ -107,6 +106,7 @@ public class StrategyCamera : MonoBehaviour
     void Update()
     {
         MouseMovement();
+        SlopeCamera();
         HandleMovementInput();
 
         if (Target != null)
@@ -119,9 +119,10 @@ public class StrategyCamera : MonoBehaviour
         }
 
         ZoomInput();
-        var minZoom = RestrictClipping();
-        Zoom(minZoom);
-
+        //var minZoom = RestrictClipping();
+        //Zoom(minZoom);
+        Zoom(6);
+      
         transform.SetPositionAndRotation(targetPosition, targetRotation);
     }
 
@@ -166,6 +167,24 @@ public class StrategyCamera : MonoBehaviour
         }
 
         var mouseMovementX = Input.GetAxis(HorizontalOrbitingAxis);
+
+        if (InvertHorizontal)
+        {
+            mouseMovementX *= -1;
+        }
+        var euler = targetRotation.eulerAngles;
+        euler.y += HorizontalRotateSpeed * mouseMovementX;
+
+        targetRotation = Quaternion.Euler(euler);
+    }
+
+    private void SlopeCamera()
+    {
+        if (!Input.GetMouseButton((int)OrbitingMouseButton))
+        {
+            return;
+        }
+
         var mouseMovementY = -Input.GetAxis(VerticalOrbitingAxis);
 
         if (InvertVertical)
@@ -173,18 +192,10 @@ public class StrategyCamera : MonoBehaviour
             mouseMovementY *= -1;
         }
 
-        if (InvertHorizontal)
-        {
-            mouseMovementX *= -1;
-        }
-
-        var euler = targetRotation.eulerAngles;
-
-        euler.y += HorizontalRotateSpeed * mouseMovementX;
-
+        var euler = RotateCamera.localEulerAngles;
         euler.x = Mathf.Clamp(euler.x + VerticalRotateSpeed * mouseMovementY, MinVerticalAngle, MaxVerticalAngle);
 
-        targetRotation = Quaternion.Euler(euler);
+        RotateCamera.localRotation = Quaternion.Euler(euler);
     }
 
     private float RestrictClipping()
@@ -208,7 +219,6 @@ public class StrategyCamera : MonoBehaviour
 
         return MinZoomDistance;
     }
-
 
     // Perform the zoom operation
 
@@ -279,22 +289,19 @@ public class StrategyCamera : MonoBehaviour
             {
                 targetPosition += (transform.right * -CamMovementSpeed);
             }
-        }
 
-        //Keyboard setup for camera rotate
-        if (Input.GetKey(KeyCode.Q))
-        {
-            Vector3 targetRotationX = transform.InverseTransformPoint(transform.position);
-            targetRotation *= Quaternion.Euler(Vector3.up * CamRotationAmount);
-        }
 
-        if (Input.GetKey(KeyCode.E))
-        {
-            targetRotation *= Quaternion.Euler(Vector3.up * -CamRotationAmount);
-        }
+            //Keyboard setup for camera rotate
+            if (Input.GetKey(KeyCode.Q))
+            {
+                targetRotation *= Quaternion.Euler(0, CamRotationAmount, 0);
+            }
 
-        if (!EventSystem.current.IsPointerOverGameObject())
-        {
+            if (Input.GetKey(KeyCode.E))
+            {
+                targetRotation *= Quaternion.Euler(0, -CamRotationAmount, 0);
+            }
+
             //Setting Borders
             if (targetPosition.x < MinPosition.x)
             {
@@ -315,7 +322,6 @@ public class StrategyCamera : MonoBehaviour
             {
                 targetPosition = new Vector3(transform.position.x, 0, MaxPosition.z);
             }
-
 
             transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * CamSmoothness);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * CamSmoothness);
