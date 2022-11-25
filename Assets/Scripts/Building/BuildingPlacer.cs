@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using static UnityEditor.Progress;
 
+[ExecuteAlways]
 public class BuildingPlacer : MonoBehaviour
 {
     public float CellSize = 1f;

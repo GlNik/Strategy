@@ -20,6 +20,7 @@ public class Building : SelectableObject
 
     public bool BuildingIsPlaced = false;
     public UnityEvent<int, int> OnChangeHealth;
+    private float _cells;
 
     private void Awake()
     {
@@ -30,6 +31,16 @@ public class Building : SelectableObject
         _maxHealth = _health;
         _buildingMenu.SetActive(false);
     }
+
+    private void Start()
+    {
+        SellsSetup();
+    }
+
+    //private void OnEnable()
+    //{
+    //    SellsSetup();
+    //}
 
     public override void Select()
     {
@@ -49,6 +60,11 @@ public class Building : SelectableObject
         catch { };
     }
 
+    private void SellsSetup()
+    {
+        _cells = BuildingPlacer.Instance.CellSize;
+    }
+
     //private void OnDrawGizmos()
     //{
     //    float cellSize = BuildingPlacer.Instance.CellSize;
@@ -62,6 +78,7 @@ public class Building : SelectableObject
 
     private void OnDrawGizmos()
     {
+        //SellsSetup();
         float cellSize = BuildingPlacer.Instance.CellSize;
         Vector2 offset = new Vector2((XSize - 1f) * 0.5f, (ZSize - 1f) * 0.5f);
         for (int i = 0; i < XSize; i++)
