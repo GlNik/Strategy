@@ -23,7 +23,7 @@ public class Building : SelectableObject
     public bool BuildingIsPlaced = false;
     public bool IsHouse = false;
     public UnityEvent<int, int> OnChangeHealth;
-    //private float _cells;
+    
 
     private void Awake()
     {
@@ -31,16 +31,14 @@ public class Building : SelectableObject
         {
             _startColor = _renderers[i].material.color;
         }
-        _maxHealth = _health;
-       // OnChangeHealth.Invoke(_health, _maxHealth);
-        _buildingMenu.SetActive(false);
+        _maxHealth = _health;       
     }
 
-    //private void Start()
-    //{
-    //    OnChangeHealth.Invoke(_health, _maxHealth);
-    //   // SellsSetup();
-    //}
+    private void Start()
+    {
+        OnChangeHealth.Invoke(_health, _maxHealth);
+        _buildingMenu.SetActive(false);
+    }
 
     public override void Select()
     {
@@ -109,6 +107,17 @@ public class Building : SelectableObject
         BuildingPlacer.Instance.ReleasePlace(transform.position.x, transform.position.z, this);
         WinManager.Instance.RemoveOutBuilding(this);
         Destroy(gameObject);
+    }
+
+    //public void UpdateUIHealth(int health)
+    //{
+    //    _health = health;
+    //    _maxHealth = health;
+    //}
+
+    public int CheckHp()
+    {
+        return _health;
     }
 
     public void TakeDamage(int damageValue)

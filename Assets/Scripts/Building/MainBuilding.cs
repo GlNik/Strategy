@@ -1,34 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainBuilding : Building
-{   
-   // private float _startTime;
-   // [SerializeField] private float _period = 10f;
-    [SerializeField] private  int _workers;
+{
+    [Space(12)]
+    [Header("Main Building")]
+    [SerializeField] private int _workers;
     [SerializeField] private int _maxWorkers;
     [SerializeField] private Unit _workerPrefab;
 
-    //Coroutine _activeCoroutine;
+    Coroutine _activeCoroutine;
 
-    //public static MainBuilding Instance;// { get; private set; }
+    [SerializeField] float _timeToBuildUnit = 5f;
 
-    //private void Awake()
-    //{
-    //    if (Instance == null)
-    //    {
-    //        Instance = this;
-    //    }
-    //    else
-    //    {
-    //        Destroy(gameObject);
-    //    }
-    //}
+    [SerializeField] private Text _progressText;
+    [SerializeField] private Slider _sliderProgress;
+    [SerializeField] private Image _circleProgressBar;
 
     private void Start()
     {
         WinManager.Instance.AddOurBuilding(this);
+
+        _progressText.text = "0%";
+        _sliderProgress.value = 0;
     }
 
     private void Update()
@@ -37,44 +34,49 @@ public class MainBuilding : Building
         {
             if (_workers < _maxWorkers)
             {
-                PlusOneWorker();
+                GeneratingUnit();
+                // PlusOneWorker();
                 //StartCoroutinePlusWorker();               
             }
         }
     }
 
-    //private void StartCoroutinePlusWorker()
+    //private void PlusOneWorker()
     //{
-    //    if (_activeCoroutine != null)
-    //        StopCoroutine(_activeCoroutine);
-
-    //    _activeCoroutine = StartCoroutine(PlusWorker());
-    //}
-
-    private void PlusOneWorker()
-    {
-        _workers++;
-        Instantiate(_workerPrefab, SpawnPoint.position + new Vector3(Random.Range(-0.5f, 0.5f), 0f, Random.Range(-0.5f, 0.5f)), Quaternion.Euler(0, 180, 0));
-    }
-
-    //private IEnumerator PlusWorker()
-    //{                 
-    //        _workers++;
-    //        Instantiate(_workerPrefab, SpawnPoint.position + new Vector3(Random.Range(-0.5f, 0.5f), 0f, Random.Range(-0.5f, 0.5f)), Quaternion.Euler(0, 180, 0));
-    //        yield return null;          
-    //}
+    //    _workers++;
+    //    Instantiate(_workerPrefab, SpawnPoint.position + new Vector3(Random.Range(-0.5f, 0.5f), 0f, Random.Range(-0.5f, 0.5f)), Quaternion.Euler(0, 180, 0));
+    //}   
 
     public void AddHousingForWorker()
     {
-        _maxWorkers+=2;
+        _maxWorkers += 2;
     }
 
-    //private void OnDestroy()
-    //{
-    //    if (Instance == this)
-    //    {
-    //        Instance = null;
-    //    }
-    //   // WinManager.Instance.RemoveOutBuilding(this);
-    //}
+    public void GeneratingUnit()
+    {
+        if (_activeCoroutine == null)
+        {
+            _activeCoroutine = StartCoroutine(UnitCreationProcess());
+        }
+    }
+
+    private IEnumerator UnitCreationProcess()
+    {
+        for (float t = 0f; t < 1f; t += Time.deltaTime / _timeToBuildUnit)
+        {
+            _circleProgressBar.fillAmount = t;
+            _sliderProgress.value = t;
+            _progressText.text = (t * 100).ToString("0") + "%";
+
+            yield return null;
+        }
+        _workers++;
+        Instantiate(_workerPrefab, SpawnPoint.position + new Vector3(Random.Range(-0.5f, 0.5f), 0f, Random.Range(-0.5f, 0.5f)), Quaternion.Euler(0, 180, 0));
+        _sliderProgress.value = 0f;
+        _circleProgressBar.fillAmount = 0f;
+        _progressText.text = "0%";
+
+
+        _activeCoroutine = null;
+    }
 }

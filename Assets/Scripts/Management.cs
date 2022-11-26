@@ -116,37 +116,40 @@ public class Management : MonoBehaviour
             }
         }
 
-        if (_curSelectionState == SelectionState.UnitsSelected)
+        if ((Physics.Raycast(ray, out hit)))
         {
-            if (Input.GetMouseButtonUp(1) && !EventSystem.current.IsPointerOverGameObject())//0
+            if (_curSelectionState == SelectionState.UnitsSelected)
             {
-                // if (hit.collider.GetComponent<Ground>() != null)
-                if (hit.collider.gameObject.layer == _layerMaskGround)
+                if (Input.GetMouseButtonUp(1) && !EventSystem.current.IsPointerOverGameObject())//0
                 {
-                    int rowNumber = Mathf.CeilToInt(Mathf.Sqrt(ListOfSelected.Count));
-                    Vector3 groupCenter = new Vector3((ListOfSelected.Count - 1) / rowNumber, 0, (ListOfSelected.Count - 1) % rowNumber) / 2f;
-
-                    for (int i = 0; i < ListOfSelected.Count; i++)
+                    // if (hit.collider.GetComponent<Ground>() != null)
+                    if (hit.collider.gameObject.layer == _layerMaskGround)
                     {
-                        int row = i / rowNumber;
-                        int column = i % rowNumber;
-                        Vector3 point = hit.point + (new Vector3(row, 0f, column) - groupCenter) * 1.1f;
-                        if (ListOfSelected[i] != null)
-                        {
-                            ListOfSelected[i].WhenClickOnGround(point);
-                        }
-                    }
-                }
-                if (hit.collider.GetComponentInParent<SelectableObject>())
-                {
-                    if (ListOfSelected.Count > 0 && ListOfSelected[0].GetComponent<Unit>())
+                        int rowNumber = Mathf.CeilToInt(Mathf.Sqrt(ListOfSelected.Count));
+                        Vector3 groupCenter = new Vector3((ListOfSelected.Count - 1) / rowNumber, 0, (ListOfSelected.Count - 1) % rowNumber) / 2f;
+
                         for (int i = 0; i < ListOfSelected.Count; i++)
                         {
-                            if (ListOfSelected[i].GetComponent<Unit>() != null)
+                            int row = i / rowNumber;
+                            int column = i % rowNumber;
+                            Vector3 point = hit.point + (new Vector3(row, 0f, column) - groupCenter) * 1.1f;
+                            if (ListOfSelected[i] != null)
                             {
-                                ((Unit)ListOfSelected[i]).SetTarget(hit.collider.GetComponentInParent<SelectableObject>());
+                                ListOfSelected[i].WhenClickOnGround(point);
                             }
                         }
+                    }
+                    if (hit.collider.GetComponentInParent<SelectableObject>())
+                    {
+                        if (ListOfSelected.Count > 0 && ListOfSelected[0].GetComponent<Unit>())
+                            for (int i = 0; i < ListOfSelected.Count; i++)
+                            {
+                                if (ListOfSelected[i].GetComponent<Unit>() != null)
+                                {
+                                    ((Unit)ListOfSelected[i]).SetTarget(hit.collider.GetComponentInParent<SelectableObject>());
+                                }
+                            }
+                    }
                 }
             }
         }
