@@ -12,7 +12,7 @@ public class UnitButton : MonoBehaviour
     private void Start()
     {
         int price = _unitPrefab.Price;
-        _priceText.text = "Цена:" + price;
+        _priceText.text = "Нанять\r\n за: " + price + " золотых";
     }
     public void TryHire()
     {

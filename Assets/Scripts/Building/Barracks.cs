@@ -15,7 +15,7 @@ public class Barracks : Building
     {
         _resources = Resources.Instance;
 
-        WinManager.Instance.AddOurBuilding(this);
+       // WinManager.Instance.AddOurBuilding(this);
     }
 
     public void TryHire()
@@ -50,8 +50,8 @@ public class Barracks : Building
         _alertNotEnoughMoney.gameObject.SetActive(false);
     }
 
-    private void OnDestroy()
-    {
-        WinManager.Instance.RemoveOutBuilding(this);
-    }
+    //private void OnDestroy()
+    //{
+    //    WinManager.Instance.RemoveOutBuilding(this);
+    //}
 }

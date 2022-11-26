@@ -4,29 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class House : Building
-{
+{   
     private void Start()
     {
-       
-        WinManager.Instance.AddOurBuilding(this);
+        //MainBuilding.Instance.AddHousingForWorker();
     }
-
-    private void Update()
-    {
-        if (BuildingIsPlaced)
-        {
-           
-        }
-
-    }
-
+   
     public void StartCoroutinePlusMoney()
     {
        
     }
 
-    private void OnDestroy()
-    {
-        WinManager.Instance.RemoveOutBuilding(this);
-    }
+    //private void OnDestroy()
+    //{
+    //    WinManager.Instance.RemoveOutBuilding(this);
+    //}
 }

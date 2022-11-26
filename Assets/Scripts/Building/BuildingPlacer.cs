@@ -24,6 +24,8 @@ public class BuildingPlacer : MonoBehaviour
     private float _elapsedTime;
     public int X;
     public int Z;
+
+    [SerializeField] MainBuilding _mainBuilding;
     public static BuildingPlacer Instance;
 
     private void Awake()
@@ -125,7 +127,16 @@ public class BuildingPlacer : MonoBehaviour
     {
         Building clousestBuilding = null;
         float minDistance = Mathf.Infinity;
-        //foreach (var item in BuildingsDictionary)
+
+        //for (int i = 0; i < WinManager.Instance.OurBarraks.Count; i++)
+        //{
+        //    float distance = Vector3.Distance(position, WinManager.Instance.OurBarraks[i].transform.position);
+        //    if (distance < minDistance)
+        //    {
+        //        minDistance = distance;
+        //        clousestBuilding = WinManager.Instance.OurBarraks[i];
+        //    }
+        //}
         foreach (var item in WinManager.Instance.OurBarraks)
         {
             float distance = Vector3.Distance(position, item.transform.position);
@@ -135,6 +146,7 @@ public class BuildingPlacer : MonoBehaviour
                 clousestBuilding = item;
             }
         }
+
         return clousestBuilding;
     }
 
@@ -157,11 +169,16 @@ public class BuildingPlacer : MonoBehaviour
             {
                 Vector2Int coords = new Vector2Int(xPos + x, zPos + z);
                 BuildingsDictionary.Add(coords, building);
-                //
+
                 CurrentBuilding.DisplayUsual();
                 CurrentBuilding.NavMeshObstacle.enabled = true;
-                //
+                if (CurrentBuilding.IsHouse == true)
+                {
+                    _mainBuilding.AddHousingForWorker();
+                    CurrentBuilding.IsHouse = false;
+                }
             }
+        WinManager.Instance.AddOurBuilding(CurrentBuilding);
     }
 
     public void ReleasePlace(float xPos, float zPos, Building building)

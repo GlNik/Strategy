@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Building : SelectableObject
 {
@@ -16,11 +17,13 @@ public class Building : SelectableObject
     [SerializeField] private int _health;
     private int _maxHealth;
     public NavMeshObstacle NavMeshObstacle;
+    public Collider Collider;
     [SerializeField] private GameObject _buildingMenu;
 
     public bool BuildingIsPlaced = false;
+    public bool IsHouse = false;
     public UnityEvent<int, int> OnChangeHealth;
-    private float _cells;
+    //private float _cells;
 
     private void Awake()
     {
@@ -29,17 +32,14 @@ public class Building : SelectableObject
             _startColor = _renderers[i].material.color;
         }
         _maxHealth = _health;
+       // OnChangeHealth.Invoke(_health, _maxHealth);
         _buildingMenu.SetActive(false);
     }
 
-    private void Start()
-    {
-        SellsSetup();
-    }
-
-    //private void OnEnable()
+    //private void Start()
     //{
-    //    SellsSetup();
+    //    OnChangeHealth.Invoke(_health, _maxHealth);
+    //   // SellsSetup();
     //}
 
     public override void Select()
@@ -60,21 +60,11 @@ public class Building : SelectableObject
         catch { };
     }
 
-    private void SellsSetup()
-    {
-        _cells = BuildingPlacer.Instance.CellSize;
-    }
-
-    //private void OnDrawGizmos()
+    //private void SellsSetup()
     //{
-    //    float cellSize = BuildingPlacer.Instance.CellSize;
-
-    //    for (int x = 0; x < XSize; x++)
-    //        for (int z = 0; z < ZSize; z++)
-    //        {
-    //            Gizmos.DrawWireCube(transform.position + new Vector3(x, 0, z) * cellSize, new Vector3(1, 0, 1) * cellSize);
-    //        }
+    //    _cells = BuildingPlacer.Instance.CellSize;
     //}
+   
 
     private void OnDrawGizmos()
     {
@@ -117,6 +107,7 @@ public class Building : SelectableObject
     public void DestroyBuilding()
     {
         BuildingPlacer.Instance.ReleasePlace(transform.position.x, transform.position.z, this);
+        WinManager.Instance.RemoveOutBuilding(this);
         Destroy(gameObject);
     }
 
@@ -127,7 +118,7 @@ public class Building : SelectableObject
         {
             DestroyBuilding();
         }
-        HealthBar.SetHealth(_health, _maxHealth);
+        HealthBar.SetHealth(_health, _maxHealth);      
         OnChangeHealth.Invoke(_health, _maxHealth);
     }
 
