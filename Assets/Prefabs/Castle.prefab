@@ -568,7 +568,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 4.964, y: 0}
   m_SizeDelta: {x: 19.928, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2453,7 +2453,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 4.964, y: 0}
   m_SizeDelta: {x: 19.928, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2903,8 +2903,6 @@ MonoBehaviour:
   _maxWorkers: 2
   _workerPrefab: {fileID: 5267064725682370532, guid: c0911f76138aca843b8bb7d1b0423922, type: 3}
   _timeToBuildUnit: 5
-  _progressText: {fileID: 8098845777727710287}
-  _sliderProgress: {fileID: 4543305682545348477}
   _circleProgressBar: {fileID: 7630964186059233302}
 --- !u!54 &7783306157679881722
 Rigidbody:
@@ -3038,7 +3036,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5227837132897152547
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3230,7 +3228,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1594988371998925247
 RectTransform:
   m_ObjectHideFlags: 0

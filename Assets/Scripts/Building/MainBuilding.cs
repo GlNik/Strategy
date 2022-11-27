@@ -16,16 +16,17 @@ public class MainBuilding : Building
 
     [SerializeField] float _timeToBuildUnit = 5f;
 
-    [SerializeField] private Text _progressText;
-    [SerializeField] private Slider _sliderProgress;
+    //[SerializeField] private Text _progressText;
+    //[SerializeField] private Slider _sliderProgress;
     [SerializeField] private Image _circleProgressBar;
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         WinManager.Instance.AddOurBuilding(this);
 
-        _progressText.text = "0%";
-        _sliderProgress.value = 0;
+       // _progressText.text = "0%";
+        //_sliderProgress.value = 0;
     }
 
     private void Update()
@@ -65,16 +66,16 @@ public class MainBuilding : Building
         for (float t = 0f; t < 1f; t += Time.deltaTime / _timeToBuildUnit)
         {
             _circleProgressBar.fillAmount = t;
-            _sliderProgress.value = t;
-            _progressText.text = (t * 100).ToString("0") + "%";
+            //_sliderProgress.value = t;
+            //_progressText.text = (t * 100).ToString("0") + "%";
 
             yield return null;
         }
         _workers++;
-        Instantiate(_workerPrefab, SpawnPoint.position + new Vector3(Random.Range(-0.5f, 0.5f), 0f, Random.Range(-0.5f, 0.5f)), Quaternion.Euler(0, 180, 0));
-        _sliderProgress.value = 0f;
+        Instantiate(_workerPrefab, SpawnPoint.position + new Vector3(Random.Range(-0.5f, 0.5f), 0f, Random.Range(-0.5f, 0.5f)), Quaternion.Euler(0, 0, 0));
+        //_sliderProgress.value = 0f;
         _circleProgressBar.fillAmount = 0f;
-        _progressText.text = "0%";
+        //_progressText.text = "0%";
 
 
         _activeCoroutine = null;

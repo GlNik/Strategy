@@ -11,8 +11,9 @@ public class Barracks : Building
     [SerializeField] private Image _alertNotEnoughMoney;
     private Coroutine _activeCoroutine;
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         _resources = Resources.Instance;
 
        // WinManager.Instance.AddOurBuilding(this);

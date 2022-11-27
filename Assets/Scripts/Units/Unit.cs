@@ -10,7 +10,10 @@ public enum UnitState
     WalkToEnemy,
     Attack,
     WalkToEnemyBuilding,
-    AttackBuilding
+    AttackBuilding,
+    //worker state
+    Work,
+    WalkToWorkBuilding
 }
 
 public class Unit : SelectableObject
@@ -21,7 +24,7 @@ public class Unit : SelectableObject
     private int _maxHealth;
     public Animator Animator;
 
-    public virtual void Start()
+    public virtual new void Start()
     {
         _maxHealth = _health;
     }
@@ -61,7 +64,7 @@ public class Unit : SelectableObject
     }
 
     private void Die()
-    {        
+    {
         Destroy(this);
         Destroy(NavMeshAgent);
         Unselect();

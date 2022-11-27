@@ -34,8 +34,9 @@ public class Building : SelectableObject
         _maxHealth = _health;       
     }
 
-    private void Start()
+    public override void Start()
     {
+        base.Start(); 
         OnChangeHealth.Invoke(_health, _maxHealth);
         _buildingMenu.SetActive(false);
     }

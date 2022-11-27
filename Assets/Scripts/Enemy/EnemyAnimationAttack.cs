@@ -15,6 +15,9 @@ public class EnemyAnimationAttack : MonoBehaviour
                 _enemy.AttackFromAnimation();
             }
         }
-        _enemy.AttackBuildingFromAnimation();
+        if (_enemy.CurrentEnemyState == EnemyState.AttackBuilding)
+        {
+            _enemy.AttackBuildingFromAnimation();
+        }
     }
 }

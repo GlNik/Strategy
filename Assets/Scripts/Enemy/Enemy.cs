@@ -29,7 +29,7 @@ public class Enemy : SelectableObject
     private bool _isGuard = false;
     [SerializeField] private int _damage = 1;
 
-    private void Start()
+    public override void Start()
     {
         _maxHealth = _health;
         if (_isGuard)

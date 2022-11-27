@@ -10,8 +10,14 @@ public class AnimationAttack : MonoBehaviour
     {
         if (_viking != null)
         {
-            _viking.AttackFromAnimation();
+            if (_viking.CurrentUnitState == UnitState.Attack)
+            {
+                _viking.AttackFromAnimation();
+            }
         }
-        _viking.AttackBuildingFromAnimation();
+        if (_viking.CurrentUnitState == UnitState.AttackBuilding)
+        {
+            _viking.AttackBuildingFromAnimation();
+        }
     }
 }
