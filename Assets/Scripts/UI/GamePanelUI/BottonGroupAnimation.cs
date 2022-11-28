@@ -1,7 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
 
-
 public class BottonGroupAnimation : MonoBehaviour
 {
     public static BottonGroupAnimation Instance;

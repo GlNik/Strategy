@@ -1,19 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.EventSystems;
-using static UnityEditor.Progress;
+
 
 [ExecuteAlways]
 public class BuildingPlacer : MonoBehaviour
 {
     public float CellSize = 1f;
-    [SerializeField] private Camera _raycastCamera;
-    private Plane _plane;
     public Building CurrentBuilding;
     public Building ReadyBuilding;
     public Dictionary<Vector2Int, Building> BuildingsDictionary = new Dictionary<Vector2Int, Building>();
+
+    [SerializeField] private Camera _raycastCamera;
+    private Plane _plane;
     private Resources _resources;
 
     [SerializeField] private Transform _cornerA;
@@ -22,6 +21,7 @@ public class BuildingPlacer : MonoBehaviour
     private Vector3Int _cornerAPosition;
     private Vector3Int _cornerBPosition;
     private float _elapsedTime;
+
     public int X;
     public int Z;
 
@@ -87,8 +87,6 @@ public class BuildingPlacer : MonoBehaviour
         X = Mathf.RoundToInt(point.x) - (CurrentBuilding.XSize / 2 - 1);
         Z = Mathf.RoundToInt(point.z) - (CurrentBuilding.ZSize / 2 - 1);
 
-        //x = Mathf.Clamp(x, -60, 60);
-        //z = Mathf.Clamp(z, -38, 45);
         X = Mathf.Clamp(X, _cornerAPosition.x, _cornerBPosition.x);
         Z = Mathf.Clamp(Z, _cornerAPosition.z, _cornerBPosition.z);
 
@@ -102,13 +100,9 @@ public class BuildingPlacer : MonoBehaviour
                 int price = CurrentBuilding.Price;
                 _resources.SpendMoney(price);
 
-                //var placedBuilding = Instantiate(ReadyBuilding, CurrentBuilding.transform.position, Quaternion.identity);
-                //placedBuilding.BuildingIsPlaced = true;
                 CurrentBuilding.BuildingIsPlaced = true;
-                //PlaceBuilding(x, z, placedBuilding);
-                PlaceBuilding(X, Z, CurrentBuilding);
 
-                //Destroy(CurrentBuilding.gameObject);
+                PlaceBuilding(X, Z, CurrentBuilding);
 
                 CurrentBuilding = null;
             }
@@ -128,15 +122,6 @@ public class BuildingPlacer : MonoBehaviour
         Building clousestBuilding = null;
         float minDistance = Mathf.Infinity;
 
-        //for (int i = 0; i < WinManager.Instance.OurBarraks.Count; i++)
-        //{
-        //    float distance = Vector3.Distance(position, WinManager.Instance.OurBarraks[i].transform.position);
-        //    if (distance < minDistance)
-        //    {
-        //        minDistance = distance;
-        //        clousestBuilding = WinManager.Instance.OurBarraks[i];
-        //    }
-        //}
         foreach (var item in WinManager.Instance.OurBarraks)
         {
             float distance = Vector3.Distance(position, item.transform.position);
@@ -222,7 +207,6 @@ public class BuildingPlacer : MonoBehaviour
         _elapsedTime = 0f;
 
         Quaternion rotationRight = Quaternion.Euler(new Vector3(0f, degrees, 0f)) * CurrentBuilding.transform.rotation;
-        //CurrentBuilding.transform.rotation = Quaternion.Lerp(CurrentBuilding.transform.rotation, rotationRight, Time.deltaTime * 5f);
         CurrentBuilding.transform.rotation = rotationRight;
 
         int temp = CurrentBuilding.XSize;

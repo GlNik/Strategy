@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,16 +6,14 @@ using UnityEngine.UI;
 public class Barracks : Building
 {
     [SerializeField] private Unit _unitPrefab;
-    private Resources _resources;
     [SerializeField] private Image _alertNotEnoughMoney;
+    private Resources _resources;
     private Coroutine _activeCoroutine;
 
     public override void Start()
     {
         base.Start();
         _resources = Resources.Instance;
-
-       // WinManager.Instance.AddOurBuilding(this);
     }
 
     public void TryHire()
@@ -50,9 +47,4 @@ public class Barracks : Building
         }
         _alertNotEnoughMoney.gameObject.SetActive(false);
     }
-
-    //private void OnDestroy()
-    //{
-    //    WinManager.Instance.RemoveOutBuilding(this);
-    //}
 }

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -96,10 +95,6 @@ public class Enemy : SelectableObject
             }
             _animator.SetBool("InMotion", false);
         }
-        //else if (FindClosestUnit())
-        //{
-        //    SetState(EnemyState.WalkToUnit);
-        //}
         else
         {
             SetState(EnemyState.Idle);
@@ -118,7 +113,6 @@ public class Enemy : SelectableObject
         }
         else
         {
-            // как избежать GetComponentInChildren ?
             _distance = Vector3.Distance(transform.position, _targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
             if (_distance < _distanceToAttack)
                 SetState(EnemyState.AttackBuilding);
@@ -186,12 +180,12 @@ public class Enemy : SelectableObject
         else
         {
             FaceTarget(_targetBuilding.transform.position);
-            // как избежать GetComponentInChildren ?
             _distance = Vector3.Distance(transform.position, _targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
             if (_distance > _distanceToAttack)
                 SetState(EnemyState.WalkToBuilding);
         }
     }
+
     public void AttackBuildingFromAnimation()
     {
         if (_targetBuilding)
@@ -237,7 +231,6 @@ public class Enemy : SelectableObject
                 }
                 if (_targetBuilding)
                 {
-                    // как избежать GetComponentInChildren ?
                     _navMeshAgent.SetDestination(_targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
                 }
                 break;

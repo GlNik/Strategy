@@ -1,6 +1,4 @@
-using Newtonsoft.Json.Bson;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +15,7 @@ public class Mine : Building
     {
         _resources = Resources.Instance;
         _startTime = Time.time;
-        _plusText.text = "+" + _moneyToAdd;      
+        _plusText.text = "+" + _moneyToAdd;
     }
 
     private void Update()
@@ -59,8 +57,4 @@ public class Mine : Building
         _plusText.gameObject.SetActive(false);
     }
 
-    //private void OnDestroy()
-    //{
-    //    WinManager.Instance.RemoveOutBuilding(this);
-    //}
 }

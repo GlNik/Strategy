@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyCreator : MonoBehaviour
 {
     [SerializeField] private Transform _spawn;
-    private float _spawnPeriod;
     [SerializeField] private Enemy _enemyPrefab;
+    private float _spawnPeriod;
     private float _timer;
 
     private void Update()

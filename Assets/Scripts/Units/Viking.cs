@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEditor;
 using UnityEngine;
 
@@ -93,7 +91,7 @@ public class Viking : Unit
             {
                 if (NavMeshAgent.velocity.magnitude <= 0.01f)
                 {
-                    SetState(UnitState.Idle);                  
+                    SetState(UnitState.Idle);
                 }
             }
     }
@@ -127,11 +125,10 @@ public class Viking : Unit
         if (_targetBuilding == null)
         {
             SetState(UnitState.Idle);
-            NavMeshAgent.SetDestination(transform.position);            
+            NavMeshAgent.SetDestination(transform.position);
         }
         else
         {
-            // как избежать GetComponentInChildren ?
             _distance = Vector3.Distance(transform.position, _targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
             if (_distance < _distanceToAttack)
                 SetState(UnitState.AttackBuilding);
@@ -169,7 +166,6 @@ public class Viking : Unit
         }
         else
         {
-            // как избежать GetComponentInChildren ?
             FaceTarget(_targetBuilding.transform.position);
             _distance = Vector3.Distance(transform.position, _targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
             if (_distance > _distanceToAttack)
@@ -185,7 +181,7 @@ public class Viking : Unit
             _targetBuilding.TakeDamage(_damage);
     }
 
-    private void FaceTarget(Vector3 destination) // for stopping distance
+    private void FaceTarget(Vector3 destination)
     {
         Vector3 lookPos = destination - transform.position;
         lookPos.y = 0;
@@ -205,7 +201,7 @@ public class Viking : Unit
             //case UnitState.Idle:                
             //    break;
             case UnitState.WalkToPoint:
-                NavMeshAgent.stoppingDistance = 0.05f;//0.05           
+                NavMeshAgent.stoppingDistance = 0.05f;
                 break;
             case UnitState.WalkToEnemy:
                 NavMeshAgent.stoppingDistance = _stopAround;
@@ -217,7 +213,6 @@ public class Viking : Unit
             case UnitState.WalkToEnemyBuilding:
                 if (_targetBuilding)
                 {
-                    // как избежать GetComponentInChildren ?
                     NavMeshAgent.SetDestination(_targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
                 }
                 break;
@@ -240,10 +235,7 @@ public class Viking : Unit
     {
         while (true)
         {
-            //if (CurrentUnitState != UnitState.Attack && CurrentUnitState != UnitState.AttackBuilding
-            //    && CurrentUnitState != UnitState.WalkToPoint && CurrentUnitState != UnitState.WalkToEnemyBuilding)
-            if(CurrentUnitState == UnitState.Idle)
-
+            if (CurrentUnitState == UnitState.Idle)
             {
                 if (FindClosestEnemy())
                 {

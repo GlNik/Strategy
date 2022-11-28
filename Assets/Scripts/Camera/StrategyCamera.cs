@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class StrategyCamera : MonoBehaviour
@@ -122,7 +120,7 @@ public class StrategyCamera : MonoBehaviour
         //var minZoom = RestrictClipping();
         //Zoom(minZoom);
         Zoom(6);
-      
+
         transform.SetPositionAndRotation(targetPosition, targetRotation);
     }
 

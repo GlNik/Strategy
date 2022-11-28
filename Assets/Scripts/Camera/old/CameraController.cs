@@ -1,15 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
+
 
 public class CameraController : MonoBehaviour
-{
-    /* To turn off the visibility 
-     * of the float inputs in the editor 
-     * just delete [SerializeField] 
-     * from the beginning of each float line */
-
+{   
     public Transform cameraTransform;
 
     [SerializeField] private float _camSpeed = 1f; //Speed of the camera

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,6 +26,7 @@ public class UnitsManager : MonoBehaviour
     {
         _viking.Add(viking);
     }
+
     public void AddWorker(Worker worker)
     {
         _worker.Add(worker);

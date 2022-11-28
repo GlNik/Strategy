@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,7 +23,7 @@ public class MainBuilding : Building
         base.Start();
         WinManager.Instance.AddOurBuilding(this);
 
-       // _progressText.text = "0%";
+        // _progressText.text = "0%";
         //_sliderProgress.value = 0;
     }
 
@@ -36,17 +34,9 @@ public class MainBuilding : Building
             if (_workers < _maxWorkers)
             {
                 GeneratingUnit();
-                // PlusOneWorker();
-                //StartCoroutinePlusWorker();               
             }
         }
     }
-
-    //private void PlusOneWorker()
-    //{
-    //    _workers++;
-    //    Instantiate(_workerPrefab, SpawnPoint.position + new Vector3(Random.Range(-0.5f, 0.5f), 0f, Random.Range(-0.5f, 0.5f)), Quaternion.Euler(0, 180, 0));
-    //}   
 
     public void AddHousingForWorker()
     {

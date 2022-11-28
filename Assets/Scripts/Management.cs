@@ -122,7 +122,6 @@ public class Management : MonoBehaviour
             {
                 if (Input.GetMouseButtonUp(1) && !EventSystem.current.IsPointerOverGameObject())//0
                 {
-                    // if (hit.collider.GetComponent<Ground>() != null)
                     if (hit.collider.gameObject.layer == _layerMaskGround)
                     {
                         int rowNumber = Mathf.CeilToInt(Mathf.Sqrt(ListOfSelected.Count));

@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
 
 public class Worker : Unit
-{    
+{
     public UnitState CurrentWorkerState;
 
     private Vector3 _targetPoint;
@@ -24,7 +22,7 @@ public class Worker : Unit
         base.Start();
         SetState(UnitState.Idle);
         UnitsManager.Instance.AddWorker(this);
-       // StartCoroutine(FindTarget());
+        // StartCoroutine(FindTarget());
     }
 
     public override void SetTarget(SelectableObject target)
@@ -46,15 +44,6 @@ public class Worker : Unit
         base.Update();
 
         cntFramesAfterSetState++;
-
-        //if (CurrentWorkerState == UnitState.Attack || CurrentWorkerState == UnitState.AttackBuilding)
-        //{
-        //    Animator.SetBool("Attacking", true);
-        //}
-        //else
-        //{
-        //    Animator.SetBool("Attacking", false);
-        //}
 
         switch (CurrentWorkerState)
         {
@@ -90,30 +79,6 @@ public class Worker : Unit
             }
     }
 
-    //private void WalkToEnemy()
-    //{
-    //    if (!_targetEnemy)
-    //    {
-    //        SetState(WorkerState.Idle);
-    //    }
-    //    else
-    //    {
-    //        _distance = Vector3.Distance(transform.position, _targetEnemy.transform.position);
-    //        if (_distance > _distanceToFollow)
-    //        {
-    //            SetState(WorkerState.Idle);
-    //        }
-    //        else
-    //        {
-    //            NavMeshAgent.SetDestination(_targetEnemy.transform.position);
-    //            if (_distance < _distanceToAttack)
-    //            {
-    //                //SetState(WorkerState.Attack);
-    //            }
-    //        }
-    //    }
-    //}
-
     private void WalkToBuilding()
     {
         if (_targetBuilding == null)
@@ -123,7 +88,6 @@ public class Worker : Unit
         }
         else
         {
-            // как избежать GetComponentInChildren ?
             _distance = Vector3.Distance(transform.position, _targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
             if (_distance < _distanceToAttack)
             {
@@ -131,53 +95,6 @@ public class Worker : Unit
             }
         }
     }
-
-    //private void Attack()
-    //{
-    //    if (!_targetEnemy)
-    //    {
-    //        SetState(WorkerState.Idle);
-    //    }
-    //    else
-    //    {
-    //        FaceTarget(_targetEnemy.transform.position);
-    //        _distance = Vector3.Distance(transform.position, _targetEnemy.transform.position);
-    //        if (_distance > _distanceToAttack)
-    //        {
-    //            // SetState(WorkerState.WalkToEnemy);
-    //        }
-    //    }
-    //}
-
-    //public void AttackFromAnimation()
-    //{
-    //    if (_targetEnemy)
-    //        _targetEnemy.TakeDamage(_damage);
-    //}
-
-    //private void AttackBuilding()
-    //{
-    //    if (!_targetBuilding)
-    //    {
-    //        SetState(WorkerState.Idle);
-    //    }
-    //    else
-    //    {
-    //        // как избежать GetComponentInChildren ?
-    //        FaceTarget(_targetBuilding.transform.position);
-    //        _distance = Vector3.Distance(transform.position, _targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
-    //        if (_distance > _distanceToAttack)
-    //        {
-    //            SetState(WorkerState.WalkToBuilding);
-    //        }
-    //    }
-    //}
-
-    //public void AttackBuildingFromAnimation()
-    //{
-    //    if (_targetBuilding)
-    //        _targetBuilding.TakeDamage(_damage);
-    //}
 
     private void FaceTarget(Vector3 destination) // for stopping distance
     {
@@ -199,7 +116,7 @@ public class Worker : Unit
             //case UnitState.Idle:                
             //    break;
             case UnitState.WalkToPoint:
-                NavMeshAgent.stoppingDistance = 0.05f;                
+                NavMeshAgent.stoppingDistance = 0.05f;
                 break;
             case UnitState.WalkToWorkBuilding:
                 if (_targetBuilding)
@@ -213,29 +130,8 @@ public class Worker : Unit
 
     private void OnDestroy()
     {
-         UnitsManager.Instance.RemoveWorker(this);
+        UnitsManager.Instance.RemoveWorker(this);
     }
-
-    //private bool FindClosestEnemy()
-    //{
-    //    _targetEnemy = UnitsManager.Instance.GetClousestEnemy(transform.position, _distanceToFollow);
-    //    return _targetEnemy != null;
-    //}
-
-    //private IEnumerator FindTarget()
-    //{
-    //    while (true)
-    //    {
-    //        if (CurrentWorkerState == WorkerState.Idle)
-    //        {
-    //            if (FindClosestEnemy())
-    //            {
-    //                // SetState(WorkerState.WalkToEnemy);
-    //            }
-    //        }
-    //        yield return new WaitForSeconds(0.5f);
-    //    }
-    //}
 
     public override void WhenClickOnGround(Vector3 point)
     {

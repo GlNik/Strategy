@@ -7,8 +7,8 @@ public class BuildingButton : MonoBehaviour
     public BuildingPlacer BuildingPlacer;
     [SerializeField] private Building _buildingPrefab;
     [SerializeField] private Text _priceText;
-    private int _price;
     [SerializeField] private CanvasGroup _alertNotEnoughMoney;
+    private int _price;
     private Resources _resources;
     //private Coroutine _activeCoroutine;
 
@@ -41,7 +41,7 @@ public class BuildingButton : MonoBehaviour
         }
         // списываем только при проставке здания!
         if (_resources.CheckMoney(_price))
-        {          
+        {
             BuildingPlacer.CreateBuilding(_buildingPrefab);
         }
         else
@@ -58,14 +58,4 @@ public class BuildingButton : MonoBehaviour
             tween.onComplete += () => { _showState = false; };
         }
     }
-
-
-
-    //private void OnDisable()
-    //{
-    //    if (_activeCoroutine != null)
-    //    {
-    //        StopCoroutine(_activeCoroutine);
-    //    }
-    //}
 }
