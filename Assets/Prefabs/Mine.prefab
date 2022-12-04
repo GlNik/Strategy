@@ -354,8 +354,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 11.43, y: 11.433572, z: 11.54}
-  m_Center: {x: 0.59048176, y: 5.44, z: -2.3716145}
+  m_Size: {x: 11.43, y: 5.2770085, z: 11.540002}
+  m_Center: {x: 0.59048176, y: 2.3617194, z: -2.3716145}
 --- !u!208 &2532867025601183389
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -949,8 +949,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -23.3, y: -10}
-  m_SizeDelta: {x: 30, y: 30}
+  m_AnchoredPosition: {x: -5, y: 0}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &4468438358153574453
 CanvasRenderer:
@@ -980,7 +980,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1f083bd8220c97243858d7c2a1055d73, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0544638c127de0040aa478c0ec1a0cb5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1285,11 +1285,11 @@ MonoBehaviour:
   _renderers:
   - {fileID: 4691739174994182003}
   - {fileID: 337631864657433009}
-  SpawnPoint: {fileID: 0}
+  _buildingMenu: {fileID: 3991901586867959411}
   _health: 100
+  SpawnPoint: {fileID: 0}
   NavMeshObstacle: {fileID: 2532867025601183389}
   Collider: {fileID: 1782477338694123989}
-  _buildingMenu: {fileID: 3991901586867959411}
   BuildingIsPlaced: 0
   IsHouse: 0
   OnChangeHealth:

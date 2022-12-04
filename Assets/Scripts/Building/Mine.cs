@@ -11,8 +11,9 @@ public class Mine : Building
     [SerializeField] private Text _plusText;
     Coroutine _activeCoroutine;
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         _resources = Resources.Instance;
         _startTime = Time.time;
         _plusText.text = "+" + _moneyToAdd;

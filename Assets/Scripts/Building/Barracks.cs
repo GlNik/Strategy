@@ -39,10 +39,11 @@ public class Barracks : Building
 
         Text childText = _alertNotEnoughMoney.transform.GetChild(0).GetComponent<Text>();
 
-        for (float t = 2f; t > 0f; t -= Time.deltaTime * 1f)
+        float fadeTime = 2f;
+        for (float t = 1f; t > 0f; t -= Time.deltaTime / fadeTime)
         {
-            _alertNotEnoughMoney.color = new Color(1f, 0f, 0f, Mathf.Clamp01(t) * 0.5f);
-            childText.color = new Color(1f, 1f, 0f, Mathf.Clamp01(t));
+            _alertNotEnoughMoney.color = new Color(1f, 0f, 0f, t * 0.5f);
+            childText.color = new Color(1f, 1f, 0f, t);
             yield return null;
         }
         _alertNotEnoughMoney.gameObject.SetActive(false);

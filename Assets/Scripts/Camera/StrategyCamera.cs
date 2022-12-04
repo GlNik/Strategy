@@ -131,9 +131,9 @@ public class StrategyCamera : MonoBehaviour
 
         if (Input.GetMouseButton((int)DraggingMouseButton))
         {
-            var multiplier = InvertDragging ? DraggingSpeed : -DraggingSpeed;
-            forwards -= multiplier * Input.GetAxis(VerticalOrbitingAxis);
-            sideways += multiplier * Input.GetAxis(HorizontalOrbitingAxis);
+            //var multiplier = InvertDragging ? DraggingSpeed : -DraggingSpeed;
+            //forwards -= multiplier * Input.GetAxis(VerticalOrbitingAxis);
+            //sideways += multiplier * Input.GetAxis(HorizontalOrbitingAxis);
         }
         else
         {
@@ -266,63 +266,63 @@ public class StrategyCamera : MonoBehaviour
     void HandleMovementInput()
     {
 
-        if (!EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+
+        if (Input.mousePosition.y >= Screen.height - CamBorderMovement)
         {
-            if (Input.mousePosition.y >= Screen.height - CamBorderMovement)
-            {
-                targetPosition += (transform.forward * CamMovementSpeed);
-            }
-
-            if (Input.mousePosition.y <= CamBorderMovement)
-            {
-                targetPosition += (transform.forward * -CamMovementSpeed);
-            }
-
-            if (Input.mousePosition.x >= Screen.width - CamBorderMovement)
-            {
-                targetPosition += (transform.right * CamMovementSpeed);
-            }
-
-            if (Input.mousePosition.x <= CamBorderMovement)
-            {
-                targetPosition += (transform.right * -CamMovementSpeed);
-            }
-
-
-            //Keyboard setup for camera rotate
-            if (Input.GetKey(KeyCode.Q))
-            {
-                targetRotation *= Quaternion.Euler(0, CamRotationAmount, 0);
-            }
-
-            if (Input.GetKey(KeyCode.E))
-            {
-                targetRotation *= Quaternion.Euler(0, -CamRotationAmount, 0);
-            }
-
-            //Setting Borders
-            if (targetPosition.x < MinPosition.x)
-            {
-                targetPosition = new Vector3(MinPosition.x, 0, transform.position.z);
-
-            }
-            else if (targetPosition.x > MaxPosition.x)
-            {
-                targetPosition = new Vector3(MaxPosition.x, 0, transform.position.z);
-            }
-
-            if (targetPosition.z < MinPosition.z)
-            {
-                targetPosition = new Vector3(transform.position.x, 0, MinPosition.z);
-
-            }
-            else if (targetPosition.z > MaxPosition.z)
-            {
-                targetPosition = new Vector3(transform.position.x, 0, MaxPosition.z);
-            }
-
-            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * CamSmoothness);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * CamSmoothness);
+            targetPosition += (transform.forward * CamMovementSpeed);
         }
+
+        if (Input.mousePosition.y <= CamBorderMovement)
+        {
+            targetPosition += (transform.forward * -CamMovementSpeed);
+        }
+
+        if (Input.mousePosition.x >= Screen.width - CamBorderMovement)
+        {
+            targetPosition += (transform.right * CamMovementSpeed);
+        }
+
+        if (Input.mousePosition.x <= CamBorderMovement)
+        {
+            targetPosition += (transform.right * -CamMovementSpeed);
+        }
+
+
+        //Keyboard setup for camera rotate
+        if (Input.GetKey(KeyCode.Q))
+        {
+            targetRotation *= Quaternion.Euler(0, CamRotationAmount, 0);
+        }
+
+        if (Input.GetKey(KeyCode.E))
+        {
+            targetRotation *= Quaternion.Euler(0, -CamRotationAmount, 0);
+        }
+
+        //Setting Borders
+        if (targetPosition.x < MinPosition.x)
+        {
+            targetPosition = new Vector3(MinPosition.x, 0, transform.position.z);
+
+        }
+        else if (targetPosition.x > MaxPosition.x)
+        {
+            targetPosition = new Vector3(MaxPosition.x, 0, transform.position.z);
+        }
+
+        if (targetPosition.z < MinPosition.z)
+        {
+            targetPosition = new Vector3(transform.position.x, 0, MinPosition.z);
+
+        }
+        else if (targetPosition.z > MaxPosition.z)
+        {
+            targetPosition = new Vector3(transform.position.x, 0, MaxPosition.z);
+        }
+
+        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * CamSmoothness);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * CamSmoothness);
+
     }
 }
