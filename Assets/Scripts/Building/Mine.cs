@@ -1,15 +1,18 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Mine : Building
 {
     private Resources _resources;
     private float _startTime;
+    private Coroutine _activeCoroutine;
+    private Worker _targetUnit;
+
     [SerializeField] private float _period = 10f;
     [SerializeField] private int _moneyToAdd = 10;
     [SerializeField] private Text _plusText;
-    Coroutine _activeCoroutine;
 
     public override void Start()
     {
@@ -30,7 +33,6 @@ public class Mine : Building
                 _startTime = Time.time;
             }
         }
-
     }
 
     public void StartCoroutinePlusMoney()
@@ -57,5 +59,13 @@ public class Mine : Building
         }
         _plusText.gameObject.SetActive(false);
     }
+
+
+    //private bool FindWorker()
+    //{
+    //    _targetUnit = UnitsManager.Instance.GetFreeWorker();
+    //    return _targetUnit != null;
+    //    //SetDiration(transform.position);
+    //}
 
 }

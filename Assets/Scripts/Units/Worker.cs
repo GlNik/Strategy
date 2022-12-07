@@ -1,7 +1,9 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.UIElements;
 
 public class Worker : Unit
 {
@@ -17,12 +19,17 @@ public class Worker : Unit
     [SerializeField] private float _stopAround = 1.5f;
     [SerializeField] private GameObject _pointClickFX;
 
+    private void Awake()
+    {
+        UnitsManager.Instance.AddFreeWorker(this);
+    }
+
     public override void Start()
     {
         base.Start();
         SetState(UnitState.Idle);
-        UnitsManager.Instance.AddWorker(this);
-        // StartCoroutine(FindTarget());
+
+
     }
 
     public override void SetTarget(SelectableObject target)
@@ -30,7 +37,6 @@ public class Worker : Unit
         if (target.TryGetComponent(out Enemy enemy))
         {
             _targetEnemy = enemy;
-            //SetState(WorkerState.WalkToEnemy);
         }
         else if (target.TryGetComponent(out EnemyBuilding enemyBuilding))
         {
@@ -128,9 +134,68 @@ public class Worker : Unit
         }
     }
 
+
+
+    public void MoveToBuilding(Vector3 position)
+    {
+        NavMeshAgent.SetDestination(position);
+        SetState(UnitState.WalkToPoint);
+        StartCoroutine(UpdateDistance(position));
+    }
+
+
+
+    public void ReturnToSpawnPoint(Vector3 position)
+    {
+        SetState(UnitState.WalkToPoint);
+        gameObject.SetActive(true);
+        NavMeshAgent.SetDestination(position);
+
+        StartCoroutine(UpdateDistanceToSpawn(position));
+    }
+
+    IEnumerator UpdateDistance(Vector3 distance)
+    {
+        while (true)
+        {
+            _distance = Vector3.Distance(transform.position, distance);
+            if (_distance < 2f)
+            {
+
+                gameObject.SetActive(false);
+
+                StopCoroutine(nameof(UpdateDistance));
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    IEnumerator UpdateDistanceToSpawn(Vector3 distance)
+    {
+        bool state = true;
+        while (true)
+        {
+            _distance = Vector3.Distance(transform.position, distance);
+            if (_distance < 2f && state)
+            {
+                state = false;
+                UnitsManager.Instance.SetFreeWorker(this);               
+
+                StopCoroutine(nameof(UpdateDistanceToSpawn));            
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+
+    //private void OnDisable()
+    //{        
+    //    StopCoroutine(nameof(UpdateDistance));
+    //}
+
     private void OnDestroy()
     {
-        UnitsManager.Instance.RemoveWorker(this);
+        UnitsManager.Instance.RemoveFreeWorker(this);
     }
 
     public override void WhenClickOnGround(Vector3 point)

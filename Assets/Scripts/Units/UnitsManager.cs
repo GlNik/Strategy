@@ -4,9 +4,12 @@ using UnityEngine;
 public class UnitsManager : MonoBehaviour
 {
     private List<Viking> _viking = new List<Viking>();
-    private List<Worker> _worker = new List<Worker>();
+    private List<Worker> _freeWorker = new List<Worker>();
+    private List<Worker> _busyWorker = new List<Worker>();
 
     private List<Enemy> _enemy = new List<Enemy>();
+
+    public List<Worker> FreeWorker  => _freeWorker; 
 
     public static UnitsManager Instance;
 
@@ -27,9 +30,15 @@ public class UnitsManager : MonoBehaviour
         _viking.Add(viking);
     }
 
-    public void AddWorker(Worker worker)
+    public void AddFreeWorker(Worker worker)
     {
-        _worker.Add(worker);
+        _freeWorker.Add(worker);
+        print(_freeWorker.Count);
+    }
+
+    public void AddBusyWorker(Worker worker)
+    {
+        _busyWorker.Add(worker);
     }
 
     public void AddEnemy(Enemy enemy)
@@ -42,15 +51,21 @@ public class UnitsManager : MonoBehaviour
         _viking.Remove(viking);
     }
 
-    public void RemoveWorker(Worker worker)
+    public void RemoveFreeWorker(Worker worker)
     {
-        _worker.Remove(worker);
+        _freeWorker.Remove(worker);
+        print(_freeWorker.Count);
+    }
+    public void RemoveBusyWorker(Worker worker)
+    {
+        _busyWorker.Remove(worker);
     }
 
     public void RemoveEnemy(Enemy enemy)
     {
         _enemy.Remove(enemy);
     }
+
     public Unit GetClousestUnit(Vector3 position)
     {
         Unit clousestUnit = null;
@@ -67,20 +82,22 @@ public class UnitsManager : MonoBehaviour
         return clousestUnit;
     }
 
-    public Worker GetClousestWorker(Vector3 position)
+    public Worker GetFreeWorker()
     {
-        Worker clousesWorker = null;
-        float minDistance = Mathf.Infinity;
-        for (int i = 0; i < _worker.Count; i++)
+        Worker clousesWorker = null;        
+        for (int i = 0; i < _freeWorker.Count; i++)
         {
-            float distance = Vector3.Distance(position, _worker[i].transform.position);
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                clousesWorker = _worker[i];
-            }
+            clousesWorker =_freeWorker[Random.Range(0,_freeWorker.Count)];           
+            RemoveFreeWorker(clousesWorker);
+            AddBusyWorker(clousesWorker);
         }
         return clousesWorker;
+    }
+
+    public void SetFreeWorker(Worker worker)
+    {
+        RemoveBusyWorker(worker);
+        AddFreeWorker(worker);
     }
 
     public Enemy GetClousestEnemy(Vector3 position, float distanceToEnemy)
