@@ -268,25 +268,25 @@ public class StrategyCamera : MonoBehaviour
 
         if (EventSystem.current.IsPointerOverGameObject()) return;
 
-        if (Input.mousePosition.y >= Screen.height - CamBorderMovement)
-        {
-            targetPosition += (transform.forward * CamMovementSpeed);
-        }
+        //if (Input.mousePosition.y >= Screen.height - CamBorderMovement)
+        //{
+        //    targetPosition += (transform.forward * CamMovementSpeed);
+        //}
 
-        if (Input.mousePosition.y <= CamBorderMovement)
-        {
-            targetPosition += (transform.forward * -CamMovementSpeed);
-        }
+        //if (Input.mousePosition.y <= CamBorderMovement)
+        //{
+        //    targetPosition += (transform.forward * -CamMovementSpeed);
+        //}
 
-        if (Input.mousePosition.x >= Screen.width - CamBorderMovement)
-        {
-            targetPosition += (transform.right * CamMovementSpeed);
-        }
+        //if (Input.mousePosition.x >= Screen.width - CamBorderMovement)
+        //{
+        //    targetPosition += (transform.right * CamMovementSpeed);
+        //}
 
-        if (Input.mousePosition.x <= CamBorderMovement)
-        {
-            targetPosition += (transform.right * -CamMovementSpeed);
-        }
+        //if (Input.mousePosition.x <= CamBorderMovement)
+        //{
+        //    targetPosition += (transform.right * -CamMovementSpeed);
+        //}
 
 
         //Keyboard setup for camera rotate

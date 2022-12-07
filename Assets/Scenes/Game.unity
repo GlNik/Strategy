@@ -529,51 +529,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 493538, guid: a191bb751b4a8aa4dac078058b125484, type: 3}
   m_PrefabInstance: {fileID: 15334771}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &19536034
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 19536036}
-  - component: {fileID: 19536037}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &19536036
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19536034}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &19536037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19536034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae50a396764c8a249a71652dfd6b76d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mainBuilding: {fileID: 7413565710345914294, guid: 77cb98f363cd2a94c8532820c4dff6aa, type: 3}
 --- !u!1 &26443047
 GameObject:
   m_ObjectHideFlags: 0
@@ -5850,7 +5805,7 @@ MonoBehaviour:
   MaxPosition: {x: 100, y: 6, z: 100}
   InputAxisZoom: 
   InvertZooming: 0
-  ZoomSensitivity: 8
+  ZoomSensitivity: 50
   ZoomInterpolationSpeed: 10
   MinZoomDistance: 5
   MaxZoomDistance: 50
@@ -25938,8 +25893,8 @@ MonoBehaviour:
   _componentsToDisable:
   - {fileID: 230103098}
   - {fileID: 1353534735}
-  _gameButtons: {fileID: 965928662}
-  _horizontalPanel: {fileID: 421971469}
+  _gameButtons: {fileID: 0}
+  _horizontalPanel: {fileID: 0}
 --- !u!4 &1196123964
 Transform:
   m_ObjectHideFlags: 0
