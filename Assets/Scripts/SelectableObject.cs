@@ -7,7 +7,7 @@ public class SelectableObject : MonoBehaviour
     public GameObject Badge;
     public HealthBar HealthBar;
 
-    private void Awake()
+    public virtual void Awake()
     {
         Unselect();
         if (Badge)

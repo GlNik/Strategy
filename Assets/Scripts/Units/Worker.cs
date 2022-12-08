@@ -19,8 +19,9 @@ public class Worker : Unit
     [SerializeField] private float _stopAround = 1.5f;
     [SerializeField] private GameObject _pointClickFX;
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
         UnitsManager.Instance.AddFreeWorker(this);
     }
 
@@ -179,19 +180,14 @@ public class Worker : Unit
             if (_distance < 2f && state)
             {
                 state = false;
-                UnitsManager.Instance.SetFreeWorker(this);               
+                UnitsManager.Instance.SetFreeWorker(this);
+                SetState(UnitState.Idle);
 
-                StopCoroutine(nameof(UpdateDistanceToSpawn));            
+                StopCoroutine(nameof(UpdateDistanceToSpawn));
             }
             yield return new WaitForSeconds(0.5f);
         }
     }
-
-
-    //private void OnDisable()
-    //{        
-    //    StopCoroutine(nameof(UpdateDistance));
-    //}
 
     private void OnDestroy()
     {

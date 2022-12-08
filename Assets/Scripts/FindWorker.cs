@@ -27,7 +27,7 @@ public class FindWorker : MonoBehaviour
     }
 
     public void ActiveSelfWorker()
-    {        
+    {
         if (!_freeState)
         {
             if (UnitsManager.Instance.FreeWorker.Count <= 0) return;
@@ -42,9 +42,10 @@ public class FindWorker : MonoBehaviour
             _freeState = false;
             //UnitsManager.Instance.SetFreeWorker(_worker);
             _worker.ReturnToSpawnPoint(_spawnPoint);
+            //_worker = UnitsManager.Instance.GetFreeWorker();
             _icon.SetActive(false);
         }
-    
+
     }
 
     private void OnDisable()

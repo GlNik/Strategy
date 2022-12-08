@@ -18,14 +18,17 @@ public class Unit : SelectableObject
 {
     public int Price;
     public NavMeshAgent NavMeshAgent;
-    [SerializeField] private int _health = 5;
-    private int _maxHealth;
     public Animator Animator;
 
-    public virtual new void Start()
+    private int _maxHealth;
+    [SerializeField] private int _health = 5;
+
+    public override void Start()
     {
+        base.Start();
         _maxHealth = _health;
     }
+
 
     public virtual void SetTarget(SelectableObject target)
     {

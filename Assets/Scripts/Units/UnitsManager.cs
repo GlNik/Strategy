@@ -9,7 +9,7 @@ public class UnitsManager : MonoBehaviour
 
     private List<Enemy> _enemy = new List<Enemy>();
 
-    public List<Worker> FreeWorker  => _freeWorker; 
+    public List<Worker> FreeWorker => _freeWorker;
 
     public static UnitsManager Instance;
 
@@ -33,7 +33,7 @@ public class UnitsManager : MonoBehaviour
     public void AddFreeWorker(Worker worker)
     {
         _freeWorker.Add(worker);
-        print(_freeWorker.Count);
+        print(_freeWorker.Count + "add");
     }
 
     public void AddBusyWorker(Worker worker)
@@ -54,7 +54,7 @@ public class UnitsManager : MonoBehaviour
     public void RemoveFreeWorker(Worker worker)
     {
         _freeWorker.Remove(worker);
-        print(_freeWorker.Count);
+        print(_freeWorker.Count + "remove");
     }
     public void RemoveBusyWorker(Worker worker)
     {
@@ -84,13 +84,13 @@ public class UnitsManager : MonoBehaviour
 
     public Worker GetFreeWorker()
     {
-        Worker clousesWorker = null;        
+        Worker clousesWorker = null;
         for (int i = 0; i < _freeWorker.Count; i++)
         {
-            clousesWorker =_freeWorker[Random.Range(0,_freeWorker.Count)];           
-            RemoveFreeWorker(clousesWorker);
-            AddBusyWorker(clousesWorker);
+            clousesWorker = _freeWorker[Random.Range(0, _freeWorker.Count)];
         }
+        RemoveFreeWorker(clousesWorker);
+        AddBusyWorker(clousesWorker);
         return clousesWorker;
     }
 
