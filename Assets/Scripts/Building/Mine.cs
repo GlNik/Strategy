@@ -14,6 +14,7 @@ public class Mine : Building
     [SerializeField] private int _moneyToAdd = 10;
     [SerializeField] private Text _plusText;
 
+    public int CounterOfWorkers = 0;
     public override void Start()
     {
         base.Start();
@@ -26,11 +27,14 @@ public class Mine : Building
     {
         if (BuildingIsPlaced)
         {
-            if (Time.time - _startTime > _period)
+            if (CounterOfWorkers > 0)
             {
-                _resources.AddMoney(_moneyToAdd);
-                StartCoroutinePlusMoney();
-                _startTime = Time.time;
+                if (Time.time - _startTime > _period)
+                {
+                    _resources.AddMoney(_moneyToAdd);
+                    StartCoroutinePlusMoney();
+                    _startTime = Time.time;
+                }
             }
         }
     }
@@ -58,14 +62,6 @@ public class Mine : Building
             yield return null;
         }
         _plusText.gameObject.SetActive(false);
-    }
-
-
-    //private bool FindWorker()
-    //{
-    //    _targetUnit = UnitsManager.Instance.GetFreeWorker();
-    //    return _targetUnit != null;
-    //    //SetDiration(transform.position);
-    //}
+    }   
 
 }

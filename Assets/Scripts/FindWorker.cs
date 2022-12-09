@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,9 @@ public class FindWorker : MonoBehaviour
     private Vector3 _spawnPoint;
     [SerializeField] private Transform _transform;
     [SerializeField] private GameObject _icon;
+    [SerializeField] private Mine _mine;
+
+    // private List<Worker> _busyWorkerForMine = new List<Worker>();
 
     private void Start()
     {
@@ -24,6 +28,17 @@ public class FindWorker : MonoBehaviour
     {
         _button = GetComponent<Button>();
         _button.onClick.AddListener(ActiveSelfWorker);
+    }
+
+    private void Update()
+    {
+        if (_worker == null) return;
+
+        if (_worker.Work == true)
+        {
+            _mine.CounterOfWorkers++;
+            _worker.Work = false;
+        }
     }
 
     public void ActiveSelfWorker()
@@ -40,12 +55,10 @@ public class FindWorker : MonoBehaviour
         else
         {
             _freeState = false;
-            //UnitsManager.Instance.SetFreeWorker(_worker);
             _worker.ReturnToSpawnPoint(_spawnPoint);
-            //_worker = UnitsManager.Instance.GetFreeWorker();
             _icon.SetActive(false);
+            _mine.CounterOfWorkers--;
         }
-
     }
 
     private void OnDisable()

@@ -429,6 +429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transform: {fileID: 3082728994630965118}
   _icon: {fileID: 1810103572324171628}
+  _mine: {fileID: 4691739174637419846}
 --- !u!1 &2059082264189363565
 GameObject:
   m_ObjectHideFlags: 0
@@ -2006,6 +2007,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transform: {fileID: 3082728994630965118}
   _icon: {fileID: 5774791289386026581}
+  _mine: {fileID: 4691739174637419846}
 --- !u!1 &5574443943724227069
 GameObject:
   m_ObjectHideFlags: 0

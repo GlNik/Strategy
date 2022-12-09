@@ -11,13 +11,15 @@ public class Worker : Unit
 
     private Vector3 _targetPoint;
     private Enemy _targetEnemy;
-    private EnemyBuilding _targetBuilding;
+   // private EnemyBuilding _targetBuilding;
+    private float _distance;
     [SerializeField] private float _distanceToFollow = 7f;
     [SerializeField] private float _distanceToAttack = 1.5f;
-    private float _distance;
     [SerializeField] private int _damage = 1;
     [SerializeField] private float _stopAround = 1.5f;
     [SerializeField] private GameObject _pointClickFX;
+
+    public bool Work { get; set; } = false;
 
     public override void Awake()
     {
@@ -29,8 +31,6 @@ public class Worker : Unit
     {
         base.Start();
         SetState(UnitState.Idle);
-
-
     }
 
     public override void SetTarget(SelectableObject target)
@@ -39,11 +39,11 @@ public class Worker : Unit
         {
             _targetEnemy = enemy;
         }
-        else if (target.TryGetComponent(out EnemyBuilding enemyBuilding))
-        {
-            _targetBuilding = enemyBuilding;
-            SetState(UnitState.WalkToWorkBuilding);
-        }
+        //else if (target.TryGetComponent(out EnemyBuilding enemyBuilding))
+        //{
+        //    _targetBuilding = enemyBuilding;
+        //    SetState(UnitState.WalkToWorkBuilding);
+        //}
     }
 
     public override void Update()
@@ -61,7 +61,7 @@ public class Worker : Unit
                 WalkToPoint();
                 break;
             case UnitState.WalkToWorkBuilding:
-                WalkToBuilding();
+                //WalkToBuilding();
                 break;
         }
     }
@@ -88,19 +88,19 @@ public class Worker : Unit
 
     private void WalkToBuilding()
     {
-        if (_targetBuilding == null)
-        {
-            SetState(UnitState.Idle);
-            NavMeshAgent.SetDestination(transform.position);
-        }
-        else
-        {
-            _distance = Vector3.Distance(transform.position, _targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
-            if (_distance < _distanceToAttack)
-            {
-                // SetState(WorkerState.AttackBuilding);
-            }
-        }
+        //if (_targetBuilding == null)
+        //{
+        //    SetState(UnitState.Idle);
+        //    NavMeshAgent.SetDestination(transform.position);
+        //}
+        //else
+        //{
+        //    _distance = Vector3.Distance(transform.position, _targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
+        //    if (_distance < _distanceToAttack)
+        //    {
+        //        // SetState(WorkerState.AttackBuilding);
+        //    }
+        //}
     }
 
     private void FaceTarget(Vector3 destination) // for stopping distance
@@ -126,10 +126,10 @@ public class Worker : Unit
                 NavMeshAgent.stoppingDistance = 0.05f;
                 break;
             case UnitState.WalkToWorkBuilding:
-                if (_targetBuilding)
-                {
-                    NavMeshAgent.SetDestination(_targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
-                }
+                //if (_targetBuilding)
+                //{
+                //    NavMeshAgent.SetDestination(_targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
+                //}
                 break;
 
         }
@@ -149,6 +149,7 @@ public class Worker : Unit
     public void ReturnToSpawnPoint(Vector3 position)
     {
         SetState(UnitState.WalkToPoint);
+        Work = false;
         gameObject.SetActive(true);
         NavMeshAgent.SetDestination(position);
 
@@ -162,11 +163,11 @@ public class Worker : Unit
             _distance = Vector3.Distance(transform.position, distance);
             if (_distance < 2f)
             {
-
+                Work = true;
+                Debug.Log(Work);
                 gameObject.SetActive(false);
-
                 StopCoroutine(nameof(UpdateDistance));
-            }
+            }            
             yield return new WaitForSeconds(0.5f);
         }
     }
@@ -188,6 +189,11 @@ public class Worker : Unit
             yield return new WaitForSeconds(0.5f);
         }
     }
+
+    //private void SetUnActiveWorker()
+    //{
+    //    gameObject.SetActive(false);
+    //}
 
     private void OnDestroy()
     {
