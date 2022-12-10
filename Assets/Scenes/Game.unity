@@ -9958,7 +9958,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &417210372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9971,13 +9971,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0862413938a66e41abe9ac493c8fdb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxTimer: 0
-  _textTimeToTurn: {fileID: 0}
-  _timers: []
-  _enemyPrefab: {fileID: 0}
+  _timer: 10
+  _textTimer: {fileID: 1057215053}
+  _enemyPrefab: {fileID: 2371096399740125316, guid: 79c394e9313c61845935540fa0e441b2, type: 3}
   _currentEnemyCount: 0
-  _listOfEnemyCount: 
-  _boxGenerationArea: {fileID: 0}
+  _currentTurn: 0
+  _listOfEnemyCount: 050000000a0000001400000014000000
+  _boxGenerationArea: {fileID: 1528309200}
+  _maxWave: 4
 --- !u!4 &417210373
 Transform:
   m_ObjectHideFlags: 0
@@ -9986,7 +9987,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 417210371}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -51.49, y: 1.53, z: 15.59}
+  m_LocalPosition: {x: -49.76, y: 2.27, z: 6.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22319,7 +22320,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1018241176
 Transform:
   m_ObjectHideFlags: 0
@@ -33846,7 +33847,7 @@ Transform:
   m_GameObject: {fileID: 1528309199}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 16.30015, y: 1, z: 24.946808}
+  m_LocalScale: {x: 10.482137, y: 1, z: 15.599987}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 417210373}

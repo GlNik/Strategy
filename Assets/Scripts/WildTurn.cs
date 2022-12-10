@@ -1,39 +1,42 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WildTurn : MonoBehaviour
 {
-    float _timer;
-    [SerializeField] float _maxTimer;
-    [SerializeField] TextMeshProUGUI _textTimeToTurn;
-    [SerializeField] List<float> _timers;
-    [SerializeField] Enemy _enemyPrefab;
-    [SerializeField] int _currentEnemyCount;
-    [SerializeField] List<int> _listOfEnemyCount;
-    [SerializeField] Transform _boxGenerationArea;
-    private void Awake()
-    {
-        _timer = _maxTimer;
-    }
+    [SerializeField] private float _timer = 10f; //5 мин
+    [SerializeField] private Text _textTimer;
+    [SerializeField] private Enemy _enemyPrefab;
+    [SerializeField] private int _currentEnemyCount = 0;
+    [SerializeField] private int _currentTurn;
+    [SerializeField] private List<int> _listOfEnemyCount;
+    [SerializeField] private Transform _boxGenerationArea;
+    [SerializeField] private int _maxWave;
+
     private void Update()
     {
         _timer -= Time.deltaTime;
         UpdateTurnTime();
-        if (_timer < 0)
+        if (_timer <= 0)
         {
-            Vector3 newPosition = _boxGenerationArea.TransformPoint(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
-
-            for (int i = 0; i < _currentEnemyCount; i++)
+            // что бы всегда была последняя волна 
+            if (_currentTurn < _maxWave)
             {
-                Enemy newEnemy = Instantiate(_enemyPrefab, newPosition + Vector3.back * Random.Range(-2f, 2f), Quaternion.identity);
-
+                _currentEnemyCount = _listOfEnemyCount[_currentTurn];
+                _currentEnemyCount++;
+                _currentTurn++;
             }
+            for (int i = 1; i < _currentEnemyCount; i++)
+            {
+                Vector3 newPosition = _boxGenerationArea.TransformPoint(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+                Instantiate(_enemyPrefab, newPosition + Vector3.back * Random.Range(-2f, 2f), Quaternion.identity);
+            }
+            _timer = 10f;
         }
     }
 
     void UpdateTurnTime()
     {
-        _textTimeToTurn.text = "<color=#adadad>Next Wild Turn: </color>" + _timer.ToString("0") + " sec";
+        _textTimer.text = _timer.ToString("0") + " sec";
     }
 }
