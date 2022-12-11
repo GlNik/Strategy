@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class WildTurn : MonoBehaviour
 {
-    [SerializeField] private float _timer = 10f; //5 мин
+    [SerializeField] private float _timer = 90f; //5 мин
     [SerializeField] private Text _textTimer;
     [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private int _currentEnemyCount = 0;
@@ -31,7 +31,7 @@ public class WildTurn : MonoBehaviour
                 Vector3 newPosition = _boxGenerationArea.TransformPoint(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
                 Instantiate(_enemyPrefab, newPosition + Vector3.back * Random.Range(-2f, 2f), Quaternion.identity);
             }
-            _timer = 10f;
+            _timer = 90f;
         }
     }
 
