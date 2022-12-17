@@ -31,12 +31,12 @@ public class WildTurn : MonoBehaviour
                 Vector3 newPosition = _boxGenerationArea.TransformPoint(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
                 Instantiate(_enemyPrefab, newPosition + Vector3.back * Random.Range(-2f, 2f), Quaternion.identity);
             }
-            _timer = 90f;
+            _timer = 300f;
         }
     }
 
     void UpdateTurnTime()
     {
-        _textTimer.text = _timer.ToString("0") + " sec";
+        _textTimer.text = _timer.ToString("0:00");
     }
 }

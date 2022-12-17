@@ -176,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34afd68786378624d9f8092a03b5f4b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpawnPoint: {fileID: 0}
 --- !u!1 &958140934592613651
 GameObject:
   m_ObjectHideFlags: 0
@@ -1298,6 +1299,7 @@ GameObject:
   - component: {fileID: 2227640581293983094}
   - component: {fileID: 2227640581296846656}
   - component: {fileID: 2227640581296187832}
+  - component: {fileID: 8489475812949139255}
   m_Layer: 0
   m_Name: SM_Bld_Base_Long_Door_03
   m_TagString: Untagged
@@ -1370,6 +1372,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8489475812949139255
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2227640581293773602}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.7737007, y: 2.2590601, z: 6.857732}
+  m_Center: {x: -0.0392945, y: 1.1295301, z: 0.009823974}
 --- !u!1 &2227640581559149559
 GameObject:
   m_ObjectHideFlags: 0
@@ -2266,8 +2281,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 11.172809, y: 2.9892647, z: 4.863849}
-  m_Center: {x: -0.06885089, y: 1.3159359, z: -0.14136884}
+  m_Size: {x: 11.623463, y: 2.9892647, z: 6.6358023}
+  m_Center: {x: -0.07353055, y: 1.3159359, z: -0.19559379}
 --- !u!208 &6964592973206296853
 NavMeshObstacle:
   m_ObjectHideFlags: 0

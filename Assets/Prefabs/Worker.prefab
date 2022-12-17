@@ -482,8 +482,8 @@ MonoBehaviour:
   HealthBar: {fileID: 427228183}
   Price: 0
   NavMeshAgent: {fileID: 1161856858}
-  _health: 5
   Animator: {fileID: 1025595763942353885}
+  _health: 5
   CurrentWorkerState: 0
   _distanceToFollow: 7
   _distanceToAttack: 1.5
@@ -2862,7 +2862,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8848810374240701247, guid: 69c155f64df4e1a49b4da142066a87a4, type: 3}
+  - {fileID: 2100000, guid: 4b000af9f98754f4d98d6812ff22eb2a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
