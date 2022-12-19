@@ -1,19 +1,18 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
-public class Mine : Building
+public class Sawmill : Building
 {
     private Resources _resources;
     private float _startTime;
     private Coroutine _activeCoroutine;
 
     [SerializeField] private float _period = 10f;
-    [SerializeField] private int _moneyToAdd = 5;
+    [SerializeField] private int _woodToAdd = 5;
     [SerializeField] private Text _plusText;
 
-    //public int CounterOfWorkers = 0;
+   // public int CounterOfWorkers = 0;
 
     public override void Start()
     {
@@ -24,26 +23,26 @@ public class Mine : Building
 
     private void Update()
     {
-        //if (BuildingIsPlaced)
+       // if (BuildingIsPlaced)
         {
             if (CounterOfWorkers == 1)
             {
-                _plusText.text = "+" + _moneyToAdd;
+                _plusText.text = "+" + _woodToAdd;
 
                 if (Time.time - _startTime > _period)
                 {
-                    _resources.AddMoney(_moneyToAdd);
+                    _resources.AddWood(_woodToAdd);
                     StartCoroutinePlusMoney();
                     _startTime = Time.time;
                 }
             }
             else if (CounterOfWorkers == 2)
             {
-                _plusText.text = "+" + _moneyToAdd * 2;
+                _plusText.text = "+" + _woodToAdd * 2;
 
                 if (Time.time - _startTime > _period)
                 {
-                    _resources.AddMoney(_moneyToAdd * 2);
+                    _resources.AddWood(_woodToAdd * 2);
                     StartCoroutinePlusMoney();
                     _startTime = Time.time;
                 }
@@ -75,5 +74,4 @@ public class Mine : Building
         }
         _plusText.gameObject.SetActive(false);
     }
-
 }

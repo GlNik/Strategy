@@ -1473,7 +1473,7 @@ MonoBehaviour:
   SelectionIndicator: {fileID: 4615470242776439121}
   Badge: {fileID: 4948050572747063618}
   HealthBar: {fileID: 7094499221188717597}
-  Price: 100
+  Price: 300
   XSize: 13
   ZSize: 22
   _renderers:
@@ -1494,6 +1494,7 @@ MonoBehaviour:
   OnChangeHealth:
     m_PersistentCalls:
       m_Calls: []
+  CounterOfWorkers: 0
   _unitPrefab: {fileID: 5267064725682370532, guid: c0911f76138aca843b8bb7d1b0423922, type: 3}
   _alertNotEnoughMoney: {fileID: 5820494145549638983}
 --- !u!54 &7783306157679881722

@@ -6,15 +6,13 @@ using UnityEngine.UI;
 
 public class FindWorker : MonoBehaviour
 {
-    private Button _button;
+    [SerializeField] private Button _button;
     private bool _freeState;
     private Worker _worker;
     private Vector3 _spawnPoint;
     [SerializeField] private Transform _transform;
     [SerializeField] private GameObject _icon;
-    [SerializeField] private Mine _mine;
-
-    // private List<Worker> _busyWorkerForMine = new List<Worker>();
+    [SerializeField] private Building _mine;
 
     private void Start()
     {
@@ -26,7 +24,7 @@ public class FindWorker : MonoBehaviour
 
     private void OnEnable()
     {
-        _button = GetComponent<Button>();
+        //_button = GetComponent<Button>();
         _button.onClick.AddListener(ActiveSelfWorker);
     }
 
@@ -47,6 +45,8 @@ public class FindWorker : MonoBehaviour
         {
             if (UnitsManager.Instance.FreeWorker.Count <= 0) return;
 
+            //_mine.CounterOfWorkers++;          
+
             _freeState = true;
             _worker = UnitsManager.Instance.GetFreeWorker();
             _worker.MoveToBuilding(_transform.position);
@@ -58,6 +58,7 @@ public class FindWorker : MonoBehaviour
             _worker.ReturnToSpawnPoint(_spawnPoint);
             _icon.SetActive(false);
             _mine.CounterOfWorkers--;
+            _worker = null;
         }
     }
 

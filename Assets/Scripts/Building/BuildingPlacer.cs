@@ -100,7 +100,7 @@ public class BuildingPlacer : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 int price = CurrentBuilding.Price;
-                _resources.SpendMoney(price);
+                _resources.SpendWood(price);
 
                 CurrentBuilding.BuildingIsPlaced = true;
 

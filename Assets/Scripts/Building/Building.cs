@@ -22,9 +22,12 @@ public class Building : SelectableObject
     public bool IsHouse = false;
     public UnityEvent<int, int> OnChangeHealth;
 
+    public int CounterOfWorkers = 0;
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
+
         for (int i = 0; i < _renderers.Length; i++)
         {
             _startColor = _renderers[i].material.color;

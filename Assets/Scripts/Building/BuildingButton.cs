@@ -25,7 +25,7 @@ public class BuildingButton : MonoBehaviour
     {
         _resources = Resources.Instance;
         _price = _buildingPrefab.Price;
-        _priceText.text = "Цена: " + _price;
+        _priceText.text =_price.ToString();
     }
 
     private void OnEnable()
@@ -40,7 +40,7 @@ public class BuildingButton : MonoBehaviour
             Destroy(building.gameObject);
         }
         // списываем только при проставке здания!
-        if (_resources.CheckMoney(_price))
+        if (_resources.CheckWood(_price))
         {
             BuildingPlacer.CreateBuilding(_buildingPrefab);
         }

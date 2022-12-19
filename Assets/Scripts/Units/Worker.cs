@@ -11,8 +11,10 @@ public class Worker : Unit
 
     private Vector3 _targetPoint;
     private Enemy _targetEnemy;
+    private int cntFramesAfterSetState = 0;
    // private EnemyBuilding _targetBuilding;
     private float _distance;
+
     [SerializeField] private float _distanceToFollow = 7f;
     [SerializeField] private float _distanceToAttack = 1.5f;
     [SerializeField] private int _damage = 1;
@@ -111,7 +113,6 @@ public class Worker : Unit
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 10f * Time.deltaTime);
     }
 
-    private int cntFramesAfterSetState = 0;
 
     public void SetState(UnitState UnitState)
     {
@@ -131,11 +132,8 @@ public class Worker : Unit
                 //    NavMeshAgent.SetDestination(_targetBuilding.GetComponentInChildren<Collider>().bounds.ClosestPoint(transform.position));
                 //}
                 break;
-
         }
     }
-
-
 
     public void MoveToBuilding(Vector3 position)
     {
@@ -143,8 +141,6 @@ public class Worker : Unit
         SetState(UnitState.WalkToPoint);
         StartCoroutine(UpdateDistance(position));
     }
-
-
 
     public void ReturnToSpawnPoint(Vector3 position)
     {

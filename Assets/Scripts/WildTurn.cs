@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,8 +29,8 @@ public class WildTurn : MonoBehaviour
             }
             for (int i = 1; i < _currentEnemyCount; i++)
             {
-                Vector3 newPosition = _boxGenerationArea.TransformPoint(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
-                Instantiate(_enemyPrefab, newPosition + Vector3.back * Random.Range(-2f, 2f), Quaternion.identity);
+                Vector3 newPosition = _boxGenerationArea.TransformPoint(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
+                Instantiate(_enemyPrefab, newPosition + Vector3.back * UnityEngine.Random.Range(-2f, 2f), Quaternion.identity);
             }
             _timer = 300f;
         }
@@ -37,6 +38,8 @@ public class WildTurn : MonoBehaviour
 
     void UpdateTurnTime()
     {
-        _textTimer.text = _timer.ToString("0:00");
+        TimeSpan time = TimeSpan.FromSeconds(_timer);
+
+        _textTimer.text = time.ToString(@"mm\:ss");
     }
 }
